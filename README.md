@@ -6,7 +6,7 @@ nikoli več v vrsti čakali na vaše jutranje poživilo. Aplikacija naj uporabni
 poljubni kavarni ob poti. Mobilna aplikacija bo nato s pomočjo lokalizacijskih storitev nekaj minut
 pred prihodom v kavarno oddala naročilo, tako da bo kava do vašega prihoda pripravljena. Uporabnik
 naj ima možnost naročilo plačati z mobilno aplikacijo ali ob prevzemu.
-<<<
+>>>
 
 Predlagane entitete:
 + Uporabnik
