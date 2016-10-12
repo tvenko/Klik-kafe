@@ -1,6 +1,6 @@
 ## Mobilno naročanje
 
->>>
+
 Implementirajte aplikacijo za mobilno naročanje kave, ki bo poskrbela, da ne boste na poti na faks
 nikoli več v vrsti čakali na vaše jutranje poživilo. Aplikacija naj uporabnikom omogoča naročilo kave v
 poljubni kavarni ob poti. Mobilna aplikacija bo nato s pomočjo lokalizacijskih storitev nekaj minut
@@ -27,7 +27,7 @@ Predlagane entitete:
     + Skupen čas priprave
     + Status naročila
     + Status plačila
->>>
+
 
 **Fizični podatkovni model ustvarite v podatkovni bazi PostgreSQL, pri čemer uporabite orodje
 pgAdmin4, ki je nameščeno v virtualnem stroju. Število tabel, ki jih boste uporabljali, naj bo med 4
