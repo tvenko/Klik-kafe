@@ -27,3 +27,9 @@ Predlagane entitete:
     + Skupen čas priprave
     + Status naročila
     + Status plačila
+
+**Fizični podatkovni model ustvarite v podatkovni bazi PostgreSQL, pri čemer uporabite orodje
+pgAdmin4, ki je nameščeno v virtualnem stroju. Število tabel, ki jih boste uporabljali, naj bo med 4
+in 6, med njimi pa naj bodo smiselne relacije.**
+Pri zasnovi podatkovnega modela upoštevajte tudi, ali se lahko podatki v prihodnosti spremenijo ali
+ne. Primer: sprememba naslova stranke ne sme vplivati na zapis naročniške pogodbe.
