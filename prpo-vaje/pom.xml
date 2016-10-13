@@ -1,0 +1,56 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>si.fri.prpo</groupId>
+  <artifactId>prpo-vaje</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <modules>
+  	<module>Klik-kafe-web</module>
+  	<module>Klik-kafe-JDBC</module>
+  	<module>Klik-kafe-EAR</module>
+  </modules>
+  
+  <dependencyManagement>
+  		<dependencies>
+	    	<!-- Dependencies for other libraries -->
+	        <!-- Dependency for java ee -->
+	        <dependency>
+	        	<groupId>javax</groupId>
+	            <artifactId>javaee-api</artifactId>
+	            <version>7.0</version>
+	            <scope>provided</scope>
+	        </dependency>
+	        <!-- Dependency for wildfly -->
+	        <dependency>
+	        	<groupId>org.wildfly.bom</groupId>
+	            <artifactId>wildfly-javaee7</artifactId>
+	          	<version>10.1.0.Final</version>
+	            <scope>import</scope>
+	            <type>pom</type>
+	        </dependency>
+	        <!-- Dependency for web -->
+	        <dependency>
+	        	<groupId>si.fri.prpo</groupId>
+	            <artifactId>Klik-kafe-web</artifactId>
+	          	<version>0.0.1-SNAPSHOT</version>
+	            <type>war</type>
+	        </dependency>
+	        <!-- Dependency for JDBC -->
+	        <dependency>
+	        	<groupId>si.fri.prpo</groupId>
+	            <artifactId>Klik-kafe-JDBC</artifactId>
+	          	<version>0.0.1-SNAPSHOT</version>
+	            <type>jar</type>
+	        </dependency>
+	        <!-- Dependency for EAR -->
+	        <dependency>
+	        	<groupId>si.fri.prpo</groupId>
+	            <artifactId>Klik-kafe-EAR</artifactId>
+	          	<version>0.0.1-SNAPSHOT</version>
+	            <type>ear</type>
+	        </dependency>
+    	</dependencies>
+	</dependencyManagement>
+  
+</project>
