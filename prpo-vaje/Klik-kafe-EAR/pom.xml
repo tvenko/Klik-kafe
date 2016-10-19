@@ -33,7 +33,7 @@
                     <modules>
                         <webModule>
                             <groupId>si.fri.prpo</groupId> <!-- groupId WAR modula -->
-                            <artifactId>prpo-vaje-web</artifactId>
+                            <artifactId>Klik-kafe-web</artifactId>
                             <contextRoot>/naloga1</contextRoot>
                         </webModule>
                     </modules>
