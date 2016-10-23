@@ -9,6 +9,7 @@
   	<module>Klik-kafe-web</module>
   	<module>Klik-kafe-JDBC</module>
   	<module>Klik-kafe-EAR</module>
+  	<module>test-web</module>
   </modules>
   
   <dependencyManagement>
