@@ -1,101 +1,143 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.sql.ResultSet;
+import javax.sql.DataSource;
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.naming.InitialContext;
 
-import javax.resource.cci.ResultSet;
 
 public class UporabnikDaolmpl implements BaseDao{
 	
 	public Connection getConnection() throws SQLException {
-		
 		Connection con = null;
-		
 		try{
 			Context initCtx = new InitialContext();
-            DataSource ds = (DataSource) initCtx.lookup("java:/PostgresDS");
+			//Context envCtx = (Context)initCtx.lookup("java:/comp/env/");
+            DataSource ds = (DataSource)initCtx.lookup("java:/PostgresDS");
             con = ds.getConnection();
-		}catch(NamingException e){
+		} catch(NamingException e) {
 			 System.out.println("JDBC vir ne obstaja!");
 			 e.printStackTrace();
 		}
 		return con;
 	}
 
-	public Entiteta vrni(int id, Connection con) {
+	public Uporabnik vrni(int id, Connection con) {
 		PreparedStatement ps = null;
+		Uporabnik usr = new Uporabnik();
 		try {
-			String sql = "SELECT * FROM Uporabnik WHERE id = ?";
+			String sql = "SELECT * FROM Public.\"Uporabnik\" WHERE id = ?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			Entiteta ent = new Entiteta;
-			if(rs.next()) {
-				ent.setId(rs.getInt("id"));
-				ent.setName(rs.getString("name"));
-				ent.setSurname(rs.getString("surname"));
-				ent.setEmail(rs.getString("email"));
-				ent.setLatitude(rs.getDouble("latitude"));
-				ent.setLongitude(rs.getDouble("longitude"));
-				ent.setUsername(rs.getString("username"));
+			
+			if (rs.next()) {
+				usr.set(rs.getInt("id"));
+				usr.setName(rs.getString("name"));
+				usr.setSurname(rs.getString("surname"));
+ 				usr.setEmail(rs.getString("email"));
+ 				usr.setLatitude(rs.getDouble("latitude"));
+ 				usr.setLongitude(rs.getDouble("longitude"));
+ 				usr.setUsername(rs.getString("username"));
 			}
-			return ent
 		} catch (SQLException e) {
-			System.out.println(e.printStackTrace(););	
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return usr;
 	}
-
-	public void vstavi(Entiteta ent) {
+	
+	public int vstavi(Uporabink user, Connection con) {
 		PreparedStatement ps = null;
+		int rows_affected = -1;
 		try {
-			String sql = "INSERT into Uporabnik (id, name, surname, email, latitude, longitude, username)"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO Public.\"Uporabnik\" (id, name, surname, email, latitude, longitude, username)"
+					+ " VALUES (?, ?, ?, ?, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, ent.getId());
-			ps.setString(2, ent.getName());
-			ps.setString(3, ent.getSurname());
-			ps.setString(4, ent.getEmail());
-			ps.setDouble(5, ent.getLatitude());
-			ps.setDouble(6, ent.getLongitude);
-			ps.setString(7, ent.getUsername());
-			}	
-		} catch (SQLException e) {
-			System.out.println(e.printStackTrace(););
+			ps.setInt(1, user.get());
+			ps.setString(2, user.getName());
+			ps.setString(3, user.getSurname());
+			ps.setString(4, user.getEmail());
+			ps.setDouble(5, user.getLat());
+			ps.setDouble(6, user.setLong());
+			ps.setString(7, user.getUsername());
 			
-		}
-	}
-
-	public void odstrani(int id) {
-		PreparedStatement ps = null;
-		try {
-			String sql = "DELETE * FROM Uporabnik WHERE id = ?";
-			ps = con.prepareStatement(sql);
-			ps.setInt(1, id);			
+			rows_affected = ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println(e.printStackTrace(););
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return rows_affected;
+	}
+	
+	public int odstrani(Uporabnik user, Conncetion con) {
+		PreparedStatement ps = null;
+		int rows_affected = -1;
+		try {
+			String sql = "DELETE FROM Public.\"Uporabnik\" WHERE id = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, user.get());
+
+			rows_affected = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return rows_affected;
+	}
+	
+	public ArrayList<Uporabnik> vrniVse(Connection con) {
+		PreparedStatement ps = null;
+		ArrayList<Uporabnik> user_list = new ArrayList<Uporabnik>();
+		try {
+			String sql = "SELECT * FROM Public.\"Uporabnik\"";
+			ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			String name, surname, email, username;
+			double lat, longit;
+			int id;
+			while (rs.next()) {
+				id = rs.getInt("id");
+				name = rs.getString("name");
+				surname = rs.getString("surname");
+ 				email = rs.getString("email");
+				lat = rs.getDouble("latitude");
+ 				longit = rs.getDouble("longitude");
+ 				username = rs.getString("username");
+				user_list.add(new Uporabnik(id, username, name, surname, email, lat, longit));
+			}
 			
-		}
-	}
-
-	public void posodobi(Entiteta ent) {
-		PreparedStatement ps = null;
-		try {
-			String sql = "UPDATE Uporabnik SET name=? WHERE id=?";
-			ps = con.prepareStatement(sql);
-			ps.setString(1, ent.getName());
-			ps.setInt(2, ent.getId());
 		} catch (SQLException e) {
-			System.out.println(e.printStackTrace(););
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null)
+					ps.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-	}
-
-	public List<Entiteta> vrniVse() {
-		PreparedStatement ps = null;
-		try {
-			String sql = "SELECT * FROM Uporabnik";
-			ps = con.prepareStatement(sql);
-			
-		} catch (SQLException e) {
-			System.out.println(e.printStackTrace(););
-		}
+		return user_list;
 	}
 }

@@ -3,11 +3,30 @@ public class Uporabnik extends Entiteta {
 	private String uname;
 	private String name;
 	private String surname;
-	private float lat;
-	private float long;
+	private double lat;
+	private double longit;
 	private String email;
 	
+	public Uporabnik() {
+		this.name = null;
+	}
+	
+	//Construcot for listing everything in UporabnikDaolmpl
+	public Uporabnik(int new_id, String new_uname, String new_name, String new_surname, String new_email, double new_lat, double new_long) {
+		this.set(new_id);
+		this.uname = new_name;
+		this.name = new_name;
+		this.surname = new_surname;
+		this.email = new_email;
+		this.lat = new_lat;
+		this.longit = new_long;
+	}
+	
 	//GETTER methods
+	public String getAll() {
+		return this.uname + " " + this.name + " " + this.surname + " " + this.email;
+	}
+	
 	/**
 	 * Returns the username of Uporabnik
 	 * @return String
@@ -36,7 +55,7 @@ public class Uporabnik extends Entiteta {
 	 * Returns the latitude of Uporabnik
 	 * @return float
 	 */
-	public float getLat() {
+	public double getLat() {
 		return this.lat;
 	}
 	
@@ -44,8 +63,8 @@ public class Uporabnik extends Entiteta {
 	 * Returns the longtitude of Uporabnik
 	 * @return float
 	 */
-	public float getLong() {
-		return this.long;
+	public double getLong() {
+		return this.longit;
 	}
 	
 	/**
@@ -86,7 +105,7 @@ public class Uporabnik extends Entiteta {
 	 * Set the latitude of Uporabnik
 	 * @param new_lat	the new latitude for Uporabnik
 	 */
-	public void setLatitude(float new_lat) {
+	public void setLatitude(double new_lat) {
 		this.lat = new_lat;
 	}
 	
@@ -94,8 +113,8 @@ public class Uporabnik extends Entiteta {
 	 * Set the longtitude of Uporabnik
 	 * @param new_long	the new longtitude for Uporabnik
 	 */
-	public void setLongtitude(float new_long) {
-		this.long = new_long;
+	public void setLongitude(double new_long) {
+		this.longit = new_long;
 	}
 	
 	/**

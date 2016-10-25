@@ -1,9 +1,11 @@
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public interface BaseDao {
 	
-	public Connection getConnection();
+	public Connection getConnection() throws SQLException;
 
-	public Entiteta vrni(int id);
+	public Uporabnik vrni(int id, Connection con);
 
 	public void vstavi(Entiteta ent);
 
