@@ -42,7 +42,7 @@ CREATE TABLE "Kavarna" (
     id integer NOT NULL,
     name character varying(40) NOT NULL,
     latitude double precision NOT NULL,
-    longtitude double precision NOT NULL
+    longitude double precision NOT NULL
 );
 
 
@@ -87,7 +87,7 @@ CREATE TABLE "Uporabnik" (
     surname character varying(30) NOT NULL,
     email character varying(50),
     latitude double precision,
-    longtitude double precision,
+    longitude double precision,
     username character varying(20)
 );
 
@@ -98,7 +98,7 @@ ALTER TABLE "Uporabnik" OWNER TO postgres;
 -- Data for Name: Kavarna; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Kavarna" (id, name, latitude, longtitude) FROM stdin;
+COPY "Kavarna" (id, name, latitude, longitude) FROM stdin;
 \.
 
 
@@ -122,8 +122,9 @@ COPY "Narocilo" (id, item_list, prep_time, prep_status, payment_status) FROM std
 -- Data for Name: Uporabnik; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Uporabnik" (id, name, surname, email, latitude, longtitude, username) FROM stdin;
+COPY "Uporabnik" (id, name, surname, email, latitude, longitude, username) FROM stdin;
 1	David	Rubin	mail@david.si	48.235622999999997	47.346899999999998	rdavid
+2	Tilen	Venko	mail@tilen.si	47.899299999999997	23.989000000000001	zeljestudent
 \.
 
 
