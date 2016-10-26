@@ -19,4 +19,14 @@
     <servlet-name>TestJDBCServlet</servlet-name>
     <url-pattern>/TestJDBCServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TestJPAServlet</display-name>
+    <servlet-name>TestJPAServlet</servlet-name>
+    <servlet-class>TestJPAServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TestJPAServlet</servlet-name>
+    <url-pattern>/TestJPAServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

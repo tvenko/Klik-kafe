@@ -10,6 +10,7 @@
   	<module>Klik-kafe-JDBC</module>
   	<module>Klik-kafe-EAR</module>
   	<module>test-web</module>
+  	<module>Klik-kafe-JPA</module>
   </modules>
   
   <dependencyManagement>
@@ -50,6 +51,13 @@
 	            <artifactId>Klik-kafe-EAR</artifactId>
 	          	<version>0.0.1-SNAPSHOT</version>
 	            <type>ear</type>
+	        </dependency>
+	        <!-- Dependency for JPA -->
+	        <dependency>
+	        	<groupId>org.hibernate</groupId>
+	        	<artifactId>hibernate-core</artifactId>
+	        	<version>5.2.3.Final</version>
+	        	<scope>provided</scope>
 	        </dependency>
     	</dependencies>
 	</dependencyManagement>
