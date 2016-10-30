@@ -9,16 +9,23 @@
   <packaging>ear</packaging>
   
   <dependencies>
-  	<!-- Dependency for web -->
   	<!-- Dependency for JDBC -->
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JDBC</artifactId>
   	</dependency>
+  	<!-- Dependency for web -->
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-web</artifactId>
   		<type>war</type>
+  	</dependency>
+  	<!-- dependency for JPA -->
+  	<dependency>
+  		<groupId>si.fri.prpo</groupId>
+  		<artifactId>Klik-kafe-JPA</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  		<scope>provided</scope>
   	</dependency>
   </dependencies>
   

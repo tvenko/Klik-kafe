@@ -6,5 +6,8 @@
 		<class>si.fri.prpo.vaje.narocanje.entitete.Napitek</class>
 		<class>si.fri.prpo.vaje.narocanje.entitete.Narocilo</class>
 		<class>si.fri.prpo.vaje.narocanje.entitete.Uporabnik</class>
+		<properties>
+			<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform"/>
+		</properties>
 	</persistence-unit>
 </persistence>

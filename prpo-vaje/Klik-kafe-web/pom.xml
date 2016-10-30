@@ -14,11 +14,17 @@
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JDBC</artifactId>
   	</dependency>
-  	
   	<!-- Dependency for javax modul -->
   	<dependency>
   		<groupId>javax</groupId>
   		<artifactId>javaee-api</artifactId>
+  	</dependency>
+  	<!-- dependecy for JPA -->
+  	<dependency>
+  		<groupId>si.fri.prpo</groupId>
+  		<artifactId>Klik-kafe-JPA</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+  		<scope>provided</scope>
   	</dependency>
   </dependencies>
 </project>
