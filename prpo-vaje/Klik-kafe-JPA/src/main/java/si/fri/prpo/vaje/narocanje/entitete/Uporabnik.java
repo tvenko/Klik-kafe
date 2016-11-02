@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name="\"Uporabnik\"")
 @NamedQueries({
 	@NamedQuery(name="Uporabnik.findAll", query="SELECT u FROM Uporabnik u"),
-	@NamedQuery(name="Uporabnik.findId", query="SELECT u FROM Uporabnik u WHERE u.id = :userid")
+	@NamedQuery(name="Uporabnik.findId", query="SELECT u FROM Uporabnik u WHERE u.id = :userid"),
+	@NamedQuery(name="Uporabnik.delete", query="DELETE FROM Uporabnik u WHERE u.id = :userid")
 })
 public class Uporabnik implements Serializable {
 	private static final long serialVersionUID = 1L;
