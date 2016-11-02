@@ -10,9 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
+
+import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
+
 
 /**
  * Servlet implementation class TestJPAServlet
@@ -39,13 +40,12 @@ public class TestJPAServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Klik-kafe-JPA");
 		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
 		Uporabnik u = new Uporabnik();
 		//EntityManager em = Persistence.createEntityManagerFactory("Klik-kafe-JPA").createEntityManager();
-		u = em.find(Uporabnik.class, 1);;
+		u = em.find(Uporabnik.class, 1);
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.getWriter().append(u.getName());
-		em.getTransaction().commit();
+		
 	}
 
 	/**

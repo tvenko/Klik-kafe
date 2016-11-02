@@ -24,7 +24,7 @@
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JPA</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-  		<scope>provided</scope>
+  		
   	</dependency>
   </dependencies>
 </project>
