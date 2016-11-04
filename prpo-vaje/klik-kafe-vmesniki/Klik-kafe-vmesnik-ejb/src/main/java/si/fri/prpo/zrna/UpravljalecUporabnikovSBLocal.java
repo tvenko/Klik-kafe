@@ -5,7 +5,7 @@ import javax.ejb.Local;
 @Local
 public interface UpravljalecUporabnikovSBLocal {
 	
-	void dodajUporabnika();
-	void odstraniUporabnika();
+	void dodajUporabnika(String username, String name, String surname, String email, int id);
+	void odstraniUporabnika(int id);
 
 }
