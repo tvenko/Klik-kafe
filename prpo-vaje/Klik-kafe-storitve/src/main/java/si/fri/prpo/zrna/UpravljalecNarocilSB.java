@@ -15,4 +15,14 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
         // TODO Auto-generated constructor stub
     }
 
+	public void sprejmiNarocilo() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void prekliciNarocilo() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -15,4 +15,9 @@ public class UpravljalecObvsetilSB implements UpravljalecObvsetilSBRemote, Uprav
         // TODO Auto-generated constructor stub
     }
 
+	public void pripraviRacun() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

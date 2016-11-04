@@ -15,4 +15,14 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
         // TODO Auto-generated constructor stub
     }
 
+	public void dodajUporabnika() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void odstraniUporabnika() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
