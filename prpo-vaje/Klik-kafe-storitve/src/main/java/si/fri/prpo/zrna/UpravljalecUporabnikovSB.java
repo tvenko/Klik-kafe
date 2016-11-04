@@ -1,17 +1,23 @@
 package si.fri.prpo.zrna;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
+
+import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
 
 /**
  * Session Bean implementation class UpravljalecUporabnikovSB
@@ -34,7 +40,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
         // TODO Auto-generated constructor stub
     }
 
-	public void dodajUporabnika(String username, String name, String surname, String email, int id) {
+	public void addUser(String username, String name, String surname, String email, int id) {
 		// TODO Auto-generated method stub
 		Query q = em.createNativeQuery("INSERT INTO Uporabnik (username, email, surname, name, id) VALUES (:username, :email, :surname, :name, :id");
 		q.setParameter("username", username);
@@ -45,7 +51,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		q.executeUpdate();
 	}
 
-	public void odstraniUporabnika(int id) {
+	public void deleteUser(int id) {
 		// TODO Auto-generated method stub
 		try {
 			tx.begin();
@@ -75,6 +81,23 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+
+	public void returnAll(HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		Query q1 = em.createNamedQuery("Uporabnik.findAll");
+		ArrayList<Uporabnik> uList = (ArrayList<Uporabnik>) q1.getResultList();
+		response.getWriter().append("Uporabniki: \n");
+		
+		for (Uporabnik usr : uList) {
+			response.getWriter().append(usr.getName() + " " + usr.getSurname() + ", " + usr.getEmail() + ", @(" + Double.toString(usr.getLatitude()) + ""
+					+ " lat, " + Double.toString(usr.getLongitude()) + " long)\n");
+		}
+	}
+
+	public void getLocation() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
