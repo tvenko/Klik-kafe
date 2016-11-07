@@ -31,16 +31,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>TestEJBServlet</display-name>
-    <servlet-name>TestEJBServlet</servlet-name>
-    <servlet-class>TestEJBServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>TestEJBServlet</servlet-name>
-    <url-pattern>/TestEJBServlet</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>TestSBServlet</display-name>
     <servlet-name>TestSBServlet</servlet-name>
     <servlet-class>TestSBServlet</servlet-class>

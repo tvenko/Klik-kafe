@@ -29,7 +29,7 @@ public class TestJDBCServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Connection povezava = null;
-		UporabnikDaolmpl usr_dao = new UporabnikDaolmpl();
+		/*UporabnikDaolmpl usr_dao = new UporabnikDaolmpl();
 		try {
 			povezava = usr_dao.getConnection();
 			ArrayList<Uporabnik> u = usr_dao.vrniVse(povezava);
@@ -42,7 +42,7 @@ public class TestJDBCServlet extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 

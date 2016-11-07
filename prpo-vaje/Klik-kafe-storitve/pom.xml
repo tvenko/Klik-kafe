@@ -15,7 +15,28 @@
                	<configuration>
                    	<ejbVersion>3.2</ejbVersion>
                 </configuration>
-             </plugin>
+            </plugin>
+            
+            <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+            </configuration>
+        </plugin>
     	</plugins>
 	</build>
+	<dependencies>
+		<!-- Dependency for javax modul -->
+	  	<dependency>
+	  		<groupId>javax</groupId>
+	  		<artifactId>javaee-api</artifactId>
+	  	</dependency>
+	<!-- dependecy for EJB vmesniki -->
+  	<dependency>
+  		<groupId>si.fri.prpo</groupId>
+  		<artifactId>Klik-kafe-vmesnik-ejb</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+	</dependencies>
 </project>
