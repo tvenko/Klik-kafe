@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import si.fri.prpo.zrna.UpravljalecUporabnikovSBLocal;
 import si.fri.prpo.zrna.UpravljalecNarocilSBLocal;
+import si.fri.prpo.zrna.UpravljalecObvsetilSBLocal;
 
 /**
  * Servlet implementation class TestSBServlet
@@ -23,6 +24,8 @@ public class TestSBServlet extends HttpServlet {
 	private UpravljalecUporabnikovSBLocal uu;
 	@EJB
 	private UpravljalecNarocilSBLocal un;
+	@EJB
+	private UpravljalecObvsetilSBLocal uo;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -53,6 +56,10 @@ public class TestSBServlet extends HttpServlet {
 		response.getWriter().append("\nDodajam napitek kapucino\n");
 		un.sprejmiNarocilo(1, 1, 1, "waiting", "in progress", "120s", "kapucino");
 		un.returnAll(response);
+		response.getWriter().append("\n");
+		
+		response.getWriter().append("\nRacun za narocilo\n");
+		uo.pripraviRacun(1, response);
 		response.getWriter().append("\n");
 		
 	}

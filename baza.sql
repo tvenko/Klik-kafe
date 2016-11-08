@@ -71,7 +71,8 @@ CREATE TABLE "Napitek" (
     id integer DEFAULT nextval('napitek_autoinc'::regclass) NOT NULL,
     prep_time character varying(30),
     size character varying(20) NOT NULL,
-    type character varying(30) NOT NULL
+    type character varying(30) NOT NULL,
+    price double precision
 );
 
 
@@ -153,16 +154,16 @@ COPY "Kavarna" (id, name, latitude, longitude, id_narocila) FROM stdin;
 -- Data for Name: Napitek; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Napitek" (id, prep_time, size, type) FROM stdin;
-1	120s	small	cappuccino
-2	120s	medium	cappuccino
-3	150s	large	cappuccino
-4	90s	small	espresso
-5	100s	medium	irish coffee
-6	130s	large	irish coffee
-7	100s	small	macchiato
-8	120s	medium	macchiato
-9	160s	large	macchiato
+COPY "Napitek" (id, prep_time, size, type, price) FROM stdin;
+1	120s	small	cappuccino	1
+2	120s	medium	cappuccino	1.2
+3	150s	large	cappuccino	1.5
+4	90s	small	espresso	1.2
+5	100s	medium	irish coffee	1.5
+6	130s	large	irish coffee	2
+7	100s	small	macchiato	1
+8	120s	medium	macchiato	1.3
+9	160s	large	macchiato	1.7
 \.
 
 
@@ -172,6 +173,8 @@ COPY "Napitek" (id, prep_time, size, type) FROM stdin;
 
 COPY "Narocilo" (id, item_list, prep_time, prep_status, payment_status, id_napitek, id_uporabnik, id_kavarna) FROM stdin;
 2	kapucino	120s	in progress	waiting	1	1	1
+3	kapucino	120s	in progress	waiting	1	1	1
+4	kapucino	120s	in progress	waiting	1	1	1
 \.
 
 
@@ -196,14 +199,14 @@ SELECT pg_catalog.setval('napitek_autoinc', 9, true);
 -- Name: narocilo_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('narocilo_autoinc', 2, true);
+SELECT pg_catalog.setval('narocilo_autoinc', 4, true);
 
 
 --
 -- Name: uporabnik_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('uporabnik_autoinc', 27, true);
+SELECT pg_catalog.setval('uporabnik_autoinc', 30, true);
 
 
 --
