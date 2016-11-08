@@ -50,11 +50,25 @@ CREATE TABLE "Kavarna" (
 ALTER TABLE "Kavarna" OWNER TO postgres;
 
 --
+-- Name: napitek_autoinc; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE napitek_autoinc
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 1000000
+    CACHE 1;
+
+
+ALTER TABLE napitek_autoinc OWNER TO postgres;
+
+--
 -- Name: Napitek; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE "Napitek" (
-    id integer NOT NULL,
+    id integer DEFAULT nextval('napitek_autoinc'::regclass) NOT NULL,
     prep_time character varying(30),
     size character varying(20) NOT NULL,
     type character varying(30) NOT NULL
@@ -64,11 +78,25 @@ CREATE TABLE "Napitek" (
 ALTER TABLE "Napitek" OWNER TO postgres;
 
 --
+-- Name: narocilo_autoinc; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE narocilo_autoinc
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 1000000
+    CACHE 1;
+
+
+ALTER TABLE narocilo_autoinc OWNER TO postgres;
+
+--
 -- Name: Narocilo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE "Narocilo" (
-    id integer NOT NULL,
+    id integer DEFAULT nextval('narocilo_autoinc'::regclass) NOT NULL,
     item_list character varying,
     prep_time character varying(50),
     prep_status character varying(50),
@@ -117,6 +145,7 @@ ALTER TABLE "Uporabnik" OWNER TO postgres;
 --
 
 COPY "Kavarna" (id, name, latitude, longitude, id_narocila) FROM stdin;
+1	marjetica	1234.8900000000001	1234.8900000000001	\N
 \.
 
 
@@ -125,6 +154,15 @@ COPY "Kavarna" (id, name, latitude, longitude, id_narocila) FROM stdin;
 --
 
 COPY "Napitek" (id, prep_time, size, type) FROM stdin;
+1	120s	small	cappuccino
+2	120s	medium	cappuccino
+3	150s	large	cappuccino
+4	90s	small	espresso
+5	100s	medium	irish coffee
+6	130s	large	irish coffee
+7	100s	small	macchiato
+8	120s	medium	macchiato
+9	160s	large	macchiato
 \.
 
 
@@ -133,6 +171,7 @@ COPY "Napitek" (id, prep_time, size, type) FROM stdin;
 --
 
 COPY "Narocilo" (id, item_list, prep_time, prep_status, payment_status, id_napitek, id_uporabnik, id_kavarna) FROM stdin;
+2	kapucino	120s	in progress	waiting	1	1	1
 \.
 
 
@@ -147,10 +186,24 @@ COPY "Uporabnik" (id, name, surname, email, latitude, longitude, username) FROM 
 
 
 --
+-- Name: napitek_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('napitek_autoinc', 9, true);
+
+
+--
+-- Name: narocilo_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('narocilo_autoinc', 2, true);
+
+
+--
 -- Name: uporabnik_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('uporabnik_autoinc', 4, true);
+SELECT pg_catalog.setval('uporabnik_autoinc', 27, true);
 
 
 --

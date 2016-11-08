@@ -3,19 +3,12 @@ package si.fri.prpo.zrna;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 
 import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
 
