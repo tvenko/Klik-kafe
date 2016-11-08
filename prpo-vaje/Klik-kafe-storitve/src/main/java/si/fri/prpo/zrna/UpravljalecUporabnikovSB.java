@@ -26,12 +26,8 @@ import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
 @Stateless
 public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote, UpravljalecUporabnikovSBLocal {
 	
-	@Resource
-	UserTransaction tx;
-	
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Klik-kafe-JPA");
 	EntityManager em = emf.createEntityManager();
-	
 	
 	/**
      * Default constructor. 
@@ -40,59 +36,47 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
         // TODO Auto-generated constructor stub
     }
 
-	public void addUser(String username, String name, String surname, String email, int id) {
+	public void addUser(String username, String name, String surname, String email, Double latit, Double longit) {
 		// TODO Auto-generated method stub
-		Query q = em.createNativeQuery("INSERT INTO Uporabnik (username, email, surname, name, id) VALUES (:username, :email, :surname, :name, :id");
+		Query q = em.createNativeQuery("INSERT INTO public.\"Uporabnik\" (username, email, surname, name, latitude, longitude) VALUES (:username, :email, :surname, :name, :latit, :longit)");
 		q.setParameter("username", username);
 		q.setParameter("email", email);
 		q.setParameter("surname", surname);
 		q.setParameter("name", name);
-		q.setParameter("id", id);
+		q.setParameter("latit", latit);
+		q.setParameter("longit", longit);
 		q.executeUpdate();
 	}
 
-	public void deleteUser(int id) {
+	public void deleteUser(String name) {
 		// TODO Auto-generated method stub
 		try {
-			tx.begin();
 			Query q = em.createNamedQuery("Uporabnik.delete");
-			q.setParameter("userid", id);
+			q.setParameter("name", name);
 			q.executeUpdate();
-			tx.commit();
-		} catch (NotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicMixedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		}	
 	}
 
 	public void returnAll(HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		Query q1 = em.createNamedQuery("Uporabnik.findAll");
 		ArrayList<Uporabnik> uList = (ArrayList<Uporabnik>) q1.getResultList();
-		response.getWriter().append("Uporabniki: \n");
+		boolean prazna = true;
 		
 		for (Uporabnik usr : uList) {
+			prazna = false;
 			response.getWriter().append(usr.getName() + " " + usr.getSurname() + ", " + usr.getEmail() + ", @(" + Double.toString(usr.getLatitude()) + ""
 					+ " lat, " + Double.toString(usr.getLongitude()) + " long)\n");
 		}
+		
+		if (prazna)
+			response.getWriter().append("Zgleda da ni nobenga ...");
 	}
 
 	public void getLocation() {
