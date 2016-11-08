@@ -9,7 +9,6 @@
   	<module>Klik-kafe-web</module>
   	<module>Klik-kafe-JDBC</module>
   	<module>Klik-kafe-EAR</module>
-  	<module>test-web</module>
   	<module>Klik-kafe-JPA</module>
   	<module>klik-kafe-vmesniki</module>
   	<module>Klik-kafe-storitve</module>

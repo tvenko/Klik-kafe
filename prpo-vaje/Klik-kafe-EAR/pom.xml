@@ -34,6 +34,12 @@
 	    <version>0.0.1-SNAPSHOT</version>
   		<type>ejb</type>
 	</dependency>
+	<dependency>
+	    <groupId>si.fri.prpo</groupId>
+	    <artifactId>klik-kafe-vmesniki</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+  		<type>pom</type>
+	</dependency>
   </dependencies>
   
   <build>

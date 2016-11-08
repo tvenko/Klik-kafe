@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.zrna.UpravljalecUporabnikovSB;
+import si.fri.prpo.zrna.UpravljalecUporabnikovSBLocal;
+import si.fri.prpo.zrna.*;
 
 /**
  * Servlet implementation class TestSBServlet
@@ -18,7 +19,8 @@ import si.fri.prpo.zrna.UpravljalecUporabnikovSB;
 public class TestSBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-	private UpravljalecUporabnikovSB upravlalecUporabnikov;
+	private UpravljalecUporabnikovSBLocal upravljalecUporabnikov;
+	private UpravljalecUporabnikovSB uu;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,9 +35,9 @@ public class TestSBServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		upravlalecUporabnikov.returnAll(response);
-		upravlalecUporabnikov.addUser("hudogriz", "Blaz", "Vrhovsek", "blaz.vrhovske@gmail.com", 3);
-		upravlalecUporabnikov.returnAll(response);
+		uu.returnAll(response);
+		uu.addUser("hudogriz", "Blaz", "Vrhovsek", "blaz.vrhovske@gmail.com", 3);
+		uu.returnAll(response);
 	}
 
 	/**
