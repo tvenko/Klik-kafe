@@ -8,6 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 @Local
 public interface UpravljalecObvsetilSBLocal {
 	
-	void pripraviRacun(int id_narocila, HttpServletResponse response) throws IOException ;
+	void createBill(int id_narocila, HttpServletResponse response) throws IOException ;
 
 }

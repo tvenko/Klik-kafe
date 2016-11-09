@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 @Local
 public interface UpravljalecNarocilSBLocal {
 	
-	void sprejmiNarocilo(int idUser, int idUporabnik, int idNapitek, String payment, String prepStatus, String prepTime, String item);
-	void prekliciNarocilo();
+	void addOrder(int idUser, int idUporabnik, int idNapitek, String payment, String prepStatus, String prepTime, String item);
+	void cancelOrder();
 	void returnAll(HttpServletResponse response) throws IOException;
 }

@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.zrna.UpravljalecUporabnikovSBLocal;
-import si.fri.prpo.zrna.UpravljalecNarocilSBLocal;
-import si.fri.prpo.zrna.UpravljalecObvsetilSBLocal;
+import si.fri.prpo.zrna.FasadaSB;
 
 /**
  * Servlet implementation class TestSBServlet
@@ -21,11 +19,8 @@ public class TestSBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private UpravljalecUporabnikovSBLocal uu;
-	@EJB
-	private UpravljalecNarocilSBLocal un;
-	@EJB
-	private UpravljalecObvsetilSBLocal uo;
+	private FasadaSB f;
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -40,28 +35,12 @@ public class TestSBServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		response.getWriter().append("Served at: ").append(request.getContextPath()).append("\n\nUporabniki v bazi:\n");
-		uu.returnAll(response);
-		response.getWriter().append("\n");
-		
-		response.getWriter().append("\nDodajam uporabnika Blaz\n");
-		uu.addUser("hudogriz", "Blaz", "Vrhovsek", "mail@vrhi.si", 24.3532, 25.6432 );
-		uu.returnAll(response);
-		response.getWriter().append("\n");
-
-		response.getWriter().append("Brisem uporabnika z imenom \"Blaz\"\n");
-		uu.deleteUser("Blaz");
-		uu.returnAll(response);
-		
-		response.getWriter().append("\nDodajam napitek kapucino\n");
-		un.sprejmiNarocilo(1, 1, 1, "waiting", "in progress", "120s", "kapucino");
-		un.returnAll(response);
-		response.getWriter().append("\n");
-		
-		response.getWriter().append("\nRacun za narocilo\n");
-		uo.pripraviRacun(1, response);
-		response.getWriter().append("\n");
-		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		f.finadAllUsers(response);
+		f.addUser(response);
+		f.removeUser(response);
+		f.addOrder(response);
+		f.getBill(response);
 	}
 
 	/**

@@ -28,7 +28,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
         // TODO Auto-generated constructor stub
     }
 
-	public void sprejmiNarocilo(int idKavarna, int idUporabnik, int idNapitek, String payment, String prepStatus, String prepTime, String item) {
+	public void addOrder(int idKavarna, int idUporabnik, int idNapitek, String payment, String prepStatus, String prepTime, String item) {
 		// TODO Auto-generated method stub
 		Query q = em.createNativeQuery("INSERT INTO public.\"Narocilo\" (id_kavarna, id_uporabnik, id_napitek, payment_status, prep_status, prep_time, item_list) "
 				+ "VALUES (:id_kavarna, :id_uporabnik, :id_napitek, :payment_status, :prep_status, :prep_time, :item_list)");
@@ -42,7 +42,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		q.executeUpdate();
 	}
 
-	public void prekliciNarocilo() {
+	public void cancelOrder() {
 		// TODO Auto-generated method stub
 	}
 
