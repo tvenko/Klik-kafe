@@ -56,20 +56,10 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		}	
 	}
 
-	public void returnAll(HttpServletResponse response) throws IOException {
+	public ArrayList returnAll() {
 		// TODO Auto-generated method stub
 		Query q1 = em.createNamedQuery("Uporabnik.findAll");
-		ArrayList<Uporabnik> uList = (ArrayList<Uporabnik>) q1.getResultList();
-		boolean prazna = true;
-		
-		for (Uporabnik usr : uList) {
-			prazna = false;
-			response.getWriter().append(usr.getName() + " " + usr.getSurname() + ", " + usr.getEmail() + ", @(" + Double.toString(usr.getLatitude()) + ""
-					+ " lat, " + Double.toString(usr.getLongitude()) + " long)\n");
-		}
-		
-		if (prazna)
-			response.getWriter().append("Zgleda da ni nobenga ...");
+		return (ArrayList<Uporabnik>) q1.getResultList();
 	}
 
 	public void getLocation() {

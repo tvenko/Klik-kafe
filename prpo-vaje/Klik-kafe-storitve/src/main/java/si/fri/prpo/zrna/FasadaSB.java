@@ -1,11 +1,14 @@
 package si.fri.prpo.zrna;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletResponse;
+
+import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
 
 /**
  * Session Bean implementation class FasadaSB
@@ -33,7 +36,7 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 		// TODO Auto-generated method stub
 		response.getWriter().append("\nDodajam uporabnika Blaz\n");
 		uu.addUser("hudogriz", "Blaz", "Vrhovsek", "mail@vrhi.si", 24.3532, 25.6432 );
-		uu.returnAll(response);
+		//uu.returnAll(response);
 		response.getWriter().append("\n");
 	}
 
@@ -42,14 +45,14 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Brisem uporabnika z imenom \"Blaz\"\n");
 		uu.deleteUser("Blaz");
-		uu.returnAll(response);
+		//uu.returnAll(response);
 	}
 
 	@Override
 	public void finadAllUsers(HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("\n\nUporabniki v bazi:\n");
-		uu.returnAll(response);
+		//uu.returnAll(response);
 		response.getWriter().append("\n");
 	}
 
@@ -74,5 +77,18 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 		response.getWriter().append("\nRacun za narocilo\n");
 		uo.createBill(1, response);
 		response.getWriter().append("\n");
+	}
+
+	@Override
+	public boolean checkUsername(String username) {
+		// TODO Auto-generated method stub
+		if (username != null) {
+			ArrayList<Uporabnik> users = uu.returnAll();
+			for (Uporabnik u : users) {
+				if (u.getUsername().equals(username))
+					return true;
+			}
+		}
+		return false;
 	}
 }

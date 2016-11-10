@@ -43,7 +43,9 @@ public class TestSBServlet extends HttpServlet {
 		
 		String message = "Hello World";
         request.setAttribute("message", message); // This will be available as ${message}
-        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+        response.getContentType();
+        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -51,7 +53,17 @@ public class TestSBServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		//doGet(request, response);
+		String username = null;
+		if(request.getParameter("username") != null){
+		   username = request.getParameter("username");
+		}
+		if(f.checkUsername(username)) {
+			response.getWriter().append("uspesno prijavljen");
+		}
+		else {
+			response.getWriter().append("ni pravilno uporabnisko ime");
+		}
 	}
 
 }

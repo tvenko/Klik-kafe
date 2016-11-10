@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 @Local
 public interface FasadaSBLocal {
 	
+	boolean checkUsername(String username);
+	
 	void addUser(HttpServletResponse response) throws IOException;
 	void removeUser(HttpServletResponse response) throws IOException;
 	void finadAllUsers(HttpServletResponse response) throws IOException;
