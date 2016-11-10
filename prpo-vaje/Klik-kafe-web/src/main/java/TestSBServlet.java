@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import si.fri.prpo.vaje.narocanje.entitete.Napitek;
 import si.fri.prpo.zrna.FasadaSB;
 
 /**
@@ -41,11 +43,7 @@ public class TestSBServlet extends HttpServlet {
 		f.removeUser(response);
 		f.addOrder(response);*/
 		
-		String message = "Hello World";
-        request.setAttribute("message", message); // This will be available as ${message}
-        response.getContentType();
-        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-
+        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 
 	/**
@@ -54,15 +52,22 @@ public class TestSBServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		String username = null;
+		String username = request.getParameter("username");
+		String kavarna = request.getParameter("kavarna");
+		String size = request.getParameter("size");
+		String[] napitki = request.getParameterValues("napitek");
+		
+		
 		if(request.getParameter("username") != null){
-		   username = request.getParameter("username");
+		   
 		}
 		if(f.checkUsername(username)) {
-			response.getWriter().append("uspesno prijavljen");
+			
 		}
 		else {
-			response.getWriter().append("ni pravilno uporabnisko ime");
+			request.setAttribute("message", "Nepravilno uporabnisko ime!");
+			response.getContentType();
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 		}
 	}
 

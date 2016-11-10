@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name="\"Kavarna\"")
 @NamedQueries({
 	@NamedQuery(name="Kavarna.findAll", query="SELECT k FROM Kavarna k"),
-	@NamedQuery(name="Kavarna.findItemsFromNarocilo", query="SELECT n.itemList FROM Kavarna k, Narocilo n WHERE k.idNarocila = n.id GROUP BY k.idNarocila")
+	@NamedQuery(name="Kavarna.findId", query="SELECT k FROM Kavarna k WHERE k.id = :id"),
+	@NamedQuery(name="Kavarna.findName", query="SELECT k FROM Kavarna k WHERE k.name = :name")
 })
 public class Kavarna implements Serializable {
 	private static final long serialVersionUID = 1L;

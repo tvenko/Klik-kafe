@@ -13,16 +13,40 @@
                 <option>Beli konj</option>
                 <option>Gostilna pri Inotu</option>
             </select>
+            <p>
+                <input type="checkbox" name="napitek" value="cappucino">
+                cappucino
+            </p>
+            <p>
+                <input type="checkbox" name="napitek" value="espresso">
+                espresso
+            </p>
+            <p>
+                <input type="checkbox" name="napitek" value="irish coffee">
+                irish coffee
+            </p>
+            <p>
+                <input type="checkbox" name="napitek" value="macchiato">
+                macchiato
+            </p>
+            <p> 
+                <input type="radio" name="size" value="small">
+                small
+            </p>
+            <p> 
+                <input type="radio" name="size" value="medium">
+                medium
+            </p>
+            <p> 
+                <input type="radio" name="size" value="large">
+                large
+            </p>
+            <p>
+                <label for="username">username</label>
+                <input type="text" name="username" required>
+            </p>
             <input type="submit" name="submit" value="submit">
         </form>
-        <!-- <form name="izberi_napitek" method="post" action="/naloga1/TestSBServlet">
-            <p>
-                <label for="kavarna">izberi kavarno</label>
-                <input type="text" name="kavarna" required>
-            </p>
-            <p>
-                <input type="submit" name="submit" value="submit">
-            </p>
-        </form> -->
+        <p>${message}</p>
     </body>
 </html>

@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
+import si.fri.prpo.vaje.narocanje.entitete.Napitek;
 import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
 
 /**
@@ -66,5 +67,4 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		// TODO Auto-generated method stub
 		
 	}
-
 }

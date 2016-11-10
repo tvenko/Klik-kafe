@@ -91,4 +91,16 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean submitOrder(String username, String kavarna, String size, String[] napitki) {
+		// TODO Auto-generated method stub
+		int idKavarna = un.getIdKavarna(kavarna);
+		int[] napitkiIds = un.getNapitekIds(napitki, size);
+		if(checkUsername(username)) {
+			int time = un.getPrepTime(napitkiIds);
+			double price = un.getTotalPrice(napitkiIds);
+		}
+		return false;
+	}
 }

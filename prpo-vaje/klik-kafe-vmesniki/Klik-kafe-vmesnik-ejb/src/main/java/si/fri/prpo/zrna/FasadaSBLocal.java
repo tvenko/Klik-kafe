@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 public interface FasadaSBLocal {
 	
 	boolean checkUsername(String username);
+	boolean submitOrder(String username, String kavarna, String size, String[] napitki);
 	
 	void addUser(HttpServletResponse response) throws IOException;
 	void removeUser(HttpServletResponse response) throws IOException;

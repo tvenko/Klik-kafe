@@ -11,8 +11,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"Napitek\"")
-@NamedQuery(name="Napitek.findAll", query="SELECT n FROM Napitek n")
+@NamedQueries({
+	@NamedQuery(name="Napitek.findAll", query="SELECT n FROM Napitek n"),
+	@NamedQuery(name="Napitek.findId", query="SELECT n FROM Napitek n WHERE n.id = :id")
+})
 public class Napitek implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

@@ -10,6 +10,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
+import si.fri.prpo.vaje.narocanje.entitete.Kavarna;
+import si.fri.prpo.vaje.narocanje.entitete.Napitek;
 import si.fri.prpo.vaje.narocanje.entitete.Narocilo;
 
 /**
@@ -76,5 +78,57 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		else {
 			response.getWriter().append("ne obstaja narocilo s IDjem "+id);
 		}
+	}
+
+	@Override
+	public int getPrepTime(int[] ids) {
+		// TODO Auto-generated method stub
+		int time = 0;
+		for (int id : ids) {
+			Query q = em.createNamedQuery("Napitek.findId");
+			q.setParameter("id", id);
+			Napitek n = (Napitek)q.getSingleResult();
+			time += Integer.parseInt(n.getPrepTime());
+		}
+		return time;
+	}
+
+	@Override
+	public double getTotalPrice(int[] ids) {
+		// TODO Auto-generated method stub
+		double price = 0;
+		for (int id : ids) {
+			Query q = em.createNamedQuery("Napitek.findId");
+			q.setParameter("id", id);
+			Napitek n = (Napitek)q.getSingleResult();
+			//TODO dodaj metodo ki ti vrne ceno 
+			//price += Integer.parseInt(n.getPrice());
+		}
+		return price;
+	}
+
+	@Override
+	public int[] getNapitekIds(String[] napitki, String size) {
+		// TODO Auto-generated method stub
+		int [] ids = new int[napitki.length];
+		Query q = em.createNamedQuery("Napitek.findAll");
+		ArrayList<Napitek> napitkiList = (ArrayList<Napitek>) q.getResultList();
+		for (Napitek n : napitkiList) {
+			for(int i=0; i<napitki.length; i++) {
+				if (n.getType().equals(napitki[i]) && n.getSize().equals(size)) {
+					ids[i] = n.getId();
+				}
+			}
+		}
+		return ids;
+	}
+
+	@Override
+	public int getIdKavarna(String name) {
+		// TODO Auto-generated method stub
+		Query q = em.createNamedQuery("Kavarna.findName");
+		q.setParameter("name", name);
+		Kavarna k = (Kavarna) q.getSingleResult();
+		return k.getId();
 	}
 }
