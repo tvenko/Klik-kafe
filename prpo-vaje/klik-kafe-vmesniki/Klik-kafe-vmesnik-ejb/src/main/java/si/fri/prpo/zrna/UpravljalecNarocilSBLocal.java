@@ -11,4 +11,5 @@ public interface UpravljalecNarocilSBLocal {
 	void addOrder(int idUser, int idUporabnik, int idNapitek, String payment, String prepStatus, String prepTime, String item);
 	void cancelOrder();
 	void returnAll(HttpServletResponse response) throws IOException;
+	void returnOrderId(int id, HttpServletResponse response) throws IOException;
 }

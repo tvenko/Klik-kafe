@@ -55,11 +55,26 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 				
 				for (Narocilo nar : nList) {
 					prazna = false;
-					response.getWriter().append(nar.getId() + " " + nar.getItemList() + " " + nar.getUporabnik() + " " + nar.getPaymentStatus() + " "
+					response.getWriter().append(nar.getId() + " " + nar.getItemList() + " " + nar.getUporabnik().getName() + " " + nar.getPaymentStatus() + " "
 					+ nar.getPrepStatus() + " " + nar.getPrepTime()+"\n");
 				}
 				
 				if (prazna)
 					response.getWriter().append("Zgleda da ni nobenga ...");
+	}
+
+	@Override
+	public void returnOrderId(int id, HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		Query q = em.createNamedQuery("Narocillo.findId");
+		q.setParameter("id", id);
+		Narocilo nar = (Narocilo) q.getSingleResult();
+		if (nar != null) {
+			response.getWriter().append(nar.getId() + " " + nar.getItemList() + " " + nar.getUporabnik() + " " + nar.getPaymentStatus() + " "
+					+ nar.getPrepStatus() + " " + nar.getPrepTime()+"\n");
+		}
+		else {
+			response.getWriter().append("ne obstaja narocilo s IDjem "+id);
+		}
 	}
 }

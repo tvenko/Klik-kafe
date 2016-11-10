@@ -75,5 +75,4 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 		uo.createBill(1, response);
 		response.getWriter().append("\n");
 	}
-
 }

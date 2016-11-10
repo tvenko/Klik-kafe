@@ -35,12 +35,15 @@ public class TestSBServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		/*response.getWriter().append("Served at: ").append(request.getContextPath());
 		f.finadAllUsers(response);
 		f.addUser(response);
 		f.removeUser(response);
-		f.addOrder(response);
-		f.getBill(response);
+		f.addOrder(response);*/
+		
+		String message = "Hello World";
+        request.setAttribute("message", message); // This will be available as ${message}
+        request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 
 	/**

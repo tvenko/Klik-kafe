@@ -14,6 +14,7 @@ import javax.persistence.*;
 		@NamedQuery(name="Narocilo.findAll", query="SELECT n FROM Narocilo n"), 
 		//@NamedQuery(name="Narocilo.findPaid", query="SELECT n FROM Narocilo n WHERE n.paymentStatus = \"paid\""),
 		//@NamedQuery(name="Narocilo.findWaiting", query="SELECT n FROM Narocilo n WHERE n.prepStatus = \"waiting\"")
+		@NamedQuery(name="Narocilo.findId", query="SELECT n FROM Narocilo n WHERE n.id = :id")
 })
 public class Narocilo implements Serializable {
 	private static final long serialVersionUID = 1L;
