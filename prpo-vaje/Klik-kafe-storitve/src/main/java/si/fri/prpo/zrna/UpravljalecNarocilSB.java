@@ -10,9 +10,9 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.vaje.narocanje.entitete.Kavarna;
-import si.fri.prpo.vaje.narocanje.entitete.Napitek;
-import si.fri.prpo.vaje.narocanje.entitete.Narocilo;
+import si.fri.prpo.vaje.entitete.Kavarna;
+import si.fri.prpo.vaje.entitete.Napitek;
+import si.fri.prpo.vaje.entitete.Narocilo;
 
 /**
  * Session Bean implementation class UpravljalecNarocilSB
@@ -30,17 +30,15 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
         // TODO Auto-generated constructor stub
     }
 
-	public void addOrder(int idKavarna, int idUporabnik, int idNapitek, String payment, String prepStatus, String prepTime, String item) {
+	public void addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice) {
 		// TODO Auto-generated method stub
-		Query q = em.createNativeQuery("INSERT INTO public.\"Narocilo\" (id_kavarna, id_uporabnik, id_napitek, payment_status, prep_status, prep_time, item_list) "
-				+ "VALUES (:id_kavarna, :id_uporabnik, :id_napitek, :payment_status, :prep_status, :prep_time, :item_list)");
-		q.setParameter("id_kavarna", idKavarna);
-		q.setParameter("id_uporabnik", idUporabnik);
-		q.setParameter("id_napitek", idNapitek);
-		q.setParameter("payment_status", payment);
-		q.setParameter("prep_status", prepStatus);
+		Query q = em.createNativeQuery("INSERT INTO public.\"Narocilo\" (prep_time, prep_status, payment_status, id_uporabnik, id_kavarna, total_price) VALUES (:prep_time, :prep_status, :payment_status, :id_uporabnik, :id_kavarna, :total_price)");
 		q.setParameter("prep_time", prepTime);
-		q.setParameter("item_list", item);
+		q.setParameter("prep_status", prepStatus);
+		q.setParameter("payment_status", paymentStatus);
+		q.setParameter("id_uporabnik", idUporabnik);
+		q.setParameter("id_kavarna", idKavarna);
+		q.setParameter("total_price", totalPrice);
 		q.executeUpdate();
 	}
 
@@ -57,7 +55,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 				
 				for (Narocilo nar : nList) {
 					prazna = false;
-					response.getWriter().append(nar.getId() + " " + nar.getItemList() + " " + nar.getUporabnik().getName() + " " + nar.getPaymentStatus() + " "
+					response.getWriter().append(nar.getId() + " " + " " + nar.getUporabnik().getName() + " " + nar.getPaymentStatus() + " "
 					+ nar.getPrepStatus() + " " + nar.getPrepTime()+"\n");
 				}
 				
@@ -72,7 +70,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		q.setParameter("id", id);
 		Narocilo nar = (Narocilo) q.getSingleResult();
 		if (nar != null) {
-			response.getWriter().append(nar.getId() + " " + nar.getItemList() + " " + nar.getUporabnik() + " " + nar.getPaymentStatus() + " "
+			response.getWriter().append(nar.getId() + " "  + " " + nar.getUporabnik() + " " + nar.getPaymentStatus() + " "
 					+ nar.getPrepStatus() + " " + nar.getPrepTime()+"\n");
 		}
 		else {
@@ -88,7 +86,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 			Query q = em.createNamedQuery("Napitek.findId");
 			q.setParameter("id", id);
 			Napitek n = (Napitek)q.getSingleResult();
-			time += Integer.parseInt(n.getPrepTime());
+			time += n.getPrepTime();
 		}
 		return time;
 	}
@@ -101,8 +99,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 			Query q = em.createNamedQuery("Napitek.findId");
 			q.setParameter("id", id);
 			Napitek n = (Napitek)q.getSingleResult();
-			//TODO dodaj metodo ki ti vrne ceno 
-			//price += Integer.parseInt(n.getPrice());
+			price += n.getPrice();
 		}
 		return price;
 	}
@@ -129,6 +126,21 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		Query q = em.createNamedQuery("Kavarna.findName");
 		q.setParameter("name", name);
 		Kavarna k = (Kavarna) q.getSingleResult();
-		return k.getId();
+		if(k != null) {
+			return k.getId();
+		}
+		else 
+			return -1;
+	}
+
+	@Override
+	public void addDrinks(int idNarocila, int[] idsNapitka) {
+		// TODO Auto-generated method stub
+		for (int id : idsNapitka) {
+			Query q = em.createNativeQuery("INSERT INTO public.\"Napitki_narocila\" (id_narocila, id_napitka) VALUES (:id_narocila, :id_napitka)");
+			q.setParameter("id_narocila", idNarocila);
+			q.setParameter("id_napitka", id);
+			q.executeUpdate();
+		}
 	}
 }

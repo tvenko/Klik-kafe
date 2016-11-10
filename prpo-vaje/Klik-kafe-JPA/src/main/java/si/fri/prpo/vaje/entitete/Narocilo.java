@@ -1,7 +1,8 @@
-package si.fri.prpo.vaje.narocanje.entitete;
+package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -11,10 +12,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="\"Narocilo\"")
 @NamedQueries({ 
-		@NamedQuery(name="Narocilo.findAll", query="SELECT n FROM Narocilo n"), 
-		//@NamedQuery(name="Narocilo.findPaid", query="SELECT n FROM Narocilo n WHERE n.paymentStatus = \"paid\""),
-		//@NamedQuery(name="Narocilo.findWaiting", query="SELECT n FROM Narocilo n WHERE n.prepStatus = \"waiting\"")
-		@NamedQuery(name="Narocilo.findId", query="SELECT n FROM Narocilo n WHERE n.id = :id")
+	@NamedQuery(name="Narocilo.findAll", query="SELECT n FROM Narocilo n"), 
+	@NamedQuery(name="Narocilo.findId", query="SELECT n FROM Narocilo n WHERE n.id = :id")
 })
 public class Narocilo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,27 +22,26 @@ public class Narocilo implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="item_list")
-	private String itemList;
-
-	@Column(name="payment_status", length=50)
+	@Column(name="payment_status")
 	private String paymentStatus;
 
-	@Column(name="prep_status", length=50)
+	@Column(name="prep_status")
 	private String prepStatus;
 
-	@Column(name="prep_time", nullable=true, length=50)
+	@Column(name="prep_time")
 	private String prepTime;
+
+	@Column(name="total_price")
+	private double totalPrice;
+
+	//bi-directional many-to-one association to Napitki_narocila
+	@OneToMany(mappedBy="narocilo")
+	private List<Napitki_narocila> napitkiNarocilas;
 
 	//bi-directional many-to-one association to Kavarna
 	@ManyToOne
 	@JoinColumn(name="id_kavarna")
 	private Kavarna kavarna;
-
-	//bi-directional many-to-one association to Napitek
-	@ManyToOne
-	@JoinColumn(name="id_napitek")
-	private Napitek napitek;
 
 	//bi-directional many-to-one association to Uporabnik
 	@ManyToOne
@@ -59,14 +57,6 @@ public class Narocilo implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getItemList() {
-		return this.itemList;
-	}
-
-	public void setItemList(String itemList) {
-		this.itemList = itemList;
 	}
 
 	public String getPaymentStatus() {
@@ -93,20 +83,42 @@ public class Narocilo implements Serializable {
 		this.prepTime = prepTime;
 	}
 
+	public double getTotalPrice() {
+		return this.totalPrice;
+	}
+
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public List<Napitki_narocila> getNapitkiNarocilas() {
+		return this.napitkiNarocilas;
+	}
+
+	public void setNapitkiNarocilas(List<Napitki_narocila> napitkiNarocilas) {
+		this.napitkiNarocilas = napitkiNarocilas;
+	}
+
+	public Napitki_narocila addNapitkiNarocila(Napitki_narocila napitkiNarocila) {
+		getNapitkiNarocilas().add(napitkiNarocila);
+		napitkiNarocila.setNarocilo(this);
+
+		return napitkiNarocila;
+	}
+
+	public Napitki_narocila removeNapitkiNarocila(Napitki_narocila napitkiNarocila) {
+		getNapitkiNarocilas().remove(napitkiNarocila);
+		napitkiNarocila.setNarocilo(null);
+
+		return napitkiNarocila;
+	}
+
 	public Kavarna getKavarna() {
 		return this.kavarna;
 	}
 
 	public void setKavarna(Kavarna kavarna) {
 		this.kavarna = kavarna;
-	}
-
-	public Napitek getNapitek() {
-		return this.napitek;
-	}
-
-	public void setNapitek(Napitek napitek) {
-		this.napitek = napitek;
 	}
 
 	public Uporabnik getUporabnik() {

@@ -68,10 +68,10 @@ ALTER TABLE napitek_autoinc OWNER TO postgres;
 
 CREATE TABLE "Napitek" (
     id integer DEFAULT nextval('napitek_autoinc'::regclass) NOT NULL,
-    prep_time character varying(30),
     size character varying(20) NOT NULL,
     type character varying(30) NOT NULL,
-    price double precision
+    price double precision,
+    prep_time integer
 );
 
 
@@ -151,12 +151,12 @@ ALTER TABLE narocilo_autoinc OWNER TO postgres;
 
 CREATE TABLE "Narocilo" (
     id integer DEFAULT nextval('narocilo_autoinc'::regclass) NOT NULL,
-    prep_time character varying(50),
     prep_status character varying(50),
     payment_status character varying(50),
     id_uporabnik integer NOT NULL,
     id_kavarna integer NOT NULL,
-    total_price double precision
+    total_price double precision,
+    prep_time integer
 );
 
 
@@ -208,16 +208,16 @@ COPY "Kavarna" (id, name, latitude, longitude) FROM stdin;
 -- Data for Name: Napitek; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Napitek" (id, prep_time, size, type, price) FROM stdin;
-1	120s	small	cappuccino	1
-2	120s	medium	cappuccino	1.2
-3	150s	large	cappuccino	1.5
-4	90s	small	espresso	1.2
-5	100s	medium	irish coffee	1.5
-6	130s	large	irish coffee	2
-7	100s	small	macchiato	1
-8	120s	medium	macchiato	1.3
-9	160s	large	macchiato	1.7
+COPY "Napitek" (id, size, type, price, prep_time) FROM stdin;
+1	small	cappuccino	1	120
+2	medium	cappuccino	1.2	150
+3	large	cappuccino	1.5	170
+4	small	espresso	1.2	60
+5	medium	irish coffee	1.5	100
+6	large	irish coffee	2	120
+7	small	macchiato	1	50
+8	medium	macchiato	1.3	70
+9	large	macchiato	1.7	80
 \.
 
 
@@ -254,6 +254,9 @@ COPY "Napitki_narocila" (id, id_narocila, id_napitka) FROM stdin;
 4	2	5
 5	3	2
 6	3	9
+9	1	1
+10	1	1
+11	1	4
 \.
 
 
@@ -261,10 +264,15 @@ COPY "Napitki_narocila" (id, id_narocila, id_napitka) FROM stdin;
 -- Data for Name: Narocilo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Narocilo" (id, prep_time, prep_status, payment_status, id_uporabnik, id_kavarna, total_price) FROM stdin;
-2	90	done	done	2	3	1.5
-1	120	pending	done	1	1	3.5
-3	180	done	pending	1	2	2.8999999999999999
+COPY "Narocilo" (id, prep_status, payment_status, id_uporabnik, id_kavarna, total_price, prep_time) FROM stdin;
+2	done	done	2	3	1.5	\N
+1	pending	done	1	1	3.5	\N
+3	done	pending	1	2	2.8999999999999999	\N
+276	done	paid	1	1	230	210
+277	done	paid	1	1	13.300000000000001	13
+278	pending	paid	2	1	1.2	150
+279	pending	paid	2	1	4	320
+290	pending	paid	2	1	2.2000000000000002	180
 \.
 
 
@@ -296,14 +304,14 @@ SELECT pg_catalog.setval('napitki_kavarne_autoinc', 14, true);
 -- Name: napitki_narocila_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('napitki_narocila_autoinc', 1, false);
+SELECT pg_catalog.setval('napitki_narocila_autoinc', 11, true);
 
 
 --
 -- Name: narocilo_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('narocilo_autoinc', 275, true);
+SELECT pg_catalog.setval('narocilo_autoinc', 290, true);
 
 
 --

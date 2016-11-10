@@ -8,7 +8,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
+import si.fri.prpo.vaje.entitete.Uporabnik;
 
 /**
  * Session Bean implementation class FasadaSB
@@ -56,14 +56,6 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 		response.getWriter().append("\n");
 	}
 
-	@Override
-	public void addOrder(HttpServletResponse response) throws IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("\nDodajam napitek kapucino\n");
-		un.addOrder(1, 1, 1, "waiting", "in progress", "120s", "kapucino");
-		un.returnAll(response);
-		response.getWriter().append("\n");
-	}
 
 	@Override
 	public void findAllOrders(HttpServletResponse response) throws IOException {
@@ -93,14 +85,29 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 	}
 
 	@Override
-	public boolean submitOrder(String username, String kavarna, String size, String[] napitki) {
+	public boolean submitOrder(String username, String kavarna, String size, String[] napitki, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		int idKavarna = un.getIdKavarna(kavarna);
 		int[] napitkiIds = un.getNapitekIds(napitki, size);
-		if(checkUsername(username)) {
-			int time = un.getPrepTime(napitkiIds);
-			double price = un.getTotalPrice(napitkiIds);
+		int idNarocila = 1;
+		if(checkUsername(username) && idKavarna > 0) {
+			if (validateIds(napitkiIds)) {
+				int idUporabnik = uu.getUserId(username);
+				int prepTime = un.getPrepTime(napitkiIds);
+				double totalPrice = un.getTotalPrice(napitkiIds);
+				un.addOrder(idUporabnik, idKavarna, prepTime, "pending", "paid", totalPrice);
+				un.addDrinks(idNarocila, napitkiIds);
+				return true;
+			}
 		}
 		return false;
+	}
+	
+	public boolean validateIds(int[] ids) {
+		for (int id : ids) {
+			if (id <=0)
+				return false;
+		}
+		return true;
 	}
 }

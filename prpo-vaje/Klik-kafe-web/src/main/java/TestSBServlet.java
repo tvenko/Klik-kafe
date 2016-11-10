@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.vaje.narocanje.entitete.Napitek;
+import si.fri.prpo.vaje.entitete.Napitek;
 import si.fri.prpo.zrna.FasadaSB;
 
 /**
@@ -57,17 +57,18 @@ public class TestSBServlet extends HttpServlet {
 		String size = request.getParameter("size");
 		String[] napitki = request.getParameterValues("napitek");
 		
-		
-		if(request.getParameter("username") != null){
-		   
-		}
-		if(f.checkUsername(username)) {
-			
+		//response.getWriter().append(username + "\n").append(kavarna+"\n").append(size);
+		if(f.submitOrder(username, kavarna, size, napitki, response)) {
+			/*request.setAttribute("message", "uspesno!");
+			response.getContentType();
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);*/
+			response.getWriter().append("USPESNO");
 		}
 		else {
-			request.setAttribute("message", "Nepravilno uporabnisko ime!");
+			/*request.setAttribute("message", "Nepravilno uporabnisko ime!");
 			response.getContentType();
-			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);*/
+			response.getWriter().append("NAPAKA");
 		}
 	}
 

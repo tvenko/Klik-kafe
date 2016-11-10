@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import javax.ejb.Local;
 import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.vaje.narocanje.entitete.Napitek;
-import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
+import si.fri.prpo.vaje.entitete.Napitek;
+import si.fri.prpo.vaje.entitete.Uporabnik;
 
 @Local
 public interface UpravljalecUporabnikovSBLocal {
@@ -16,4 +16,5 @@ public interface UpravljalecUporabnikovSBLocal {
 	void deleteUser(String name);
 	ArrayList returnAll();
 	void getLocation();
+	int getUserId(String name);
 }

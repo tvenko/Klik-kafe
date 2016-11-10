@@ -20,7 +20,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
+import si.fri.prpo.vaje.entitete.Uporabnik;
 
 
 /**
@@ -56,7 +56,7 @@ public class TestJPAServlet extends HttpServlet {
 		
 		
 		response.getWriter().append("Served at: ").append(request.getContextPath()).append("\n");
-		izpisiVse(em, response);
+		/*izpisiVse(em, response);
 
 		Uporabnik u = em.find(Uporabnik.class, 1);
 		u.setName("Blazzzz");
@@ -91,7 +91,7 @@ public class TestJPAServlet extends HttpServlet {
 		} catch (HeuristicRollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}	*/	
 	}
 	
 	protected void izpisiVse(EntityManager em, HttpServletResponse response) throws IOException {

@@ -10,8 +10,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.vaje.narocanje.entitete.Napitek;
-import si.fri.prpo.vaje.narocanje.entitete.Uporabnik;
+import si.fri.prpo.vaje.entitete.Napitek;
+import si.fri.prpo.vaje.entitete.Uporabnik;
 
 /**
  * Session Bean implementation class UpravljalecUporabnikovSB
@@ -66,5 +66,14 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 	public void getLocation() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int getUserId(String username) {
+		// TODO Auto-generated method stub
+		Query q = em.createNamedQuery("Uporabnik.findName");
+		q.setParameter("username", username);
+		Uporabnik u = (Uporabnik) q.getSingleResult();
+		return u.getId();
 	}
 }

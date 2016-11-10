@@ -1,4 +1,4 @@
-package si.fri.prpo.vaje.narocanje.entitete;
+package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -14,7 +14,8 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Uporabnik.findAll", query="SELECT u FROM Uporabnik u"),
 	@NamedQuery(name="Uporabnik.findId", query="SELECT u FROM Uporabnik u WHERE u.id = :userid"),
-	@NamedQuery(name="Uporabnik.delete", query="DELETE FROM Uporabnik u WHERE u.name = :name")
+	@NamedQuery(name="Uporabnik.delete", query="DELETE FROM Uporabnik u WHERE u.name = :name"),
+	@NamedQuery(name="Uporabnik.findName", query="SELECT u FROM Uporabnik u WHERE u.username = :username")
 })
 public class Uporabnik implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,22 +24,16 @@ public class Uporabnik implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(length=50)
 	private String email;
-	
-	@Column(nullable=true)
+
 	private double latitude;
 
-	@Column(nullable=true)
 	private double longitude;
-	
-	@Column(columnDefinition = "VARCHAR(30)", nullable=false)
+
 	private String name;
 
-	@Column(columnDefinition = "VARCHAR(30)", nullable=false)
 	private String surname;
 
-	@Column(length=20)
 	private String username;
 
 	//bi-directional many-to-one association to Narocilo

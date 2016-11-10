@@ -1,4 +1,4 @@
-package si.fri.prpo.vaje.narocanje.entitete;
+package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -23,16 +23,15 @@ public class Kavarna implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 
-	@Column(name="id_narocila", nullable=false)
-	private Integer idNarocila;
-
-	@Column(nullable=false)
 	private double latitude;
 
-	@Column(nullable=false)
 	private double longitude;
 
 	private String name;
+
+	//bi-directional many-to-one association to Napitki_kavarne
+	@OneToMany(mappedBy="kavarna")
+	private List<Napitki_kavarne> napitkiKavarnes;
 
 	//bi-directional many-to-one association to Narocilo
 	@OneToMany(mappedBy="kavarna")
@@ -47,14 +46,6 @@ public class Kavarna implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getIdNarocila() {
-		return this.idNarocila;
-	}
-
-	public void setIdNarocila(Integer idNarocila) {
-		this.idNarocila = idNarocila;
 	}
 
 	public double getLatitude() {
@@ -79,6 +70,28 @@ public class Kavarna implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Napitki_kavarne> getNapitkiKavarnes() {
+		return this.napitkiKavarnes;
+	}
+
+	public void setNapitkiKavarnes(List<Napitki_kavarne> napitkiKavarnes) {
+		this.napitkiKavarnes = napitkiKavarnes;
+	}
+
+	public Napitki_kavarne addNapitkiKavarne(Napitki_kavarne napitkiKavarne) {
+		getNapitkiKavarnes().add(napitkiKavarne);
+		napitkiKavarne.setKavarna(this);
+
+		return napitkiKavarne;
+	}
+
+	public Napitki_kavarne removeNapitkiKavarne(Napitki_kavarne napitkiKavarne) {
+		getNapitkiKavarnes().remove(napitkiKavarne);
+		napitkiKavarne.setKavarna(null);
+
+		return napitkiKavarne;
 	}
 
 	public List<Narocilo> getNarocilos() {

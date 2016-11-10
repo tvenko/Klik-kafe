@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import javax.ejb.Local;
 import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.vaje.narocanje.entitete.Napitek;
+import si.fri.prpo.vaje.entitete.Napitek;
 
 @Local
 public interface UpravljalecNarocilSBLocal {
 	
-	void addOrder(int idUser, int idUporabnik, int idNapitek, String payment, String prepStatus, String prepTime, String item);
+	void addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice);
+	void addDrinks(int idNarocila, int[] idsNapitka);
 	void cancelOrder();
 	void returnAll(HttpServletResponse response) throws IOException;
 	void returnOrderId(int id, HttpServletResponse response) throws IOException;

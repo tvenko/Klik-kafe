@@ -10,12 +10,12 @@
         <form name="izberi_kavarno" method="post" action="/naloga1/TestSBServlet">
             <select name="kavarna">
                 <option>Marjetica</option>
-                <option>Beli konj</option>
-                <option>Gostilna pri Inotu</option>
+                <option>Beli Konj</option>
+                <option>Gostilna Pri Inotu</option>
             </select>
             <p>
-                <input type="checkbox" name="napitek" value="cappucino">
-                cappucino
+                <input type="checkbox" name="napitek" value="cappuccino">
+                cappuccino
             </p>
             <p>
                 <input type="checkbox" name="napitek" value="espresso">

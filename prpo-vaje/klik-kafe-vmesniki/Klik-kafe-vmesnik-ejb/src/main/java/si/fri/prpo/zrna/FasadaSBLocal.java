@@ -9,13 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 public interface FasadaSBLocal {
 	
 	boolean checkUsername(String username);
-	boolean submitOrder(String username, String kavarna, String size, String[] napitki);
+	boolean submitOrder(String username, String kavarna, String size, String[] napitki, HttpServletResponse response) throws IOException;
 	
 	void addUser(HttpServletResponse response) throws IOException;
 	void removeUser(HttpServletResponse response) throws IOException;
 	void finadAllUsers(HttpServletResponse response) throws IOException;
 	
-	void addOrder(HttpServletResponse response) throws IOException;
 	void findAllOrders(HttpServletResponse response) throws IOException;
 	
 	void getBill(HttpServletResponse response) throws IOException;
