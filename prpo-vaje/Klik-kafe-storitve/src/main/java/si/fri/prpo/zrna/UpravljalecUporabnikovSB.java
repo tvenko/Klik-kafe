@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,7 +31,8 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
     public UpravljalecUporabnikovSB() {
         // TODO Auto-generated constructor stub
     }
-
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void addUser(String username, String name, String surname, String email, Double latit, Double longit) {
 		// TODO Auto-generated method stub
 		Query q = em.createNativeQuery("INSERT INTO public.\"Uporabnik\" (username, email, surname, name, latitude, longitude) VALUES (:username, :email, :surname, :name, :latit, :longit)");

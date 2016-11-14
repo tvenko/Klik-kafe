@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import si.fri.prpo.vaje.entitete.Napitek;
+import si.fri.prpo.vaje.entitete.Narocilo;
 import si.fri.prpo.zrna.FasadaSB;
+import si.fri.prpo.zrna.NeveljavnoNarociloException;
 
 /**
  * Servlet implementation class TestSBServlet
@@ -56,18 +58,21 @@ public class TestSBServlet extends HttpServlet {
 		String kavarna = request.getParameter("kavarna");
 		String size = request.getParameter("size");
 		String[] napitki = request.getParameterValues("napitek");
+		int orderId = -1;
+		try {
+			orderId = f.submitOrder(username, kavarna, size, napitki, response);
+		} catch (NeveljavnoNarociloException nnex) {
+			response.getWriter().append(nnex.error());
+			return;
+		}
 		
-		//response.getWriter().append(username + "\n").append(kavarna+"\n").append(size);
-		if(f.submitOrder(username, kavarna, size, napitki, response)) {
-			/*request.setAttribute("message", "uspesno!");
-			response.getContentType();
-			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);*/
-			response.getWriter().append("USPESNO");
+		if( orderId >= 0) {
+			// Order was added successfully without any exceptions
+			response.getWriter().append("Uspesno ste oddali svoje narocilo:\n");
+			response.getWriter().append("ID vasega narocila je " + Integer.toString(orderId));
 		}
 		else {
-			/*request.setAttribute("message", "Nepravilno uporabnisko ime!");
-			response.getContentType();
-			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);*/
+			// The order ID is negative and no exceptions
 			response.getWriter().append("NAPAKA");
 		}
 	}

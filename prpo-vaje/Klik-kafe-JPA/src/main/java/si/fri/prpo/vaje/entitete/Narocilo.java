@@ -29,7 +29,7 @@ public class Narocilo implements Serializable {
 	private String prepStatus;
 
 	@Column(name="prep_time")
-	private String prepTime;
+	private Integer prepTime;
 
 	@Column(name="total_price")
 	private double totalPrice;
@@ -75,11 +75,11 @@ public class Narocilo implements Serializable {
 		this.prepStatus = prepStatus;
 	}
 
-	public String getPrepTime() {
+	public Integer getPrepTime() {
 		return this.prepTime;
 	}
 
-	public void setPrepTime(String prepTime) {
+	public void setPrepTime(Integer prepTime) {
 		this.prepTime = prepTime;
 	}
 
@@ -128,5 +128,6 @@ public class Narocilo implements Serializable {
 	public void setUporabnik(Uporabnik uporabnik) {
 		this.uporabnik = uporabnik;
 	}
+	
 
 }
