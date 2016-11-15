@@ -39,7 +39,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		q.setParameter("id_uporabnik", idUporabnik);
 		q.setParameter("id_kavarna", idKavarna);
 		q.setParameter("total_price", totalPrice);
-		q.executeUpdate();
 	}
 
 	public void cancelOrder() {
