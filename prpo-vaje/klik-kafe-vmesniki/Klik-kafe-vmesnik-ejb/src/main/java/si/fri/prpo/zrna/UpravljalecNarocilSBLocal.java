@@ -11,7 +11,7 @@ import si.fri.prpo.vaje.entitete.Napitek;
 @Local
 public interface UpravljalecNarocilSBLocal {
 	
-	void addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice);
+	int addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice);
 	void addDrinks(int idNarocila, int[] idsNapitka);
 	void cancelOrder();
 	void returnAll(HttpServletResponse response) throws IOException;

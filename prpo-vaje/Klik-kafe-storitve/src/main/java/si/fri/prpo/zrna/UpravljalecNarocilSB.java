@@ -1,9 +1,14 @@
 package si.fri.prpo.zrna;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import si.fri.prpo.vaje.entitete.Kavarna;
 import si.fri.prpo.vaje.entitete.Napitek;
 import si.fri.prpo.vaje.entitete.Narocilo;
+import si.fri.prpo.vaje.entitete.Uporabnik;
 
 /**
  * Session Bean implementation class UpravljalecNarocilSB
@@ -29,23 +35,33 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
     public UpravljalecNarocilSB() {
         // TODO Auto-generated constructor stub
     }
-
-	public void addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice) {
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @RolesAllowed({"Uporabnik"})
+    public int addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice) {
 		// TODO Auto-generated method stub
-		Query q = em.createNativeQuery("INSERT INTO public.\"Narocilo\" (prep_time, prep_status, payment_status, id_uporabnik, id_kavarna, total_price) VALUES (:prep_time, :prep_status, :payment_status, :id_uporabnik, :id_kavarna, :total_price)");
-		q.setParameter("prep_time", prepTime);
-		q.setParameter("prep_status", prepStatus);
-		q.setParameter("payment_status", paymentStatus);
-		q.setParameter("id_uporabnik", idUporabnik);
-		q.setParameter("id_kavarna", idKavarna);
-		q.setParameter("total_price", totalPrice);
+		Narocilo new_order = new Narocilo();
+		Uporabnik narocnik = em.find(Uporabnik.class, idUporabnik);
+		Kavarna kava = em.find(Kavarna.class, idKavarna);
+		new_order.setKavarna(kava);
+		new_order.setUporabnik(narocnik);
+		new_order.setPrepTime(prepTime);
+		new_order.setPrepStatus(prepStatus);
+		new_order.setPaymentStatus(paymentStatus);
+		new_order.setTotalPrice(totalPrice);
+		em.persist(new_order);
+		em.flush();
+		
+		return new_order.getId();
 	}
-
+    
+    @RolesAllowed({"Uporabnik"})
 	public void cancelOrder() {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
+	@RolesAllowed({"Admin"})
 	public void returnAll(HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 				Query q1 = em.createNamedQuery("Narocilo.findAll");
@@ -62,7 +78,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 					response.getWriter().append("Zgleda da ni nobenga ...");
 	}
 
-	@Override
+	@RolesAllowed({"Uporabnik","Admin"})
 	public void returnOrderId(int id, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
 		Query q = em.createNamedQuery("Narocillo.findId");
@@ -78,6 +94,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
+	@RolesAllowed({"Uporabnik","Admin"})
 	public int getPrepTime(int[] ids) {
 		// TODO Auto-generated method stub
 		int time = 0;
@@ -91,6 +108,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
+	@RolesAllowed({"Uporabnik","Admin"})
 	public double getTotalPrice(int[] ids) {
 		// TODO Auto-generated method stub
 		double price = 0;
@@ -104,6 +122,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
+	@RolesAllowed({"Uporabnik","Admin"})
 	public int[] getNapitekIds(String[] napitki, String size) {
 		// TODO Auto-generated method stub
 		int [] ids = new int[napitki.length];
@@ -120,6 +139,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
+	@RolesAllowed({"Uporabnik","Admin"})
 	public int getIdKavarna(String name) {
 		// TODO Auto-generated method stub
 		Query q = em.createNamedQuery("Kavarna.findName");
@@ -133,6 +153,8 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@RolesAllowed({"Uporabnik","Admin"})
 	public void addDrinks(int idNarocila, int[] idsNapitka) {
 		// TODO Auto-generated method stub
 		for (int id : idsNapitka) {

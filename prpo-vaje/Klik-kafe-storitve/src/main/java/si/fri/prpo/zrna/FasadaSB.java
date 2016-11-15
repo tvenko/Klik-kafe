@@ -3,6 +3,9 @@ package si.fri.prpo.zrna;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RunAs;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -15,7 +18,11 @@ import si.fri.prpo.vaje.entitete.Uporabnik;
  */
 @Stateless
 @LocalBean
+@DeclareRoles({"Uporabnik","Admin"})
+@PermitAll
+@RunAs("Uporabnik")
 public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
+	
 	@EJB
 	private UpravljalecUporabnikovSBLocal uu;
 	@EJB
@@ -85,22 +92,25 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 	}
 
 	@Override
-	public boolean submitOrder(String username, String kavarna, String size, String[] napitki, HttpServletResponse response) throws IOException {
+	public int submitOrder(String username, String kavarna, String size, String[] napitki, HttpServletResponse response) throws IOException, NeveljavnoNarociloException {
 		// TODO Auto-generated method stub
 		int idKavarna = un.getIdKavarna(kavarna);
 		int[] napitkiIds = un.getNapitekIds(napitki, size);
-		int idNarocila = 1;
+		int idNarocila = -1;
 		if(checkUsername(username) && idKavarna > 0) {
 			if (validateIds(napitkiIds)) {
 				int idUporabnik = uu.getUserId(username);
 				int prepTime = un.getPrepTime(napitkiIds);
 				double totalPrice = un.getTotalPrice(napitkiIds);
-				un.addOrder(idUporabnik, idKavarna, prepTime, "pending", "paid", totalPrice);
+				idNarocila = un.addOrder(idUporabnik, idKavarna, prepTime, "pending", "paid", totalPrice);
 				un.addDrinks(idNarocila, napitkiIds);
-				return true;
+				//throw new NeveljavnoNarociloException();
+				return idNarocila;
 			}
+		} else {
+			response.getWriter().append("Uporabnik ne obstaja\n");
 		}
-		return false;
+		return idNarocila;
 	}
 	
 	public boolean validateIds(int[] ids) {
