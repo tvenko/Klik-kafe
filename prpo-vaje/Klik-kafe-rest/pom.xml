@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>si.fri.prpo</groupId>
+    <artifactId>prpo-vaje</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>Klik-kafe-rest</artifactId>
+  <packaging>war</packaging>
+  
+  <build>
+  		<plugins>
+            <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+            </configuration>
+        </plugin>
+    	</plugins>
+	</build>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>javax</groupId>
+  		<artifactId>javaee-api</artifactId>
+  		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>si.fri.prpo</groupId>
+  		<artifactId>Klik-kafe-JPA</artifactId>
+  	</dependency>
+  	<dependency>
+  		<groupId>si.fri.prpo</groupId>
+  		<artifactId>Klik-kafe-storitve</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>si.fri.prpo</groupId>
+  		<artifactId>Klik-kafe-vmesniki-ws</artifactId>
+  	</dependency>
+  </dependencies>
+</project>

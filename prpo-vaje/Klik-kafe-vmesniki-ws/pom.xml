@@ -2,20 +2,20 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>si.fri.prpo</groupId>
-    <artifactId>klik-kafe-vmesniki</artifactId>
+    <artifactId>prpo-vaje</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>Klik-kafe-vmesnik-ejb</artifactId>
-  <packaging>ejb</packaging>
+  <artifactId>Klik-kafe-vmesniki-ws</artifactId>
+  <packaging>jar</packaging>
   <dependencies>
   	<dependency>
   		<groupId>javax</groupId>
-	  	<artifactId>javaee-api</artifactId>
+  		<artifactId>javaee-api</artifactId>
+  		<scope>provided</scope>
   	</dependency>
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JPA</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>
 </project>

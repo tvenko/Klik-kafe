@@ -12,6 +12,8 @@
   	<module>Klik-kafe-JPA</module>
   	<module>klik-kafe-vmesniki</module>
   	<module>Klik-kafe-storitve</module>
+  	<module>Klik-kafe-vmesniki-ws</module>
+  	<module>Klik-kafe-rest</module>
   </modules>
   
   <dependencyManagement>
@@ -55,6 +57,11 @@
 	        </dependency>
 	        <!-- Dependency for JPA -->
 	        <dependency>
+	        	<groupId>si.fri.prpo</groupId>
+	        	<artifactId>Klik-kafe-JPA</artifactId>
+	        	<version>0.0.1-SNAPSHOT</version>
+	        </dependency>
+	        <dependency>
 	        	<groupId>org.hibernate</groupId>
 	        	<artifactId>hibernate-core</artifactId>
 	        	<version>5.2.3.Final</version>
@@ -64,6 +71,7 @@
 	        <dependency>
 	        	<groupId>si.fri.prpo</groupId>
 	        	<artifactId>Klik-kafe-storitve</artifactId>
+	        	<version>0.0.1-SNAPSHOT</version>
   				<type>ejb</type>
 	        </dependency>
 	        <!--  Dependency for vmesniki -->
@@ -71,6 +79,16 @@
 		        <groupId>si.fri.prpo</groupId>
 			    <artifactId>klik-kafe-vmesniki</artifactId>
 			    <version>0.0.1-SNAPSHOT</version>
+		    </dependency>
+		    <dependency>
+		    	<groupId>si.fri.prpo</groupId>
+		    	<artifactId>Klik-kafe-vmesniki-ws</artifactId>
+		    	<version>0.0.1-SNAPSHOT</version>
+		    </dependency>
+		    <dependency>
+		    	<groupId>si.fri.prpo</groupId>
+		    	<artifactId>Klik-kafe-rest</artifactId>
+		    	<version>0.0.1-SNAPSHOT</version>
 		    </dependency>
     	</dependencies>
 	</dependencyManagement>

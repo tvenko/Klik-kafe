@@ -24,14 +24,12 @@
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JPA</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
   		<scope>provided</scope>
   	</dependency>
   	<!-- Dependency for storitve -->
 	<dependency>
 	    <groupId>si.fri.prpo</groupId>
 	    <artifactId>Klik-kafe-storitve</artifactId>
-	    <version>0.0.1-SNAPSHOT</version>
   		<type>ejb</type>
 	</dependency>
 	<dependency>
@@ -40,6 +38,7 @@
 	    <version>0.0.1-SNAPSHOT</version>
   		<type>pom</type>
 	</dependency>
+	
   </dependencies>
   
   <build>

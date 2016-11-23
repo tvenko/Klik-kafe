@@ -32,11 +32,15 @@
 	  		<groupId>javax</groupId>
 	  		<artifactId>javaee-api</artifactId>
 	  	</dependency>
-	<!-- dependecy for EJB vmesniki -->
-  	<dependency>
-  		<groupId>si.fri.prpo</groupId>
-  		<artifactId>Klik-kafe-vmesnik-ejb</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
+		<!-- dependecy for EJB vmesniki -->
+	  	<dependency>
+	  		<groupId>si.fri.prpo</groupId>
+	  		<artifactId>Klik-kafe-vmesnik-ejb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>si.fri.prpo</groupId>
+	  		<artifactId>Klik-kafe-JPA</artifactId>
+	  	</dependency>
 	</dependencies>
 </project>
