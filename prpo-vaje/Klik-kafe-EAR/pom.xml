@@ -9,6 +9,10 @@
   <packaging>ear</packaging>
   
   <dependencies>
+  	<dependency>
+  		<groupId>javax</groupId>
+  		<artifactId>javaee-api</artifactId>
+  	</dependency>
   	<!-- Dependency for JDBC -->
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
@@ -24,7 +28,7 @@
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JPA</artifactId>
-  		<scope>provided</scope>
+  		<!-- <scope>provided</scope> -->
   	</dependency>
   	<!-- Dependency for storitve -->
 	<dependency>
@@ -38,7 +42,15 @@
 	    <version>0.0.1-SNAPSHOT</version>
   		<type>pom</type>
 	</dependency>
-	
+	<dependency>
+		<groupId>si.fri.prpo</groupId>
+		<artifactId>Klik-kafe-rest</artifactId>
+		<type>war</type>
+	</dependency>
+	<dependency>
+		<groupId>si.fri.prpo</groupId>
+		<artifactId>Klik-kafe-vmesniki-ws</artifactId>
+	</dependency>
   </dependencies>
   
   <build>

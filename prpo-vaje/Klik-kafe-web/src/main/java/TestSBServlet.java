@@ -1,16 +1,12 @@
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.vaje.entitete.Napitek;
-import si.fri.prpo.vaje.entitete.Narocilo;
 import si.fri.prpo.zrna.FasadaSB;
 import si.fri.prpo.zrna.NeveljavnoNarociloException;
 
@@ -38,13 +34,6 @@ public class TestSBServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		/*response.getWriter().append("Served at: ").append(request.getContextPath());
-		f.finadAllUsers(response);
-		f.addUser(response);
-		f.removeUser(response);
-		f.addOrder(response);*/
-		
         request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 
@@ -53,7 +42,6 @@ public class TestSBServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doGet(request, response);
 		String username = request.getParameter("username");
 		String kavarna = request.getParameter("kavarna");
 		String size = request.getParameter("size");

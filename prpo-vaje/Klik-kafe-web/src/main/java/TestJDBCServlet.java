@@ -2,9 +2,6 @@
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +25,7 @@ public class TestJDBCServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Connection povezava = null;
+		//Connection povezava = null;
 		/*UporabnikDaolmpl usr_dao = new UporabnikDaolmpl();
 		try {
 			povezava = usr_dao.getConnection();

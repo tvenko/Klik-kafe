@@ -24,20 +24,29 @@
   	<dependency>
   		<groupId>javax</groupId>
   		<artifactId>javaee-api</artifactId>
-  		<scope>provided</scope>
+  		<!-- <scope>provided</scope> -->
   	</dependency>
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JPA</artifactId>
+  		<scope>provided</scope>
   	</dependency>
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-storitve</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
+  		<scope>provided</scope>
   	</dependency>
+  	<dependency>
+	  		<groupId>si.fri.prpo</groupId>
+	  		<artifactId>Klik-kafe-vmesnik-ejb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+	</dependency>
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-vmesniki-ws</artifactId>
+  		<scope>provided</scope>
   	</dependency>
   </dependencies>
 </project>

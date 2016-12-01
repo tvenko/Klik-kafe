@@ -7,5 +7,14 @@
       <context-root>/naloga1</context-root>
     </web>
   </module>
+  <module>
+    <ejb>Klik-kafe-storitve-0.0.1-SNAPSHOT.jar</ejb>
+  </module>
+  <module>
+    <web>
+      <web-uri>Klik-kafe-rest-0.0.1-SNAPSHOT.war</web-uri>
+      <context-root>/Klik-kafe-rest</context-root>
+    </web>
+  </module>
   <library-directory>lib/</library-directory>
 </application>

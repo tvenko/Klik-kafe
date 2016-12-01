@@ -89,8 +89,8 @@
 		    	<groupId>si.fri.prpo</groupId>
 		    	<artifactId>Klik-kafe-rest</artifactId>
 		    	<version>0.0.1-SNAPSHOT</version>
+		    	<type>war</type>
 		    </dependency>
     	</dependencies>
 	</dependencyManagement>
-  
 </project>

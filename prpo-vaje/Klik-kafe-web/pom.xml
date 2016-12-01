@@ -13,23 +13,26 @@
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JDBC</artifactId>
+  		<scope>provided</scope>
   	</dependency>
   	<!-- Dependency for javax modul -->
   	<dependency>
   		<groupId>javax</groupId>
   		<artifactId>javaee-api</artifactId>
+  		<scope>provided</scope>
   	</dependency>
   	<!-- dependecy for JPA -->
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JPA</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+  		<scope>provided</scope>
   	</dependency>
   	<!-- dependecy for EJB vmesniki -->
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-storitve</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
+		<scope>provided</scope>
   	</dependency>
   </dependencies>
   
@@ -46,4 +49,5 @@
         </plugin>
     </plugins>
   </build>
+   <groupId>si.fri.prpo</groupId>
 </project>

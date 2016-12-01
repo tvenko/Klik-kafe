@@ -2,7 +2,11 @@ package si.fri.prpo.rest;
 
 import java.util.ArrayList;
 
-import javax.persistence.PersistenceContext;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.RunAs;
+import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,22 +15,27 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import si.fri.prpo.rest.NarociloRESTInterface;
 import si.fri.prpo.vaje.entitete.Narocilo;
-import si.fri.prpo.zrna.UpravljalecNarocilSB;
+import si.fri.prpo.vaje.entitete.Uporabnik;
+import si.fri.prpo.zrna.UpravljalecNarocilSBLocal;
 
+@DeclareRoles({"Uporabnik","Admin"})
+@PermitAll
 @Path("/narocila")
-@Produces("Application/json")
-@Consumes("Application/json")
+@Produces({"application/json"})
+@Consumes({"application/json"})
 public class NarociloREST implements NarociloRESTInterface {
 	
-	//@PersistenceContext
-	//UpravljalecNarocilSB un;
+	@EJB
+	private UpravljalecNarocilSBLocal un;
 	
 	@GET
 	@Override
 	public Response getOrders() {
-		// TODO Auto-generated method stub
-		return Response.ok().build();
+		//ArrayList<Narocilo> results = un.returnAll();
+		Integer i = 100;
+		return Response.ok(i).build();
 	}
 
 	@GET

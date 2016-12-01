@@ -1,10 +1,9 @@
 package si.fri.prpo.zrna;
 
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -23,6 +22,7 @@ import si.fri.prpo.vaje.entitete.Uporabnik;
 /**
  * Session Bean implementation class UpravljalecNarocilSB
  */
+@PermitAll
 @Stateless
 public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, UpravljalecNarocilSBLocal {
 	
@@ -61,21 +61,10 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
-	@RolesAllowed({"Admin"})
-	public void returnAll(HttpServletResponse response) throws IOException {
+	public ArrayList<Narocilo> returnAll() {
 		// TODO Auto-generated method stub
 				Query q1 = em.createNamedQuery("Narocilo.findAll");
-				ArrayList<Narocilo> nList = (ArrayList<Narocilo>) q1.getResultList();
-				boolean prazna = true;
-				
-				for (Narocilo nar : nList) {
-					prazna = false;
-					response.getWriter().append(nar.getId() + " " + " " + nar.getUporabnik().getName() + " " + nar.getPaymentStatus() + " "
-					+ nar.getPrepStatus() + " " + nar.getPrepTime()+"\n");
-				}
-				
-				if (prazna)
-					response.getWriter().append("Zgleda da ni nobenga ...");
+				return (ArrayList<Narocilo>) q1.getResultList();
 	}
 
 	@RolesAllowed({"Uporabnik","Admin"})
@@ -163,5 +152,14 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 			q.setParameter("id_napitka", id);
 			q.executeUpdate();
 		}
+	}
+
+	@Override
+	public Narocilo returnNarociloById(int id) {
+		// TODO Auto-generated method stub
+		Query q = em.createNamedQuery("Narocilo.findId");
+		q.setParameter("id", id);
+		Narocilo n = (Narocilo)q.getSingleResult();
+		return n;
 	}
 }
