@@ -78,25 +78,10 @@ CREATE TABLE "Napitek" (
 ALTER TABLE "Napitek" OWNER TO postgres;
 
 --
--- Name: napitki_kavarne_autoinc; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE napitki_kavarne_autoinc
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 10000000
-    CACHE 1;
-
-
-ALTER TABLE napitki_kavarne_autoinc OWNER TO postgres;
-
---
 -- Name: Napitki_kavarne; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE "Napitki_kavarne" (
-    id integer DEFAULT nextval('napitki_kavarne_autoinc'::regclass) NOT NULL,
     id_napitka integer NOT NULL,
     id_kavarna integer NOT NULL
 );
@@ -105,27 +90,13 @@ CREATE TABLE "Napitki_kavarne" (
 ALTER TABLE "Napitki_kavarne" OWNER TO postgres;
 
 --
--- Name: napitki_narocila_autoinc; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE napitki_narocila_autoinc
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 10000000
-    CACHE 1;
-
-
-ALTER TABLE napitki_narocila_autoinc OWNER TO postgres;
-
---
 -- Name: Napitki_narocila; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE "Napitki_narocila" (
-    id integer DEFAULT nextval('napitki_narocila_autoinc'::regclass) NOT NULL,
     id_narocila integer NOT NULL,
-    id_napitka integer NOT NULL
+    id_napitka integer NOT NULL,
+    quantity integer DEFAULT 1 NOT NULL
 );
 
 
@@ -194,6 +165,34 @@ CREATE TABLE "Uporabnik" (
 ALTER TABLE "Uporabnik" OWNER TO postgres;
 
 --
+-- Name: napitki_kavarne_autoinc; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE napitki_kavarne_autoinc
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 10000000
+    CACHE 1;
+
+
+ALTER TABLE napitki_kavarne_autoinc OWNER TO postgres;
+
+--
+-- Name: napitki_narocila_autoinc; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE napitki_narocila_autoinc
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 10000000
+    CACHE 1;
+
+
+ALTER TABLE napitki_narocila_autoinc OWNER TO postgres;
+
+--
 -- Data for Name: Kavarna; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -225,21 +224,7 @@ COPY "Napitek" (id, size, type, price, prep_time) FROM stdin;
 -- Data for Name: Napitki_kavarne; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Napitki_kavarne" (id, id_napitka, id_kavarna) FROM stdin;
-1	2	1
-2	5	1
-3	4	1
-4	3	1
-5	6	1
-6	7	1
-7	7	2
-8	1	2
-9	2	2
-10	3	2
-11	9	2
-12	9	3
-13	8	3
-14	7	3
+COPY "Napitki_kavarne" (id_napitka, id_kavarna) FROM stdin;
 \.
 
 
@@ -247,16 +232,7 @@ COPY "Napitki_kavarne" (id, id_napitka, id_kavarna) FROM stdin;
 -- Data for Name: Napitki_narocila; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Napitki_narocila" (id, id_narocila, id_napitka) FROM stdin;
-1	1	1
-2	1	4
-3	1	8
-4	2	5
-5	3	2
-6	3	9
-9	1	1
-10	1	1
-11	1	4
+COPY "Napitki_narocila" (id_narocila, id_napitka, quantity) FROM stdin;
 \.
 
 
@@ -273,6 +249,23 @@ COPY "Narocilo" (id, prep_status, payment_status, id_uporabnik, id_kavarna, tota
 278	pending	paid	2	1	1.2	150
 279	pending	paid	2	1	4	320
 290	pending	paid	2	1	2.2000000000000002	180
+291	pending	paid	1	1	1.2	150
+292	pending	paid	1	3	3.5	290
+293	pending	paid	1	3	1.2	60
+294	pending	paid	1	3	2	170
+295	pending	paid	1	1	1.2	150
+296	pending	paid	1	1	1	120
+297	pending	paid	1	1	1	120
+298	pending	paid	1	1	1	120
+299	pending	paid	1	1	1	120
+300	pending	paid	1	1	1	120
+301	pending	paid	1	1	1	120
+302	pending	paid	1	1	1.2	150
+303	pending	paid	1	3	3.2000000000000002	250
+304	pending	paid	1	2	1.7	80
+305	pending	paid	1	1	1.2	150
+306	pending	paid	1	2	1.2	60
+307	pending	paid	1	2	4	320
 \.
 
 
@@ -304,14 +297,14 @@ SELECT pg_catalog.setval('napitki_kavarne_autoinc', 14, true);
 -- Name: napitki_narocila_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('napitki_narocila_autoinc', 11, true);
+SELECT pg_catalog.setval('napitki_narocila_autoinc', 34, true);
 
 
 --
 -- Name: narocilo_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('narocilo_autoinc', 290, true);
+SELECT pg_catalog.setval('narocilo_autoinc', 307, true);
 
 
 --
@@ -342,7 +335,7 @@ ALTER TABLE ONLY "Napitek"
 --
 
 ALTER TABLE ONLY "Napitki_kavarne"
-    ADD CONSTRAINT "Napitki_kavarne_pkey" PRIMARY KEY (id);
+    ADD CONSTRAINT "Napitki_kavarne_pkey" PRIMARY KEY (id_napitka, id_kavarna);
 
 
 --
@@ -350,7 +343,7 @@ ALTER TABLE ONLY "Napitki_kavarne"
 --
 
 ALTER TABLE ONLY "Napitki_narocila"
-    ADD CONSTRAINT "Napitki_narocila_pkey" PRIMARY KEY (id);
+    ADD CONSTRAINT "Napitki_narocila_pkey" PRIMARY KEY (id_narocila, id_napitka);
 
 
 --
