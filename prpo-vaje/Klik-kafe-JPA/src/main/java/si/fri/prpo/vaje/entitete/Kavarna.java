@@ -2,6 +2,8 @@ package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.List;
 
 
@@ -9,9 +11,14 @@ import java.util.List;
  * The persistent class for the "Kavarna" database table.
  * 
  */
+@XmlRootElement
 @Entity
 @Table(name="\"Kavarna\"")
-@NamedQuery(name="Kavarna.findAll", query="SELECT k.id, k.name, k.latitude, k.longitude FROM Kavarna k")
+@NamedQueries({
+	@NamedQuery(name="Kavarna.findAll", query="SELECT k FROM Kavarna k"),
+	@NamedQuery(name="Kavarna.findId", query="SELECT k FROM Kavarna k WHERE k.id = :id"),
+	@NamedQuery(name="Kavarna.findName", query="SELECT k FROM Kavarna k WHERE k.name = :name")
+})
 public class Kavarna implements Serializable {
 	private static final long serialVersionUID = 1L;
 
