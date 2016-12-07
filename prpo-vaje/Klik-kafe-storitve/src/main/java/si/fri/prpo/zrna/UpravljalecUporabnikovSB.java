@@ -75,4 +75,12 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		Uporabnik u = (Uporabnik) q.getSingleResult();
 		return u.getId();
 	}
+
+	@Override
+	public Uporabnik getUser(int id) {
+		// TODO Auto-generated method stub
+		Uporabnik usr = em.find(Uporabnik.class, id);
+		
+		return usr;
+	}
 }

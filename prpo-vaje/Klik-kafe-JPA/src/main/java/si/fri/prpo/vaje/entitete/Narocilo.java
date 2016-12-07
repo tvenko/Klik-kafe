@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name="\"Narocilo\"")
 @NamedQueries({ 
-	@NamedQuery(name="Narocilo.findAll", query="SELECT n FROM Narocilo n"), 
+	@NamedQuery(name="Narocilo.findAll", query="SELECT n.id, n.totalPrice, n.kavarna.name FROM Narocilo n"), 
 	@NamedQuery(name="Narocilo.findId", query="SELECT n FROM Narocilo n WHERE n.id = :id")
 })
 public class Narocilo implements Serializable {
