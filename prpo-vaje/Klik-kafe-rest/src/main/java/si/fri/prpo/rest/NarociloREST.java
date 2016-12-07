@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.swing.UIDefaults.LazyInputMap;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -31,7 +32,7 @@ public class NarociloREST implements NarociloRESTInterface {
 	@GET
 	@Override
 	public Response getOrders() {
-		Narocilo n = un.returnNarociloById(300);
+		ArrayList<Narocilo> n = un.returnAll();
 		return Response.ok(n).build();
 	}
 

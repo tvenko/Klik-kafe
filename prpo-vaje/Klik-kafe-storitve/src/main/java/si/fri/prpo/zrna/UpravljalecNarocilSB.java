@@ -63,7 +63,8 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	public ArrayList<Narocilo> returnAll() {
 		// TODO Auto-generated method stub
 		Query q1 = em.createNamedQuery("Narocilo.findAll");
-		return (ArrayList<Narocilo>) q1.getResultList();
+		ArrayList<Narocilo> narocilos = (ArrayList<Narocilo>) q1.getResultList();
+		return narocilos;
 	}
 
 	@RolesAllowed({"Uporabnik","Admin"})
@@ -153,14 +154,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		}
 	}
 
-	@Override
-	public Narocilo returnNarociloById(int id) {
-		// TODO Auto-generated method stub
-		Query q = em.createNamedQuery("Narocilo.findId");
-		q.setParameter("id", id);
-		Narocilo n =  (Narocilo) q.getSingleResult();
-		return n;
-	}
 
 	@Override
 	public String returnText() {

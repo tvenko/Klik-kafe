@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"Kavarna\"")
-@NamedQuery(name="Kavarna.findAll", query="SELECT k FROM Kavarna k")
+@NamedQuery(name="Kavarna.findAll", query="SELECT k.id, k.name, k.latitude, k.longitude FROM Kavarna k")
 public class Kavarna implements Serializable {
 	private static final long serialVersionUID = 1L;
 

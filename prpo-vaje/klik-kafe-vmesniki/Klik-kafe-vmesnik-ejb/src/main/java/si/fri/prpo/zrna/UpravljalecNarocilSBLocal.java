@@ -20,6 +20,5 @@ public interface UpravljalecNarocilSBLocal {
 	double getTotalPrice(int[] ids);
 	int[] getNapitekIds(String[] napitki, String size);
 	int getIdKavarna(String name);
-	Narocilo returnNarociloById(int id);
 	String returnText();
 }

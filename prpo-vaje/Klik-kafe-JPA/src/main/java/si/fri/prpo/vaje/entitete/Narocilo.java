@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"Narocilo\"")
-@NamedQuery(name="Narocilo.findAll", query="SELECT n FROM Narocilo n")
+@NamedQuery(name="Narocilo.findAll", query="SELECT n.id, n.paymentStatus, n.prepStatus, n.prepTime, n.totalPrice, n.kavarna.id, n.kavarna.name FROM Narocilo n")
 public class Narocilo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,7 @@ public class Narocilo implements Serializable {
 	private double totalPrice;
 
 	//bi-directional many-to-one association to Napitki_narocila
-	@OneToMany(mappedBy="narocilo")
+	@OneToMany(mappedBy="narocilo", fetch = FetchType.EAGER)
 	private List<Napitki_narocila> napitkiNarocilas;
 
 	//bi-directional many-to-one association to Kavarna
