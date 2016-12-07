@@ -7,7 +7,6 @@ import javax.ejb.Local;
 import javax.servlet.http.HttpServletResponse;
 
 import si.fri.prpo.vaje.entitete.Narocilo;
-import si.fri.prpo.vaje.entitete.Uporabnik;
 
 @Local
 public interface UpravljalecNarocilSBLocal {
@@ -22,4 +21,5 @@ public interface UpravljalecNarocilSBLocal {
 	int[] getNapitekIds(String[] napitki, String size);
 	int getIdKavarna(String name);
 	Narocilo returnNarociloById(int id);
+	String returnText();
 }

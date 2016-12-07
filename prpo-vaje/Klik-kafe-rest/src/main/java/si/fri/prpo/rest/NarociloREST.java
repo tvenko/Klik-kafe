@@ -2,11 +2,9 @@ package si.fri.prpo.rest;
 
 import java.util.ArrayList;
 
-import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-import javax.annotation.security.RunAs;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,10 +15,10 @@ import javax.ws.rs.core.Response;
 
 import si.fri.prpo.rest.NarociloRESTInterface;
 import si.fri.prpo.vaje.entitete.Narocilo;
-import si.fri.prpo.vaje.entitete.Uporabnik;
 import si.fri.prpo.zrna.UpravljalecNarocilSBLocal;
 
-@DeclareRoles({"Uporabnik","Admin"})
+//@DeclareRoles({"Uporabnik","Admin"})
+@RequestScoped
 @PermitAll
 @Path("/narocila")
 @Produces({"application/json"})
@@ -29,13 +27,12 @@ public class NarociloREST implements NarociloRESTInterface {
 	
 	@EJB
 	private UpravljalecNarocilSBLocal un;
-	
+
 	@GET
 	@Override
 	public Response getOrders() {
-		//ArrayList<Narocilo> results = un.returnAll();
-		Integer i = 100;
-		return Response.ok(i).build();
+		Narocilo n = un.returnNarociloById(300);
+		return Response.ok(n).build();
 	}
 
 	@GET

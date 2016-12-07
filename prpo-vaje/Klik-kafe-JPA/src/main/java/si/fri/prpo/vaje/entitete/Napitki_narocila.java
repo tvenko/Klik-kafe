@@ -2,12 +2,14 @@ package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
  * The persistent class for the "Napitki_narocila" database table.
  * 
  */
+@XmlRootElement
 @Entity
 @Table(name="\"Napitki_narocila\"")
 @NamedQuery(name="Napitki_narocila.findAll", query="SELECT n FROM Napitki_narocila n")

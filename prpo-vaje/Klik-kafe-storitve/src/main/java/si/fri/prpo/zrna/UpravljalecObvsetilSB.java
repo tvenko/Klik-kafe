@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 
 
@@ -15,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 @Stateless
 public class UpravljalecObvsetilSB implements UpravljalecObvsetilSBRemote, UpravljalecObvsetilSBLocal {
 	
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Klik-kafe-JPA");
-	EntityManager em = emf.createEntityManager();
+	@PersistenceContext(unitName="Klik-kafe-JPA")
+	private EntityManager em;
 	
     /**
      * Default constructor. 

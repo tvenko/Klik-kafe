@@ -1,18 +1,14 @@
 package si.fri.prpo.zrna;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.servlet.http.HttpServletResponse;
 
-import si.fri.prpo.vaje.entitete.Napitek;
 import si.fri.prpo.vaje.entitete.Uporabnik;
 
 /**
@@ -22,8 +18,8 @@ import si.fri.prpo.vaje.entitete.Uporabnik;
 @Stateless
 public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote, UpravljalecUporabnikovSBLocal {
 	
-	EntityManagerFactory emf = Persistence.createEntityManagerFactory("Klik-kafe-JPA");
-	EntityManager em = emf.createEntityManager();
+	@PersistenceContext(unitName="Klik-kafe-JPA")
+	private EntityManager em;
 	
 	/**
      * Default constructor. 
