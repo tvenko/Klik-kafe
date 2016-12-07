@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.List;
 
 
@@ -15,8 +17,8 @@ import java.util.List;
 @Entity
 @Table(name="\"Uporabnik\"")
 @NamedQueries({
-	@NamedQuery(name="Uporabnik.findAll", query="SELECT u FROM Uporabnik u"),
-	@NamedQuery(name="Uporabnik.findId", query="SELECT u FROM Uporabnik u WHERE u.id = :userid"),
+	@NamedQuery(name="Uporabnik.findAll", query="SELECT u.id, u.name, u.email, u.username FROM Uporabnik u"),
+	@NamedQuery(name="Uporabnik.findId", query="SELECT u.name, u.email, u.username, u.latitude, u.longitude FROM Uporabnik u WHERE u.id = :userid"),
 	@NamedQuery(name="Uporabnik.delete", query="DELETE FROM Uporabnik u WHERE u.name = :name"),
 	@NamedQuery(name="Uporabnik.findName", query="SELECT u FROM Uporabnik u WHERE u.username = :username")
 })
@@ -40,7 +42,8 @@ public class Uporabnik implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to Narocilo
-	@OneToMany(mappedBy="uporabnik")
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@OneToMany(mappedBy="uporabnik", cascade = CascadeType.REMOVE)
 	private List<Narocilo> narocilos;
 
 	public Uporabnik() {
