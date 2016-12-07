@@ -216,7 +216,7 @@ COPY "Napitek" (id, size, type, price, prep_time) FROM stdin;
 6	large	irish coffee	2	120
 7	small	macchiato	1	50
 8	medium	macchiato	1.3	70
-9	large	macchiato	1.7	80
+9	large	macchiato\n	1.7	80
 \.
 
 
@@ -225,6 +225,33 @@ COPY "Napitek" (id, size, type, price, prep_time) FROM stdin;
 --
 
 COPY "Napitki_kavarne" (id_napitka, id_kavarna) FROM stdin;
+5	1
+2	1
+3	1
+6	1
+4	1
+1	1
+7	1
+8	1
+9	1
+1	2
+5	2
+2	2
+6	2
+3	2
+4	2
+7	2
+1	3
+5	3
+3	3
+7	3
+9	2
+6	3
+9	3
+8	2
+2	3
+8	3
+4	3
 \.
 
 
@@ -233,6 +260,8 @@ COPY "Napitki_kavarne" (id_napitka, id_kavarna) FROM stdin;
 --
 
 COPY "Napitki_narocila" (id_narocila, id_napitka, quantity) FROM stdin;
+308	1	1
+308	4	1
 \.
 
 
@@ -241,31 +270,7 @@ COPY "Napitki_narocila" (id_narocila, id_napitka, quantity) FROM stdin;
 --
 
 COPY "Narocilo" (id, prep_status, payment_status, id_uporabnik, id_kavarna, total_price, prep_time) FROM stdin;
-2	done	done	2	3	1.5	\N
-1	pending	done	1	1	3.5	\N
-3	done	pending	1	2	2.8999999999999999	\N
-276	done	paid	1	1	230	210
-277	done	paid	1	1	13.300000000000001	13
-278	pending	paid	2	1	1.2	150
-279	pending	paid	2	1	4	320
-290	pending	paid	2	1	2.2000000000000002	180
-291	pending	paid	1	1	1.2	150
-292	pending	paid	1	3	3.5	290
-293	pending	paid	1	3	1.2	60
-294	pending	paid	1	3	2	170
-295	pending	paid	1	1	1.2	150
-296	pending	paid	1	1	1	120
-297	pending	paid	1	1	1	120
-298	pending	paid	1	1	1	120
-299	pending	paid	1	1	1	120
-300	pending	paid	1	1	1	120
-301	pending	paid	1	1	1	120
-302	pending	paid	1	1	1.2	150
-303	pending	paid	1	3	3.2000000000000002	250
-304	pending	paid	1	2	1.7	80
-305	pending	paid	1	1	1.2	150
-306	pending	paid	1	2	1.2	60
-307	pending	paid	1	2	4	320
+308	pending	paid	1	1	2.2000000000000002	180
 \.
 
 
@@ -304,7 +309,7 @@ SELECT pg_catalog.setval('napitki_narocila_autoinc', 34, true);
 -- Name: narocilo_autoinc; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('narocilo_autoinc', 307, true);
+SELECT pg_catalog.setval('narocilo_autoinc', 308, true);
 
 
 --

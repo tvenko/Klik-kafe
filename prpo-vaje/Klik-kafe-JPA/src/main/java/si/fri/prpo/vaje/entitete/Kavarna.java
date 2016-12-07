@@ -2,8 +2,6 @@ package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import java.util.List;
 
 
@@ -11,14 +9,9 @@ import java.util.List;
  * The persistent class for the "Kavarna" database table.
  * 
  */
-@XmlRootElement
 @Entity
 @Table(name="\"Kavarna\"")
-@NamedQueries({
-	@NamedQuery(name="Kavarna.findAll", query="SELECT k FROM Kavarna k"),
-	@NamedQuery(name="Kavarna.findId", query="SELECT k FROM Kavarna k WHERE k.id = :id"),
-	@NamedQuery(name="Kavarna.findName", query="SELECT k FROM Kavarna k WHERE k.name = :name")
-})
+@NamedQuery(name="Kavarna.findAll", query="SELECT k FROM Kavarna k")
 public class Kavarna implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,9 +25,9 @@ public class Kavarna implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to Napitki_kavarne
-	@OneToMany(mappedBy="kavarna")
-	private List<Napitki_kavarne> napitkiKavarnes;
+	//bi-directional many-to-many association to Napitek
+	@ManyToMany(mappedBy="kavarnas")
+	private List<Napitek> napiteks;
 
 	//bi-directional many-to-one association to Narocilo
 	@OneToMany(mappedBy="kavarna")
@@ -75,26 +68,12 @@ public class Kavarna implements Serializable {
 		this.name = name;
 	}
 
-	public List<Napitki_kavarne> getNapitkiKavarnes() {
-		return this.napitkiKavarnes;
+	public List<Napitek> getNapiteks() {
+		return this.napiteks;
 	}
 
-	public void setNapitkiKavarnes(List<Napitki_kavarne> napitkiKavarnes) {
-		this.napitkiKavarnes = napitkiKavarnes;
-	}
-
-	public Napitki_kavarne addNapitkiKavarne(Napitki_kavarne napitkiKavarne) {
-		getNapitkiKavarnes().add(napitkiKavarne);
-		napitkiKavarne.setKavarna(this);
-
-		return napitkiKavarne;
-	}
-
-	public Napitki_kavarne removeNapitkiKavarne(Napitki_kavarne napitkiKavarne) {
-		getNapitkiKavarnes().remove(napitkiKavarne);
-		napitkiKavarne.setKavarna(null);
-
-		return napitkiKavarne;
+	public void setNapiteks(List<Napitek> napiteks) {
+		this.napiteks = napiteks;
 	}
 
 	public List<Narocilo> getNarocilos() {

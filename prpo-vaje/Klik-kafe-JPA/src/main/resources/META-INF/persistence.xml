@@ -4,8 +4,8 @@
 		<jta-data-source>java:/PostgresDS</jta-data-source>
 		<class>si.fri.prpo.vaje.entitete.Kavarna</class>
 		<class>si.fri.prpo.vaje.entitete.Napitek</class>
-		<class>si.fri.prpo.vaje.entitete.Napitki_kavarne</class>
 		<class>si.fri.prpo.vaje.entitete.Napitki_narocila</class>
+		<class>si.fri.prpo.vaje.entitete.Napitki_narocilaPK</class>
 		<class>si.fri.prpo.vaje.entitete.Narocilo</class>
 		<class>si.fri.prpo.vaje.entitete.Uporabnik</class>
 		<properties>

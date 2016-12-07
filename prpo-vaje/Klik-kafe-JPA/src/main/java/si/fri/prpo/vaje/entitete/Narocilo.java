@@ -2,8 +2,6 @@ package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import java.util.List;
 
 
@@ -11,13 +9,9 @@ import java.util.List;
  * The persistent class for the "Narocilo" database table.
  * 
  */
-@XmlRootElement
 @Entity
 @Table(name="\"Narocilo\"")
-@NamedQueries({ 
-	@NamedQuery(name="Narocilo.findAll", query="SELECT n FROM Narocilo n"), 
-	@NamedQuery(name="Narocilo.findId", query="SELECT n FROM Narocilo n WHERE n.id = :id")
-})
+@NamedQuery(name="Narocilo.findAll", query="SELECT n FROM Narocilo n")
 public class Narocilo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -131,6 +125,5 @@ public class Narocilo implements Serializable {
 	public void setUporabnik(Uporabnik uporabnik) {
 		this.uporabnik = uporabnik;
 	}
-	
 
 }

@@ -2,8 +2,6 @@ package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import java.util.List;
 
 
@@ -11,15 +9,9 @@ import java.util.List;
  * The persistent class for the "Uporabnik" database table.
  * 
  */
-@XmlRootElement
 @Entity
 @Table(name="\"Uporabnik\"")
-@NamedQueries({
-	@NamedQuery(name="Uporabnik.findAll", query="SELECT u FROM Uporabnik u"),
-	@NamedQuery(name="Uporabnik.findId", query="SELECT u FROM Uporabnik u WHERE u.id = :userid"),
-	@NamedQuery(name="Uporabnik.delete", query="DELETE FROM Uporabnik u WHERE u.name = :name"),
-	@NamedQuery(name="Uporabnik.findName", query="SELECT u FROM Uporabnik u WHERE u.username = :username")
-})
+@NamedQuery(name="Uporabnik.findAll", query="SELECT u FROM Uporabnik u")
 public class Uporabnik implements Serializable {
 	private static final long serialVersionUID = 1L;
 

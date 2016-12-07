@@ -2,8 +2,6 @@ package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import java.util.List;
 
 
@@ -11,13 +9,9 @@ import java.util.List;
  * The persistent class for the "Napitek" database table.
  * 
  */
-@XmlRootElement
 @Entity
 @Table(name="\"Napitek\"")
-@NamedQueries({
-	@NamedQuery(name="Napitek.findAll", query="SELECT n FROM Napitek n"),
-	@NamedQuery(name="Napitek.findId", query="SELECT n FROM Napitek n WHERE n.id = :id")
-})
+@NamedQuery(name="Napitek.findAll", query="SELECT n FROM Napitek n")
 public class Napitek implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -34,9 +28,18 @@ public class Napitek implements Serializable {
 
 	private String type;
 
-	//bi-directional many-to-one association to Napitki_kavarne
-	@OneToMany(mappedBy="napitek")
-	private List<Napitki_kavarne> napitkiKavarnes;
+	//bi-directional many-to-many association to Kavarna
+	@ManyToMany
+	@JoinTable(
+		name="\"Napitki_kavarne\""
+		, joinColumns={
+			@JoinColumn(name="id_napitka")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="id_kavarna")
+			}
+		)
+	private List<Kavarna> kavarnas;
 
 	//bi-directional many-to-one association to Napitki_narocila
 	@OneToMany(mappedBy="napitek")
@@ -85,26 +88,12 @@ public class Napitek implements Serializable {
 		this.type = type;
 	}
 
-	public List<Napitki_kavarne> getNapitkiKavarnes() {
-		return this.napitkiKavarnes;
+	public List<Kavarna> getKavarnas() {
+		return this.kavarnas;
 	}
 
-	public void setNapitkiKavarnes(List<Napitki_kavarne> napitkiKavarnes) {
-		this.napitkiKavarnes = napitkiKavarnes;
-	}
-
-	public Napitki_kavarne addNapitkiKavarne(Napitki_kavarne napitkiKavarne) {
-		getNapitkiKavarnes().add(napitkiKavarne);
-		napitkiKavarne.setNapitek(this);
-
-		return napitkiKavarne;
-	}
-
-	public Napitki_kavarne removeNapitkiKavarne(Napitki_kavarne napitkiKavarne) {
-		getNapitkiKavarnes().remove(napitkiKavarne);
-		napitkiKavarne.setNapitek(null);
-
-		return napitkiKavarne;
+	public void setKavarnas(List<Kavarna> kavarnas) {
+		this.kavarnas = kavarnas;
 	}
 
 	public List<Napitki_narocila> getNapitkiNarocilas() {

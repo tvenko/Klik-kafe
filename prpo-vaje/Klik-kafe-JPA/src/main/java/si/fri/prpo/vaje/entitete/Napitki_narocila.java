@@ -2,23 +2,22 @@ package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
  * The persistent class for the "Napitki_narocila" database table.
  * 
  */
-@XmlRootElement
 @Entity
 @Table(name="\"Napitki_narocila\"")
 @NamedQuery(name="Napitki_narocila.findAll", query="SELECT n FROM Napitki_narocila n")
 public class Napitki_narocila implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	@EmbeddedId
+	private Napitki_narocilaPK id;
+
+	private Integer quantity;
 
 	//bi-directional many-to-one association to Napitek
 	@ManyToOne
@@ -33,12 +32,20 @@ public class Napitki_narocila implements Serializable {
 	public Napitki_narocila() {
 	}
 
-	public Integer getId() {
+	public Napitki_narocilaPK getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Napitki_narocilaPK id) {
 		this.id = id;
+	}
+
+	public Integer getQuantity() {
+		return this.quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	public Napitek getNapitek() {
