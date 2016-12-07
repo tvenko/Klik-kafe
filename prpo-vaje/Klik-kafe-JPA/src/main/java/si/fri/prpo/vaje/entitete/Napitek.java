@@ -2,6 +2,8 @@ package si.fri.prpo.vaje.entitete;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.List;
 
 
@@ -9,9 +11,13 @@ import java.util.List;
  * The persistent class for the "Napitek" database table.
  * 
  */
+@XmlRootElement
 @Entity
 @Table(name="\"Napitek\"")
-@NamedQuery(name="Napitek.findAll", query="SELECT n FROM Napitek n")
+@NamedQueries({
+	@NamedQuery(name="Napitek.findAll", query="SELECT n FROM Napitek n"),
+	@NamedQuery(name="Napitek.findId", query="SELECT n FROM Napitek n WHERE n.id = :id")
+})
 public class Napitek implements Serializable {
 	private static final long serialVersionUID = 1L;
 
