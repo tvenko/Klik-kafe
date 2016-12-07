@@ -11,8 +11,10 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import si.fri.prpo.rest.NarociloRESTInterface;
 import si.fri.prpo.vaje.entitete.Narocilo;
@@ -34,30 +36,41 @@ public class NarociloREST implements NarociloRESTInterface {
 	public Response getOrders() {
 		ArrayList<Narocilo> n = un.returnAll();
 		return Response.ok(n).build();
+		
 	}
 
 	@GET
 	@Path("{id}")
 	@Override
-	public Response getOrder(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response getOrder(@PathParam("id") int id) {
+		Narocilo order = un.returnOrderId(id);
+		if (order != null)
+			return Response.ok(order).build();
+		else
+			return Response.status(Response.Status.NOT_FOUND).build();
 	}
 
 	@GET
-	@Path("{userId}")
+	@Path("{userId}/uporabnik")
 	@Override
-	public Response getUSerOrders(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response getUserOrders(@PathParam("userId") int userId) {
+		ArrayList<Narocilo> orders = un.getUserOrders(userId);
+		if (orders != null)
+			return Response.ok(orders).build();
+		else
+			return Response.status(Response.Status.NOT_FOUND).build();
 	}
 
 	@DELETE
 	@Path("{id}")
 	@Override
-	public Response cancelOrder(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response cancelOrder(@PathParam("id") int id) {
+		//:TODO problem ker ne mores zbrisat zaradi tujega kljuca.
+		boolean response = un.cancelOrder(id);
+		if (response)
+			return Response.status(Response.Status.NO_CONTENT).build();
+		else
+			return Response.status(Response.Status.NOT_FOUND).build();
 	}
 
 	@POST

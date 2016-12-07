@@ -7,7 +7,7 @@ public interface NarociloRESTInterface {
 	
 	public Response getOrders();
 	public Response getOrder(int id);
-	public Response getUSerOrders(int userId);
+	public Response getUserOrders(int userId);
 	public Response cancelOrder(int id);
 	public Response submitOrder(Narocilo narocilo);
 	

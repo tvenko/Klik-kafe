@@ -1,6 +1,5 @@
 package si.fri.prpo.zrna;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.security.PermitAll;
@@ -11,7 +10,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.servlet.http.HttpServletResponse;
 
 import si.fri.prpo.vaje.entitete.Kavarna;
 import si.fri.prpo.vaje.entitete.Napitek;
@@ -38,7 +36,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     @RolesAllowed({"Uporabnik"})
     public int addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice) {
-		// TODO Auto-generated method stub
 		Narocilo new_order = new Narocilo();
 		Uporabnik narocnik = em.find(Uporabnik.class, idUporabnik);
 		Kavarna kava = em.find(Kavarna.class, idKavarna);
@@ -54,38 +51,42 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return new_order.getId();
 	}
     
-    @RolesAllowed({"Uporabnik"})
-	public void cancelOrder() {
-		// TODO Auto-generated method stub
+	public boolean cancelOrder(int id) {
+		//:TODO problem ker ne mores zbrisat zaradi tujega kljuca.
+    	try {
+    		Query q = em.createNativeQuery("DELETE FROM Narocilo n WHERE n.id = :id");
+        	q.setParameter("id", id);
+        	q.executeUpdate();
+        	return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
 	public ArrayList<Narocilo> returnAll() {
-		// TODO Auto-generated method stub
 		Query q1 = em.createNamedQuery("Narocilo.findAll");
 		ArrayList<Narocilo> narocilos = (ArrayList<Narocilo>) q1.getResultList();
+		for (Narocilo n : narocilos) {
+			n.setNapitkiNarocilas(null);
+		}
 		return narocilos;
 	}
 
-	@RolesAllowed({"Uporabnik","Admin"})
-	public void returnOrderId(int id, HttpServletResponse response) throws IOException {
-		// TODO Auto-generated method stub
-		Query q = em.createNamedQuery("Narocillo.findId");
+	@Override
+	public Narocilo returnOrderId(int id) {
+		Query q = em.createNamedQuery("Narocilo.findId");
 		q.setParameter("id", id);
-		Narocilo nar = (Narocilo) q.getSingleResult();
-		if (nar != null) {
-			response.getWriter().append(nar.getId() + " "  + " " + nar.getUporabnik() + " " + nar.getPaymentStatus() + " "
-					+ nar.getPrepStatus() + " " + nar.getPrepTime()+"\n");
-		}
-		else {
-			response.getWriter().append("ne obstaja narocilo s IDjem "+id);
+		try {
+			return (Narocilo) q.getSingleResult();
+		} catch (Exception e) {
+			return null;
 		}
 	}
 
 	@Override
 	@RolesAllowed({"Uporabnik","Admin"})
 	public int getPrepTime(int[] ids) {
-		// TODO Auto-generated method stub
 		int time = 0;
 		for (int id : ids) {
 			Query q = em.createNamedQuery("Napitek.findId");
@@ -99,7 +100,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	@Override
 	@RolesAllowed({"Uporabnik","Admin"})
 	public double getTotalPrice(int[] ids) {
-		// TODO Auto-generated method stub
 		double price = 0;
 		for (int id : ids) {
 			Query q = em.createNamedQuery("Napitek.findId");
@@ -113,7 +113,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	@Override
 	@RolesAllowed({"Uporabnik","Admin"})
 	public int[] getNapitekIds(String[] napitki, String size) {
-		// TODO Auto-generated method stub
 		int [] ids = new int[napitki.length];
 		Query q = em.createNamedQuery("Napitek.findAll");
 		ArrayList<Napitek> napitkiList = (ArrayList<Napitek>) q.getResultList();
@@ -130,7 +129,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	@Override
 	@RolesAllowed({"Uporabnik","Admin"})
 	public int getIdKavarna(String name) {
-		// TODO Auto-generated method stub
 		Query q = em.createNamedQuery("Kavarna.findName");
 		q.setParameter("name", name);
 		Kavarna k = (Kavarna) q.getSingleResult();
@@ -145,7 +143,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	@RolesAllowed({"Uporabnik","Admin"})
 	public void addDrinks(int idNarocila, int[] idsNapitka) {
-		// TODO Auto-generated method stub
 		for (int id : idsNapitka) {
 			Query q = em.createNativeQuery("INSERT INTO public.\"Napitki_narocila\" (id_narocila, id_napitka) VALUES (:id_narocila, :id_napitka)");
 			q.setParameter("id_narocila", idNarocila);
@@ -154,10 +151,14 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		}
 	}
 
-
 	@Override
-	public String returnText() {
-		// TODO Auto-generated method stub
-		return "DEALAAAAA!!!!!!";
+	public ArrayList<Narocilo> getUserOrders(int userId) {
+		Query q = em.createNamedQuery("Narocilo.findUserId");
+		q.setParameter("userId", userId);
+		try {
+			return (ArrayList<Narocilo>) q.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
