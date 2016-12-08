@@ -32,9 +32,13 @@ public class NarociloREST implements NarociloRESTInterface {
 	@GET
 	@Override
 	public Response getOrders() {
-		ArrayList<Narocilo> n = (ArrayList<Narocilo>) un.returnAll();
-		return Response.ok(n).build();
-		
+		ArrayList<Narocilo> orders = (ArrayList<Narocilo>) un.returnAll();
+		if (orders != null) {
+			return Response.ok(orders).build();
+		}
+		else {
+			return Response.status(Response.Status.NOT_FOUND).entity("V bazi ni se nobenega narocilo.").build();
+		}
 	}
 
 	@GET
@@ -45,7 +49,7 @@ public class NarociloREST implements NarociloRESTInterface {
 		if (order != null)
 			return Response.ok(order).build();
 		else
-			return Response.status(Response.Status.NOT_FOUND).build();
+			return Response.status(Response.Status.NOT_FOUND).entity("Ne najdem narocilo s tem ID: " + id).build();
 	}
 
 	@GET

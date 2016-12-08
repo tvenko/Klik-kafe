@@ -17,10 +17,9 @@ import java.util.List;
 @Entity
 @Table(name="\"Narocilo\"")
 @NamedQueries({ 
-	//@NamedQuery(name="Narocilo.findAll", query="SELECT new si.fri.prpo.vaje.entitete.Narocilo(n.id, n.prepStatus, n.paymentStatus, n.uporabnik, n.kavarna, n.totalPrice, n.prepTime) FROM Narocilo n"),
-	//@NamedQuery(name="Narocilo.findId", query="SELECT new si.fri.prpo.vaje.entitete.Narocilo(n.id, n.prepStatus, n.paymentStatus, n.uporabnik, n.kavarna, n.totalPrice, n.prepTime) FROM Narocilo n WHERE n.id = :id"),
-	@NamedQuery(name="test", query="SELECT n FROM Narocilo n WHERE n.prepTime = :a"),
-	@NamedQuery(name="Narocilo.findUserId", query="SELECT n, u FROM Narocilo n, Uporabnik u WHERE u.id = :userId AND u = n.uporabnik")
+	@NamedQuery(name="Narocilo.findAll", query="SELECT new si.fri.prpo.vaje.entitete.Narocilo(n.id, n.prepStatus, n.paymentStatus, n.uporabnik, n.kavarna, n.totalPrice, n.prepTime) FROM Narocilo n"),
+	@NamedQuery(name="Narocilo.findId", query="SELECT new si.fri.prpo.vaje.entitete.Narocilo(n.id, n.prepStatus, n.paymentStatus, n.uporabnik, n.kavarna, n.totalPrice, n.prepTime) FROM Narocilo n WHERE n.id = :id"),
+	@NamedQuery(name="Narocilo.findUserId", query="SELECT new si.fri.prpo.vaje.entitete.Narocilo(n.id, n.prepStatus, n.paymentStatus, n.uporabnik, n.kavarna, n.totalPrice, n.prepTime) FROM Narocilo n WHERE n.uporabnik = :id")
 })
 public class Narocilo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -61,7 +60,7 @@ public class Narocilo implements Serializable {
 	public Narocilo() {
 	}
 	
-	public Narocilo(Integer id, String prepStatus, String paymentStatus, Uporabnik uporabnik, Kavarna kavarna, Double totalPrice, Integer prepTime) {
+	public Narocilo(Integer id, String prepStatus, String paymentStatus, Uporabnik uporabnik, Kavarna kavarna, double totalPrice, Integer prepTime) {
 		this.id = id;
 		this.prepStatus = prepStatus;
 		this.paymentStatus = paymentStatus;
