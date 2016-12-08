@@ -13,7 +13,9 @@ import si.fri.prpo.vaje.entitete.Uporabnik;
 public interface UpravljalecUporabnikovSBLocal {
 	
 	void addUser(String username, String name, String surname, String email, Double latit, Double longit);
+	int addUser(Uporabnik newUser);
 	void deleteUser(String name);
+	int deleteUser(int id);
 	ArrayList<Uporabnik> returnAll();
 	void getLocation();
 	int getUserId(String name);

@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -79,8 +80,32 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 	@Override
 	public Uporabnik getUser(int id) {
 		// TODO Auto-generated method stub
-		Uporabnik usr = em.find(Uporabnik.class, id);
-		
+		Query q = em.createNamedQuery("Uporabnik.findId");
+		q.setParameter("userid", id);
+		Uporabnik usr;
+		try {
+			usr = (Uporabnik) q.getSingleResult();
+		} catch (NoResultException e) {
+			// user not found
+			usr = null;
+		}
 		return usr;
+	}
+
+	@Override
+	public int deleteUser(int id) {
+		Query q = em.createNamedQuery("Uporabnik.idDelete");
+		q.setParameter("userid", id);
+		// return affected rows
+		return q.executeUpdate();
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public int addUser(Uporabnik newUser) {
+		// persist the new User into the database
+		em.persist(newUser);
+		em.flush();
+		return newUser.getId();
 	}
 }

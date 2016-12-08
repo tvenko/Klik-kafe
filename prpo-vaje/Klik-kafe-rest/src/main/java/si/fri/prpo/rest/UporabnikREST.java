@@ -8,6 +8,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -44,25 +45,48 @@ public class UporabnikREST implements UporabnikRESTInterface {
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
 	public Response getUser(@PathParam("id") int id) {
 		Uporabnik usr = uu.getUser(id);
-		if (usr != null)
+		if (usr != null) {
+			// 200 OK
 			return Response.ok(usr, MediaType.APPLICATION_JSON).build();
-		else
-			return Response.status(404).entity("Ne najdem uporabnika s tem ID: " + id).build();
+		} else {
+			// 404 Not Found
+			return Response.status(Response.Status.NOT_FOUND).entity("Ne najdem uporabnika s tem ID: " + id).build();
+		}
 	}
 
 	@Override
 	@POST
-	public Response addUser(Uporabnik usr) {
+	public Response addUser(@HeaderParam("name")String name, @HeaderParam("surname") String surname,
+			@HeaderParam("username")String username, @HeaderParam("name")String email, 
+			@HeaderParam("latitude")double latitude, @HeaderParam("longitude")double longitude) {
 		// TODO Auto-generated method stub
-		return null;
+		Uporabnik newUser = new Uporabnik();
+		newUser.setName(name);
+		newUser.setSurname(surname);
+		newUser.setEmail(email);
+		newUser.setUsername(username);
+		newUser.setLatitude(latitude);
+		newUser.setLongitude(longitude);
+		int newId = uu.addUser(newUser);
+		if (newId > 0) {
+			return Response.ok("Uspesno kreiran uporabnik, vaš ID: " + newId).build();
+		} else {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Prišlo je do napake na strežniku").build();
+		}
 	}
 
 	@Override
 	@DELETE
 	@Path("{id}")
-	public Response deleteUser(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	@Produces({ MediaType.TEXT_PLAIN })
+	public Response deleteUser(@PathParam("id") int id) {
+		int rowsAffected = uu.deleteUser(id);
+		// 204 if success and 404 if user does not exist
+		if (rowsAffected > 0) {
+			return Response.status(Response.Status.NO_CONTENT).entity("Uspešno zbrisan uporabnik z ID: " + id).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).entity("Uporabnika ni v bazi, in ga nemorem zbrisat").build();
+		}
 	}
 
 }

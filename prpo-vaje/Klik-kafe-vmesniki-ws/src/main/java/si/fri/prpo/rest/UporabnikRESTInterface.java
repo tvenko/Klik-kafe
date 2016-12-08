@@ -9,7 +9,7 @@ public interface UporabnikRESTInterface {
 	
 	public Response getUsers();
 	public Response getUser(int id);
-	public Response addUser(Uporabnik usr);
+	public Response addUser(String name, String surname, String username, String email, double latitude, double longitude);
 	public Response deleteUser(int id);
 
 }

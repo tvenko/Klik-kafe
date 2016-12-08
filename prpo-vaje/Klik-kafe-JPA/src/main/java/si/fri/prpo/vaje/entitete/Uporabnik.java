@@ -17,10 +17,11 @@ import java.util.List;
 @Entity
 @Table(name="\"Uporabnik\"")
 @NamedQueries({
-	@NamedQuery(name="Uporabnik.findAll", query="SELECT u.id, u.name, u.email, u.username FROM Uporabnik u"),
-	@NamedQuery(name="Uporabnik.findId", query="SELECT u.name, u.email, u.username, u.latitude, u.longitude FROM Uporabnik u WHERE u.id = :userid"),
+	@NamedQuery(name="Uporabnik.findAll", query="SELECT new si.fri.prpo.vaje.entitete.Uporabnik(u.id, u.email, u.name, u.surname, u.latitude, u.longitude, u.username) FROM Uporabnik u"),
+	@NamedQuery(name="Uporabnik.findId", query="SELECT new si.fri.prpo.vaje.entitete.Uporabnik(u.id, u.email, u.name, u.surname, u.latitude, u.longitude, u.username) FROM Uporabnik u WHERE u.id = :userid"),
 	@NamedQuery(name="Uporabnik.delete", query="DELETE FROM Uporabnik u WHERE u.name = :name"),
-	@NamedQuery(name="Uporabnik.findName", query="SELECT u FROM Uporabnik u WHERE u.username = :username")
+	@NamedQuery(name="Uporabnik.idDelete", query="DELETE FROM Uporabnik u WHERE u.id = :userid"),
+	@NamedQuery(name="Uporabnik.findName", query="SELECT new si.fri.prpo.vaje.entitete.Uporabnik(u.id, u.email, u.name, u.surname, u.latitude, u.longitude, u.username) FROM Uporabnik u WHERE u.username = :username")
 })
 public class Uporabnik implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -47,6 +48,17 @@ public class Uporabnik implements Serializable {
 	private List<Narocilo> narocilos;
 
 	public Uporabnik() {
+	}
+	
+	// Constructor for the findAll named query
+	public Uporabnik(Integer id, String email, String name, String surname, double latitude, double longitude, String username) {
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.surname = surname;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.username = username;
 	}
 
 	public Integer getId() {
