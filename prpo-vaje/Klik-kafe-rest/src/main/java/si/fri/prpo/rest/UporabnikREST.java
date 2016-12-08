@@ -10,9 +10,12 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import si.fri.prpo.rest.UporabnikRESTInterface;
@@ -69,9 +72,9 @@ public class UporabnikREST implements UporabnikRESTInterface {
 		newUser.setLongitude(longitude);
 		int newId = uu.addUser(newUser);
 		if (newId > 0) {
-			return Response.ok("Uspesno kreiran uporabnik, vaš ID: " + newId).build();
+			return Response.ok("Uspesno kreiran uporabnik, vas ID: " + newId).build();
 		} else {
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Prišlo je do napake na strežniku").build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Prislo je do napake na strezniku").build();
 		}
 	}
 
@@ -83,9 +86,28 @@ public class UporabnikREST implements UporabnikRESTInterface {
 		int rowsAffected = uu.deleteUser(id);
 		// 204 if success and 404 if user does not exist
 		if (rowsAffected > 0) {
-			return Response.status(Response.Status.NO_CONTENT).entity("Uspešno zbrisan uporabnik z ID: " + id).build();
+			return Response.status(Response.Status.NO_CONTENT).entity("Uspesno zbrisan uporabnik z ID: " + id).build();
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).entity("Uporabnika ni v bazi, in ga nemorem zbrisat").build();
+		}
+	}
+
+	@Override
+	@PUT
+	@Path("{id}")
+	public Response updateUser(@PathParam("id") int id, @Context HttpHeaders headers) {
+		//  0  no errors
+		//  1  user not found
+		// -1  double parse error 
+		int success = uu.updateUser(id, headers);	
+		
+		if (success == 0) {
+			return Response.ok("Uporabnik uspesno posodobljen.").build();
+		} else if (success < 0) {
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity("Prosim vnesite veljavno stevilo pod latitude in longitude").build();
+		} else {
+			return Response.status(Response.Status.BAD_REQUEST).entity("Uporabnika ne najdem").build();
 		}
 	}
 

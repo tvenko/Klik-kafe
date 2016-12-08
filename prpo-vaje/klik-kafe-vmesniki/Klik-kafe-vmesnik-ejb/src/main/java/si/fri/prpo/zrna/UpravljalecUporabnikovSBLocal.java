@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.ejb.Local;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.HttpHeaders;
 
 import si.fri.prpo.vaje.entitete.Napitek;
 import si.fri.prpo.vaje.entitete.Uporabnik;
@@ -13,11 +14,14 @@ import si.fri.prpo.vaje.entitete.Uporabnik;
 public interface UpravljalecUporabnikovSBLocal {
 	
 	void addUser(String username, String name, String surname, String email, Double latit, Double longit);
-	int addUser(Uporabnik newUser);
 	void deleteUser(String name);
-	int deleteUser(int id);
-	ArrayList<Uporabnik> returnAll();
 	void getLocation();
 	int getUserId(String name);
+	
 	Uporabnik getUser(int id);
+	int addUser(Uporabnik newUser);
+	int deleteUser(int id);
+	int updateUser(int id, HttpHeaders headers);
+	ArrayList<Uporabnik> returnAll();
+	
 }

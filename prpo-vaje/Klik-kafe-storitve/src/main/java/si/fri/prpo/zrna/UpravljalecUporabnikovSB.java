@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.ws.rs.core.HttpHeaders;
 
 import si.fri.prpo.vaje.entitete.Uporabnik;
 
@@ -107,5 +108,44 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		em.persist(newUser);
 		em.flush();
 		return newUser.getId();
+	}
+
+	@Override
+	public int updateUser(int id, HttpHeaders headers) {
+		Uporabnik updateUser = getUser(id);
+		if (updateUser != null) {
+			for(String header : headers.getRequestHeaders().keySet()){
+				try {
+					switch (header) {
+					case "name":
+						updateUser.setName(headers.getRequestHeader(header).get(0));
+						break;
+					case "surname":
+						updateUser.setSurname(headers.getRequestHeader(header).get(0));
+						break;
+					case "email":
+						updateUser.setEmail(headers.getRequestHeader(header).get(0));
+						break;
+					case "longitude":
+						updateUser.setLongitude(Double.parseDouble(headers.getRequestHeader(header).get(0)));
+						break;
+					case "latitude":
+						updateUser.setLatitude(Double.parseDouble(headers.getRequestHeader(header).get(0)));
+						break;
+					case "username":
+						updateUser.setUsername(headers.getRequestHeader(header).get(0));
+						break;
+					}
+				} catch (NumberFormatException nfe) {
+					return -1;
+				}
+			}
+			em.merge(updateUser);
+			// everything ok, return 0
+			return 0;
+		} else {
+			// user was not found in the db, return 1
+			return 1;
+		}
 	}
 }
