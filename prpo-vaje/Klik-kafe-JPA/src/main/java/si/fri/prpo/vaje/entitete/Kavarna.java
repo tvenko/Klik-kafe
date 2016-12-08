@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 
 /**
@@ -15,9 +16,9 @@ import java.util.List;
 @Entity
 @Table(name="\"Kavarna\"")
 @NamedQueries({
-	@NamedQuery(name="Kavarna.findAll", query="SELECT k FROM Kavarna k"),
-	@NamedQuery(name="Kavarna.findId", query="SELECT k FROM Kavarna k WHERE k.id = :id"),
-	@NamedQuery(name="Kavarna.findName", query="SELECT k FROM Kavarna k WHERE k.name = :name")
+	@NamedQuery(name="Kavarna.findAll", query="SELECT new si.fri.prpo.vaje.entitete.Kavarna(k.id, k.name, k.latitude, k.longitude) FROM Kavarna k"),
+	@NamedQuery(name="Kavarna.findId", query="SELECT new si.fri.prpo.vaje.entitete.Kavarna(k.id, k.name, k.latitude, k.longitude) FROM Kavarna k WHERE k.id = :id"),
+	@NamedQuery(name="Kavarna.findName", query="SELECT new si.fri.prpo.vaje.entitete.Kavarna(k.id, k.name, k.latitude, k.longitude) FROM Kavarna k WHERE k.name = :name")
 })
 public class Kavarna implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -33,14 +34,23 @@ public class Kavarna implements Serializable {
 	private String name;
 
 	//bi-directional many-to-many association to Napitek
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@ManyToMany(mappedBy="kavarnas")
 	private List<Napitek> napiteks;
 
 	//bi-directional many-to-one association to Narocilo
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@OneToMany(mappedBy="kavarna")
 	private List<Narocilo> narocilos;
 
 	public Kavarna() {
+	}
+	
+	public Kavarna(Integer id, String name, double latitude, double longitude) {
+		this.id = id;
+		this.name = name;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 	public Integer getId() {

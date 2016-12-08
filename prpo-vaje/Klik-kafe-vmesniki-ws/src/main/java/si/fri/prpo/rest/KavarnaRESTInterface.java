@@ -1,5 +1,10 @@
 package si.fri.prpo.rest;
 
-public interface KavarnaRESTInterface {
+import javax.ws.rs.core.Response;
 
+public interface KavarnaRESTInterface {
+	
+	Response returnAll();
+	Response returnById(int id);
+	
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.swing.UIDefaults.LazyInputMap;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,7 +13,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import si.fri.prpo.rest.NarociloRESTInterface;
 import si.fri.prpo.vaje.entitete.Narocilo;
@@ -34,7 +32,7 @@ public class NarociloREST implements NarociloRESTInterface {
 	@GET
 	@Override
 	public Response getOrders() {
-		ArrayList<Narocilo> n = un.returnAll();
+		ArrayList<Narocilo> n = (ArrayList<Narocilo>) un.returnAll();
 		return Response.ok(n).build();
 		
 	}

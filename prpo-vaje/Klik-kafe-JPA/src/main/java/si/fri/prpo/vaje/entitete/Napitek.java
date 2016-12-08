@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 
 /**
@@ -15,8 +16,8 @@ import java.util.List;
 @Entity
 @Table(name="\"Napitek\"")
 @NamedQueries({
-	@NamedQuery(name="Napitek.findAll", query="SELECT n FROM Napitek n"),
-	@NamedQuery(name="Napitek.findId", query="SELECT n FROM Napitek n WHERE n.id = :id")
+	@NamedQuery(name="Napitek.findAll", query="SELECT new si.fri.prpo.vaje.entitete.Napitek(n.id, n.prepTime, n.price, n.size, n.type) FROM Napitek n"),
+	@NamedQuery(name="Napitek.findId", query="SELECT new si.fri.prpo.vaje.entitete.Napitek(n.id, n.prepTime, n.price, n.size, n.type) FROM Napitek n WHERE n.id = :id")
 })
 public class Napitek implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -48,10 +49,19 @@ public class Napitek implements Serializable {
 	private List<Kavarna> kavarnas;
 
 	//bi-directional many-to-one association to Napitki_narocila
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@OneToMany(mappedBy="napitek")
 	private List<Napitki_narocila> napitkiNarocilas;
 
 	public Napitek() {
+	}
+	
+	public Napitek(Integer id, Integer prepTime, double price, String size, String type) {
+		this.id = id;
+		this.prepTime = prepTime;
+		this.price = price;
+		this.size = size;
+		this.type = type;
 	}
 
 	public Integer getId() {

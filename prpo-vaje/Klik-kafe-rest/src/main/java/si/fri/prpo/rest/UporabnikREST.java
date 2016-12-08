@@ -19,7 +19,6 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import si.fri.prpo.rest.UporabnikRESTInterface;
-import si.fri.prpo.vaje.entitete.Narocilo;
 import si.fri.prpo.vaje.entitete.Uporabnik;
 import si.fri.prpo.zrna.UpravljalecUporabnikovSBLocal;
 
