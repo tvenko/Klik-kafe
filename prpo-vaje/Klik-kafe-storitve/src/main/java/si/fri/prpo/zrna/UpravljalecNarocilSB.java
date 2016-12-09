@@ -34,7 +34,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
     }
     
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    @RolesAllowed({"Uporabnik"})
     public int addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice) {
 		Narocilo new_order = new Narocilo();
 		Uporabnik narocnik = em.find(Uporabnik.class, idUporabnik);
@@ -53,14 +52,20 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
     
 	public boolean cancelOrder(int id) {
 		//:TODO problem ker ne mores zbrisat zaradi tujega kljuca.
-    	try {
-    		Query q = em.createNativeQuery("DELETE FROM Narocilo n WHERE n.id = :id");
-        	q.setParameter("id", id);
-        	q.executeUpdate();
-        	return true;
-		} catch (Exception e) {
+		try {
+			Query q = em.createNamedQuery("Narocilo.delete");
+			q.setParameter("id", id);
+			q.executeUpdate();
+			return true;
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			return false;
-		}
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}	
 	}
 
 	@Override
@@ -85,7 +90,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
-	@RolesAllowed({"Uporabnik","Admin"})
+	//@RolesAllowed({"Uporabnik","Admin"})
 	public int getPrepTime(int[] ids) {
 		int time = 0;
 		for (int id : ids) {
@@ -98,7 +103,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
-	@RolesAllowed({"Uporabnik","Admin"})
+	//@RolesAllowed({"Uporabnik","Admin"})
 	public double getTotalPrice(int[] ids) {
 		double price = 0;
 		for (int id : ids) {
@@ -111,7 +116,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
-	@RolesAllowed({"Uporabnik","Admin"})
+	//@RolesAllowed({"Uporabnik","Admin"})
 	public int[] getNapitekIds(String[] napitki, String size) {
 		int [] ids = new int[napitki.length];
 		Query q = em.createNamedQuery("Napitek.findAll");
@@ -127,7 +132,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
-	@RolesAllowed({"Uporabnik","Admin"})
+	//@RolesAllowed({"Uporabnik","Admin"})
 	public int getIdKavarna(String name) {
 		Query q = em.createNamedQuery("Kavarna.findName");
 		q.setParameter("name", name);
@@ -141,7 +146,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	@RolesAllowed({"Uporabnik","Admin"})
+	//@RolesAllowed({"Uporabnik","Admin"})
 	public void addDrinks(int idNarocila, int[] idsNapitka) {
 		for (int id : idsNapitka) {
 			Query q = em.createNativeQuery("INSERT INTO public.\"Napitki_narocila\" (id_narocila, id_napitka) VALUES (:id_narocila, :id_napitka)");
@@ -152,9 +157,9 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 	}
 
 	@Override
-	public ArrayList<Narocilo> getUserOrders(int userId) {
+	public ArrayList<Narocilo> getUserOrders(Uporabnik user) {
 		Query q = em.createNamedQuery("Narocilo.findUserId");
-		q.setParameter("userId", userId);
+		q.setParameter("user", user);
 		try {
 			return (ArrayList<Narocilo>) q.getResultList();
 		} catch (Exception e) {

@@ -19,7 +19,8 @@ import java.util.List;
 @NamedQueries({ 
 	@NamedQuery(name="Narocilo.findAll", query="SELECT new si.fri.prpo.vaje.entitete.Narocilo(n.id, n.prepStatus, n.paymentStatus, n.uporabnik, n.kavarna, n.totalPrice, n.prepTime) FROM Narocilo n"),
 	@NamedQuery(name="Narocilo.findId", query="SELECT new si.fri.prpo.vaje.entitete.Narocilo(n.id, n.prepStatus, n.paymentStatus, n.uporabnik, n.kavarna, n.totalPrice, n.prepTime) FROM Narocilo n WHERE n.id = :id"),
-	@NamedQuery(name="Narocilo.findUserId", query="SELECT new si.fri.prpo.vaje.entitete.Narocilo(n.id, n.prepStatus, n.paymentStatus, n.uporabnik, n.kavarna, n.totalPrice, n.prepTime) FROM Narocilo n WHERE n.uporabnik = :id")
+	@NamedQuery(name="Narocilo.findUserId", query="SELECT new si.fri.prpo.vaje.entitete.Narocilo(n.id, n.prepStatus, n.paymentStatus, n.uporabnik, n.kavarna, n.totalPrice, n.prepTime) FROM Narocilo n WHERE n.uporabnik = :user"),
+	@NamedQuery(name="Narocilo.delete", query="DELETE FROM Narocilo n WHERE n.id = :id")
 })
 public class Narocilo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -42,18 +43,18 @@ public class Narocilo implements Serializable {
 
 	//bi-directional many-to-one association to Napitki_narocila
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@OneToMany(mappedBy="narocilo", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="narocilo", orphanRemoval=true, cascade = CascadeType.ALL)
 	private List<Napitki_narocila> napitkiNarocilas;
 
 	//bi-directional many-to-one association to Kavarna
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_kavarna")
 	private Kavarna kavarna;
 
 	//bi-directional many-to-one association to Uporabnik
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name="id_uporabnik")
 	private Uporabnik uporabnik;
 

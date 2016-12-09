@@ -71,7 +71,7 @@ public class UporabnikREST implements UporabnikRESTInterface {
 		newUser.setLongitude(longitude);
 		int newId = uu.addUser(newUser);
 		if (newId > 0) {
-			return Response.ok("Uspesno kreiran uporabnik, vas ID: " + newId).build();
+			return Response.status(Response.Status.CREATED).entity("Uspesno kreiran uporabnik, vas ID: " + newId).build();
 		} else {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Prislo je do napake na strezniku").build();
 		}

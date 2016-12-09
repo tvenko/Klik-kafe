@@ -35,12 +35,12 @@ public class Kavarna implements Serializable {
 
 	//bi-directional many-to-many association to Napitek
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@ManyToMany(mappedBy="kavarnas")
+	@ManyToMany(mappedBy="kavarnas", cascade = CascadeType.ALL)
 	private List<Napitek> napiteks;
 
 	//bi-directional many-to-one association to Narocilo
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	@OneToMany(mappedBy="kavarna")
+	@OneToMany(mappedBy="kavarna", cascade = CascadeType.ALL)
 	private List<Narocilo> narocilos;
 
 	public Kavarna() {

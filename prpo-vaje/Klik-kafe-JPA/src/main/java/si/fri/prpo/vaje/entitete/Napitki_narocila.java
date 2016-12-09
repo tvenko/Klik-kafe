@@ -21,13 +21,13 @@ public class Napitki_narocila implements Serializable {
 	private Integer quantity;
 
 	//bi-directional many-to-one association to Napitek
-	@ManyToOne
-	@JoinColumn(name="id_napitka",insertable=false,updatable=false)
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn(name="id_napitka", insertable=false, updatable=false)
 	private Napitek napitek;
 
 	//bi-directional many-to-one association to Narocilo
-	@ManyToOne
-	@JoinColumn(name="id_narocila",insertable=false,updatable=false)
+	@ManyToOne (cascade = CascadeType.ALL)
+	@JoinColumn(name="id_narocila", insertable=false, updatable=false)
 	private Narocilo narocilo;
 
 	public Napitki_narocila() {

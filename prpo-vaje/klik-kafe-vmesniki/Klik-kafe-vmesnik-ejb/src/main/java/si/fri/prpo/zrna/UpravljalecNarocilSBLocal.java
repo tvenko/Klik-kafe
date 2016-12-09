@@ -3,6 +3,7 @@ package si.fri.prpo.zrna;
 import java.util.ArrayList;
 import javax.ejb.Local;
 import si.fri.prpo.vaje.entitete.Narocilo;
+import si.fri.prpo.vaje.entitete.Uporabnik;
 
 @Local
 public interface UpravljalecNarocilSBLocal {
@@ -16,5 +17,5 @@ public interface UpravljalecNarocilSBLocal {
 	double getTotalPrice(int[] ids);
 	int[] getNapitekIds(String[] napitki, String size);
 	int getIdKavarna(String name);
-	ArrayList<Narocilo> getUserOrders(int userId);
+	ArrayList<Narocilo> getUserOrders(Uporabnik user);
 }
