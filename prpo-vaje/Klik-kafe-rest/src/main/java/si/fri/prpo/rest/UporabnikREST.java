@@ -18,10 +18,14 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import si.fri.prpo.rest.UporabnikRESTInterface;
 import si.fri.prpo.vaje.entitete.Uporabnik;
 import si.fri.prpo.zrna.UpravljalecUporabnikovSBLocal;
 
+@Api(value="/uporabniki")
 @RequestScoped
 @PermitAll
 @Path("/uporabniki")
@@ -31,9 +35,10 @@ public class UporabnikREST implements UporabnikRESTInterface {
 	
 	@EJB
 	UpravljalecUporabnikovSBLocal uu;
-
-	@Override
+	
 	@GET
+	@ApiOperation(value="get all users", notes="get information for all users in database", response=Uporabnik.class, responseContainer="list")
+	@Override
 	public Response getUsers() {
 		// TODO Auto-generated method stub
 		ArrayList<Uporabnik> users = (ArrayList<Uporabnik>) uu.returnAll();
@@ -42,9 +47,10 @@ public class UporabnikREST implements UporabnikRESTInterface {
 	
 	@GET
 	@Path("{id}")
-	@Override
+	@ApiOperation(value="get user", notes="get user information by chosen ID", response=Uporabnik.class)
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN })
+	@Override
 	public Response getUser(@PathParam("id") int id) {
 		Uporabnik usr = uu.getUser(id);
 		if (usr != null) {
@@ -56,8 +62,9 @@ public class UporabnikREST implements UporabnikRESTInterface {
 		}
 	}
 
-	@Override
 	@POST
+	@ApiOperation(value="add new user", notes="add new user")
+	@Override
 	public Response addUser(@HeaderParam("name")String name, @HeaderParam("surname") String surname,
 			@HeaderParam("username")String username, @HeaderParam("name")String email, 
 			@HeaderParam("latitude")double latitude, @HeaderParam("longitude")double longitude) {
@@ -77,10 +84,11 @@ public class UporabnikREST implements UporabnikRESTInterface {
 		}
 	}
 
-	@Override
 	@DELETE
 	@Path("{id}")
+	@ApiOperation(value="delete user", notes="delete user with chosen ID")
 	@Produces({ MediaType.TEXT_PLAIN })
+	@Override
 	public Response deleteUser(@PathParam("id") int id) {
 		int rowsAffected = uu.deleteUser(id);
 		// 204 if success and 404 if user does not exist
@@ -90,10 +98,11 @@ public class UporabnikREST implements UporabnikRESTInterface {
 			return Response.status(Response.Status.NOT_FOUND).entity("Uporabnika ni v bazi, in ga nemorem zbrisat").build();
 		}
 	}
-
-	@Override
+	
 	@PUT
 	@Path("{id}")
+	@ApiOperation(value="update user", notes="update user information with chosen ID")
+	@Override
 	public Response updateUser(@PathParam("id") int id, @Context HttpHeaders headers) {
 		//  0  no errors
 		//  1  user not found

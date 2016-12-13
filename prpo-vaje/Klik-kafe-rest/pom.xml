@@ -11,12 +11,39 @@
   <build>
   		<plugins>
             <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>1.7</source>
-                <target>1.7</target>
-            </configuration>
-        </plugin>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <configuration>
+	                <source>1.7</source>
+	                <target>1.7</target>
+	            </configuration>
+	        </plugin>
+	        <plugin>
+			    <groupId>com.github.kongchen</groupId>
+			    <artifactId>swagger-maven-plugin</artifactId>
+			    <version>3.1.2</version>
+			    <configuration>
+			        <apiSources>
+			            <apiSource>
+			                <springmvc>false</springmvc>
+			                <locations>si.fri.prpo.rest</locations>
+			                <schemes>http</schemes>
+			                <host>localhost</host>
+			                <basePath>/v1</basePath>
+			                <info>
+			                    <title>Documentation for Klik-kafe API</title>
+			                    <version>1.0.0</version>
+			                    <description>Documentation for NarociloREST, KavarnaREST and UporabnikREST</description>
+			                    <contact>
+			                        <email>info@projekti.prpo.si</email>
+			                    </contact>
+			                </info>
+			                <templatePath>${project.basedir}/src/main/resources/doc/v1/swagger/templates/strapdown.html.hbs</templatePath>
+			                <outputPath>${project.basedir}/src/main/resources/doc/v1/swagger/html/document.html</outputPath>
+			                <swaggerDirectory>${project.basedir}/src/main/resources/doc/v1/swagger</swaggerDirectory>
+			            </apiSource>
+			        </apiSources>
+			    </configuration>
+			</plugin>
     	</plugins>
 	</build>
   
@@ -48,5 +75,11 @@
   		<artifactId>Klik-kafe-vmesniki-ws</artifactId>
   		<scope>provided</scope>
   	</dependency>
+  	<!-- dependency for swager -->
+  	<dependency>
+	    <groupId>io.swagger</groupId>
+	    <artifactId>swagger-core</artifactId>
+	    <version>1.5.10</version>		
+	</dependency>
   </dependencies>
 </project>

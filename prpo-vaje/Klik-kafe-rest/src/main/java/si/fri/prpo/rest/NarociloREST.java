@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Default;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -18,6 +17,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import si.fri.prpo.rest.NarociloRESTInterface;
 import si.fri.prpo.vaje.entitete.Narocilo;
 import si.fri.prpo.vaje.entitete.Uporabnik;
@@ -25,6 +26,7 @@ import si.fri.prpo.zrna.UpravljalecNarocilSBLocal;
 import si.fri.prpo.zrna.UpravljalecUporabnikovSBLocal;
 
 //@DeclareRoles({"Uporabnik","Admin"})
+@Api(value="/narocila")
 @RequestScoped
 @PermitAll
 @Path("/narocila")
@@ -38,6 +40,7 @@ public class NarociloREST implements NarociloRESTInterface {
 	private UpravljalecUporabnikovSBLocal uu;
 
 	@GET
+	@ApiOperation(value="get all orders", notes="orders are return in pages of size specified in step", response=Narocilo.class, responseContainer="list")
 	@Override
 	public Response getOrders(@DefaultValue("0") @QueryParam("offset") int offset, @DefaultValue("10") @QueryParam("step") int step) {
 		ArrayList<Narocilo> orders = (ArrayList<Narocilo>) un.getOrdersByPage(offset, step);
@@ -46,6 +49,7 @@ public class NarociloREST implements NarociloRESTInterface {
 
 	@GET
 	@Path("{id}")
+	@ApiOperation(value="get order for chosen ID", notes="return order with chosen ID", response=Narocilo.class)
 	@Override
 	public Response getOrder(@PathParam("id") int id) {
 		Narocilo order = un.returnOrderId(id);
@@ -57,6 +61,7 @@ public class NarociloREST implements NarociloRESTInterface {
 
 	@GET
 	@Path("{userId}/uporabnik")
+	@ApiOperation(value="get order for chosen user ID", notes="All orders from user with this ID", response=Narocilo.class)
 	@Override
 	public Response getUserOrders(@PathParam("userId") int userId) {
 		Uporabnik user = uu.getUser(userId);
@@ -69,6 +74,7 @@ public class NarociloREST implements NarociloRESTInterface {
 
 	@DELETE
 	@Path("{id}")
+	@ApiOperation(value="delete order", notes="delete order with chosen ID")
 	@Override
 	public Response cancelOrder(@PathParam("id") int id) {
 		//:TODO problem ker ne mores zbrisat zaradi tujega kljuca.
@@ -80,6 +86,7 @@ public class NarociloREST implements NarociloRESTInterface {
 	}
 
 	@POST
+	@ApiOperation(value="submit new order", notes="submit new order for user with userID")
 	@Override
 	public Response submitOrder(@HeaderParam("uporabnik") int idUporabnik, @HeaderParam("kavarna") int idKavarna, @HeaderParam("size") String size, @HeaderParam("napitek") String[] napitki) {
 		
