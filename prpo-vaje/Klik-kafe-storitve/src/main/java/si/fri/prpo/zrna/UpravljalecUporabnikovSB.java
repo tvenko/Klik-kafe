@@ -2,6 +2,8 @@ package si.fri.prpo.zrna;
 
 import java.util.ArrayList;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -17,6 +19,7 @@ import si.fri.prpo.vaje.entitete.Uporabnik;
  * Session Bean implementation class UpravljalecUporabnikovSB
  */
 
+@DeclareRoles({"user, admin"})
 @Stateless
 public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote, UpravljalecUporabnikovSBLocal {
 	
@@ -30,7 +33,9 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
         // TODO Auto-generated constructor stub
     }
     
+    @RolesAllowed({"user, admin"})
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    @Override
 	public void addUser(String username, String name, String surname, String email, Double latit, Double longit) {
 		// TODO Auto-generated method stub
 		Query q = em.createNativeQuery("INSERT INTO public.\"Uporabnik\" (username, email, surname, name, latitude, longitude) VALUES (:username, :email, :surname, :name, :latit, :longit)");
@@ -43,6 +48,8 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		q.executeUpdate();
 	}
 
+    @RolesAllowed({"user, admin"})
+    @Override
 	public void deleteUser(String name) {
 		// TODO Auto-generated method stub
 		try {
@@ -58,17 +65,22 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		}	
 	}
 
+    @RolesAllowed({"admin"})
+    @Override
 	public ArrayList returnAll() {
 		// TODO Auto-generated method stub
 		Query q1 = em.createNamedQuery("Uporabnik.findAll");
 		return (ArrayList<Uporabnik>) q1.getResultList();
 	}
 
+    @RolesAllowed({"user, admin"})
+    @Override
 	public void getLocation() {
 		// TODO Auto-generated method stub
 		
 	}
 
+    @RolesAllowed({"user, admin"})
 	@Override
 	public int getUserId(String username) {
 		// TODO Auto-generated method stub
@@ -78,6 +90,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return u.getId();
 	}
 
+    @RolesAllowed({"user, admin"})
 	@Override
 	public Uporabnik getUser(int id) {
 		// TODO Auto-generated method stub
@@ -93,6 +106,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return usr;
 	}
 
+    @RolesAllowed({"user, admin"})
 	@Override
 	public int deleteUser(int id) {
 		Query q = em.createNamedQuery("Uporabnik.idDelete");
@@ -101,8 +115,9 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return q.executeUpdate();
 	}
 
-	@Override
+    @RolesAllowed({"user, admin"})
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	@Override
 	public int addUser(Uporabnik newUser) {
 		// persist the new User into the database
 		em.persist(newUser);
@@ -110,6 +125,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return newUser.getId();
 	}
 
+    @RolesAllowed({"user, admin"})
 	@Override
 	public int updateUser(int id, HttpHeaders headers) {
 		Uporabnik updateUser = getUser(id);

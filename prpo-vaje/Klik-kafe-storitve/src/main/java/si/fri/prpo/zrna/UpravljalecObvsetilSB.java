@@ -2,10 +2,10 @@ package si.fri.prpo.zrna;
 
 import java.io.IOException;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Session Bean implementation class UpravljalecObvsetilSB
  */
+@DeclareRoles({"user, admin"})
 @Stateless
 public class UpravljalecObvsetilSB implements UpravljalecObvsetilSBRemote, UpravljalecObvsetilSBLocal {
 	
@@ -26,6 +27,7 @@ public class UpravljalecObvsetilSB implements UpravljalecObvsetilSBRemote, Uprav
         // TODO Auto-generated constructor stub
     }
 
+    @RolesAllowed({"user, admin"})
 	@Override
 	public void createBill (int id_narocila, HttpServletResponse response) throws IOException  {
 		// TODO Auto-generated method stub
