@@ -4,7 +4,7 @@ import javax.ws.rs.core.Response;
 
 public interface NarociloRESTInterface {
 	
-	public Response getOrders();
+	public Response getOrders(int offset, int step);
 	public Response getOrder(int id);
 	public Response getUserOrders(int userId);
 	public Response cancelOrder(int id);

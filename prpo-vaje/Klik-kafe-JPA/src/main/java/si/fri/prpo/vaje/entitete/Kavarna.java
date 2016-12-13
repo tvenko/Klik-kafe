@@ -52,6 +52,11 @@ public class Kavarna implements Serializable {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
+	
+	public Kavarna(Integer id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
 	public Integer getId() {
 		return this.id;

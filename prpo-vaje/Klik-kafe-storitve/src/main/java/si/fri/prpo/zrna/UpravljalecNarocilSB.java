@@ -33,6 +33,41 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
         // TODO Auto-generated constructor stub
     }
     
+    @Override
+	public ArrayList<Narocilo> returnAll() {
+		Query q1 = em.createNamedQuery("Narocilo.findAll");
+		return (ArrayList<Narocilo>) q1.getResultList();
+	}
+	
+	@Override
+	public ArrayList<Narocilo> getUserOrders(Uporabnik user) {
+		Query q = em.createNamedQuery("Narocilo.findUserId");
+		q.setParameter("user", user);
+		try {
+			return (ArrayList<Narocilo>) q.getResultList();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public ArrayList<Narocilo> getOrdersByPage(int offset, int step) {
+		Query q = em.createNamedQuery("Narocilo.findAll");
+		q.setFirstResult(offset).setMaxResults(step);
+		return (ArrayList<Narocilo>) q.getResultList();
+	}
+
+	@Override
+	public Narocilo returnOrderId(int id) {
+		Query q = em.createNamedQuery("Narocilo.findId");
+		q.setParameter("id", id);
+		try {
+			return (Narocilo) q.getSingleResult();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+    
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public int addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice) {
 		Narocilo new_order = new Narocilo();
@@ -66,27 +101,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 			e.printStackTrace();
 			return false;
 		}	
-	}
-
-	@Override
-	public ArrayList<Narocilo> returnAll() {
-		Query q1 = em.createNamedQuery("Narocilo.findAll");
-		ArrayList<Narocilo> narocilos = (ArrayList<Narocilo>) q1.getResultList();
-		for (Narocilo n : narocilos) {
-			n.setNapitkiNarocilas(null);
-		}
-		return narocilos;
-	}
-
-	@Override
-	public Narocilo returnOrderId(int id) {
-		Query q = em.createNamedQuery("Narocilo.findId");
-		q.setParameter("id", id);
-		try {
-			return (Narocilo) q.getSingleResult();
-		} catch (Exception e) {
-			return null;
-		}
 	}
 
 	@Override
@@ -153,17 +167,6 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 			q.setParameter("id_narocila", idNarocila);
 			q.setParameter("id_napitka", id);
 			q.executeUpdate();
-		}
-	}
-
-	@Override
-	public ArrayList<Narocilo> getUserOrders(Uporabnik user) {
-		Query q = em.createNamedQuery("Narocilo.findUserId");
-		q.setParameter("user", user);
-		try {
-			return (ArrayList<Narocilo>) q.getResultList();
-		} catch (Exception e) {
-			return null;
 		}
 	}
 }

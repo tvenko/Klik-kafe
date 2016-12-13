@@ -18,4 +18,5 @@ public interface UpravljalecNarocilSBLocal {
 	int[] getNapitekIds(String[] napitki, String size);
 	int getIdKavarna(String name);
 	ArrayList<Narocilo> getUserOrders(Uporabnik user);
+	ArrayList<Narocilo> getOrdersByPage(int offset, int step);
 }
