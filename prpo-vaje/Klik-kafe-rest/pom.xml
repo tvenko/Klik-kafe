@@ -78,8 +78,7 @@
   	<!-- dependency for swager -->
   	<dependency>
 	    <groupId>io.swagger</groupId>
-	    <artifactId>swagger-core</artifactId>
-	    <version>1.5.10</version>		
+	    <artifactId>swagger-core</artifactId>		
 	</dependency>
   </dependencies>
 </project>
