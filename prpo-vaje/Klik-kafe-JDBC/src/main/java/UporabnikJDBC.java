@@ -1,30 +1,30 @@
 
-public class Uporabnik extends Entiteta {
-	private String uname;
+public class UporabnikJDBC extends EntitetaJDBC {
+	private String username;
 	private String name;
 	private String surname;
-	private double lat;
-	private double longit;
+	private double latitude;
+	private double longitude;
 	private String email;
 	
-	public Uporabnik() {
+	public UporabnikJDBC() {
 		this.name = null;
 	}
 	
-	//Construcot for listing everything in UporabnikDaolmpl
-	public Uporabnik(int new_id, String new_uname, String new_name, String new_surname, String new_email, double new_lat, double new_long) {
-		this.set(new_id);
-		this.uname = new_name;
+	//Constructor for listing everything in UporabnikDaolmpl
+	public UporabnikJDBC(int new_id, String new_username, String new_name, String new_surname, String new_email, double new_latitude, double new_long) {
+		this.setId(new_id);
+		this.username = new_username;
 		this.name = new_name;
 		this.surname = new_surname;
 		this.email = new_email;
-		this.lat = new_lat;
-		this.longit = new_long;
+		this.latitude = new_latitude;
+		this.longitude = new_long;
 	}
 	
 	//GETTER methods
 	public String getAll() {
-		return this.uname + " " + this.name + " " + this.surname + " " + this.email;
+		return this.username + " " + this.name + " " + this.surname + " " + this.email;
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class Uporabnik extends Entiteta {
 	 * @return String
 	 */
 	public String getUsername() {
-		return this.uname;
+		return this.username;
 	}
 	
 	/**
@@ -52,19 +52,19 @@ public class Uporabnik extends Entiteta {
 	}
 	
 	/**
-	 * Returns the latitude of Uporabnik
+	 * Returns the latitudeitude of Uporabnik
 	 * @return float
 	 */
-	public double getLat() {
-		return this.lat;
+	public double getLatitude() {
+		return this.latitude;
 	}
 	
 	/**
 	 * Returns the longtitude of Uporabnik
 	 * @return float
 	 */
-	public double getLong() {
-		return this.longit;
+	public double getLongitude() {
+		return this.longitude;
 	}
 	
 	/**
@@ -79,10 +79,10 @@ public class Uporabnik extends Entiteta {
 	//SETTER methods
 	/**
 	 * Set the username of uporabnik
-	 * @param new_uname the new name for Uporanik
+	 * @param new_username the new name for Uporanik
 	 */
-	public void setUsername(String new_uname) {
-		this.uname = new_uname;
+	public void setUsername(String new_username) {
+		this.username = new_username;
 	}
 	
 	/**
@@ -102,11 +102,11 @@ public class Uporabnik extends Entiteta {
 	}
 	
 	/**
-	 * Set the latitude of Uporabnik
-	 * @param new_lat	the new latitude for Uporabnik
+	 * Set the latitudeitude of Uporabnik
+	 * @param new_latitude	the new latitudeitude for Uporabnik
 	 */
-	public void setLatitude(double new_lat) {
-		this.lat = new_lat;
+	public void setLatitude(double new_latitude) {
+		this.latitude = new_latitude;
 	}
 	
 	/**
@@ -114,7 +114,7 @@ public class Uporabnik extends Entiteta {
 	 * @param new_long	the new longtitude for Uporabnik
 	 */
 	public void setLongitude(double new_long) {
-		this.longit = new_long;
+		this.longitude = new_long;
 	}
 	
 	/**

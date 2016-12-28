@@ -13,7 +13,6 @@
   	<dependency>
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JDBC</artifactId>
-  		<scope>provided</scope>
   	</dependency>
   	<!-- Dependency for javax modul -->
   	<dependency>
@@ -49,5 +48,4 @@
         </plugin>
     </plugins>
   </build>
-   <groupId>si.fri.prpo</groupId>
 </project>

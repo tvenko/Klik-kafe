@@ -39,4 +39,14 @@
     <servlet-name>TestSBServlet</servlet-name>
     <url-pattern>/TestSBServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UporabaJDBC</display-name>
+    <servlet-name>UporabaJDBC</servlet-name>
+    <servlet-class>UporabaJDBC</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UporabaJDBC</servlet-name>
+    <url-pattern>/UporabaJDBC</url-pattern>
+  </servlet-mapping>
 </web-app>
