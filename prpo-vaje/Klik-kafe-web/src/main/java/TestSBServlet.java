@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import si.fri.prpo.zrna.FasadaSB;
-//import si.fri.prpo.zrna.NeveljavnoNarociloException;
+import si.fri.prpo.zrna.NeveljavnoNarociloException;
 
 /**
  * Servlet implementation class TestSBServlet
@@ -42,7 +42,7 @@ public class TestSBServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		/*String username = request.getParameter("username");
+		String username = request.getParameter("username");
 		String kavarna = request.getParameter("kavarna");
 		String size = request.getParameter("size");
 		String[] napitki = request.getParameterValues("napitek");
@@ -62,7 +62,7 @@ public class TestSBServlet extends HttpServlet {
 		else {
 			// The order ID is negative and no exceptions
 			response.getWriter().append("NAPAKA");
-		}*/
+		}
 	}
 
 }
