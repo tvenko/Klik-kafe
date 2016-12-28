@@ -39,5 +39,6 @@ public class Receive {
             }
         };
         channel.basicConsume(VRSTA, true, consumer);
+
     }
 }

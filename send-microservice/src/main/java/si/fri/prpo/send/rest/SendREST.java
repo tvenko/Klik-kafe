@@ -17,11 +17,12 @@ import com.rabbitmq.client.ConnectionFactory;
 import si.fri.prpo.send.Sporocilo;
 
 @Path("/vrsta")
-@Produces({ "application/xml", "application/json" })
-@Consumes({ "application/xml", "application/json" })
+@Produces({ "application/json" })
+@Consumes({ "application/json" })
 public class SendREST {
 	
 	private static final String VRSTA = "vrsta";
+	
 	@POST
 	public Response sendMessage(Sporocilo sporocilo) throws IOException, TimeoutException {
 		ConnectionFactory factory = new ConnectionFactory();
@@ -29,7 +30,11 @@ public class SendREST {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         channel.queueDeclare(VRSTA, false, false, false, null);
-        channel.basicPublish("", VRSTA, null, sporocilo.getString().getBytes());
-		return Response.ok().build();
+        channel.basicPublish("", VRSTA, null, sporocilo.getVsebina().getBytes());
+		
+        channel.close();
+        connection.close();
+        return Response.ok().build();	
 	}
+	
 }

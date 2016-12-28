@@ -2,13 +2,13 @@ package si.fri.prpo.send;
 
 public class Sporocilo {
 	public Sporocilo(){}
-	private String poslji = "cestitam, dobil si sporocilo! idi zej na pir ne";
+	private String vsebina = "Testno sporocilo";
 	
-	public String getString() {
-		return poslji;
+	public String getVsebina() {
+		return vsebina;
 	}
 	
-	public void setString(String set) {
-		poslji = set;
+	public void setVsebina(String set) {
+		vsebina = set;
 	}
 }
