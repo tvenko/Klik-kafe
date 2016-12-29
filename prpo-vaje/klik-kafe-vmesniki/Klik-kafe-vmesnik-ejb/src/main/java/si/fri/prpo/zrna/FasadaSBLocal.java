@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.ejb.Local;
 import javax.servlet.http.HttpServletResponse;
 
+import si.fri.prpo.ponudniki.izjeme.NeveljavnoNarociloException;
+
 @Local
 public interface FasadaSBLocal {
 	

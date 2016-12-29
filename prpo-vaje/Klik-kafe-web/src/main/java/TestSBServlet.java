@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import si.fri.prpo.ponudniki.izjeme.NeveljavnoNarociloException;
 import si.fri.prpo.zrna.FasadaSB;
-import si.fri.prpo.zrna.NeveljavnoNarociloException;
 
 /**
  * Servlet implementation class TestSBServlet

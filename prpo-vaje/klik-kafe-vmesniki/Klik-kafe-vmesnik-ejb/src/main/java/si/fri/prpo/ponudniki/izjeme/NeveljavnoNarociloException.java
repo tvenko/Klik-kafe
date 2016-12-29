@@ -1,4 +1,4 @@
-package si.fri.prpo.zrna;
+package si.fri.prpo.ponudniki.izjeme;
 import javax.ejb.ApplicationException;
 
 @ApplicationException(rollback=true)

@@ -2,7 +2,7 @@ package si.fri.prpo.rest;
 
 import javax.ws.rs.core.Response;
 
-import si.fri.prpo.zrna.NeveljavnoNarociloException;
+import si.fri.prpo.ponudniki.izjeme.NeveljavnoNarociloException;
 
 public interface NarociloRESTInterface {
 	

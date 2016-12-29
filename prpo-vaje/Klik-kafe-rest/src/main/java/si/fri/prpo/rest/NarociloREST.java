@@ -19,10 +19,10 @@ import javax.ws.rs.core.Response;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import si.fri.prpo.ponudniki.izjeme.NeveljavnoNarociloException;
 import si.fri.prpo.rest.NarociloRESTInterface;
 import si.fri.prpo.vaje.entitete.Narocilo;
 import si.fri.prpo.vaje.entitete.Uporabnik;
-import si.fri.prpo.zrna.NeveljavnoNarociloException;
 import si.fri.prpo.zrna.UpravljalecKavarnSBLocal;
 import si.fri.prpo.zrna.UpravljalecNarocilSBLocal;
 import si.fri.prpo.zrna.UpravljalecUporabnikovSBLocal;
@@ -92,7 +92,8 @@ public class NarociloREST implements NarociloRESTInterface {
 	@POST
 	@ApiOperation(value="submit new order", notes="submit new order for user with userID")
 	@Override
-	public Response submitOrder(@HeaderParam("uporabnik") int idUporabnik, @HeaderParam("kavarna") int idKavarna, @HeaderParam("size") String size, @HeaderParam("napitek") String[] napitki) throws NeveljavnoNarociloException {
+	public Response submitOrder(@HeaderParam("uporabnik") int idUporabnik, @HeaderParam("kavarna") int idKavarna, @HeaderParam("size") String size, @HeaderParam("napitek") String[] napitki) 
+			throws NeveljavnoNarociloException {
 		
 		if (checkParams(idUporabnik, idKavarna, size, napitki)) {
 			throw new NeveljavnoNarociloException("Napaka pri oddaji narocila.");

@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.servlet.http.HttpServletResponse;
 
+import si.fri.prpo.ponudniki.izjeme.NeveljavnoNarociloException;
 import si.fri.prpo.vaje.entitete.Uporabnik;
 
 /**
@@ -94,7 +95,8 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 
 	@Override
 	@Interceptors(Prestreznik.class)
-	public int submitOrder(String username, String kavarna, String size, String[] napitki, HttpServletResponse response) throws IOException, NeveljavnoNarociloException {
+	public int submitOrder(String username, String kavarna, String size, String[] napitki, HttpServletResponse response) 
+			throws IOException, NeveljavnoNarociloException {
 		if (napitki.length == 0) {
 			throw new NeveljavnoNarociloException("Nimate nobenih napitkov");
 		}
