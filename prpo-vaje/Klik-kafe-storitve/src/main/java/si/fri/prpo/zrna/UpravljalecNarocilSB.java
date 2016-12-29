@@ -3,6 +3,7 @@ package si.fri.prpo.zrna;
 import java.util.ArrayList;
 
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -72,7 +73,8 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		}
 	}
     
-    @RolesAllowed({"user, admin"})
+    //@RolesAllowed({"user, admin"})
+    @PermitAll
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public int addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice) {
 		Narocilo new_order = new Narocilo();
@@ -109,7 +111,8 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		}	
 	}
 
-    @RolesAllowed({"user, admin"})
+    //@RolesAllowed({"user, admin"})
+    @PermitAll
 	@Override
 	public int getPrepTime(int[] ids) {
 		int time = 0;
@@ -122,7 +125,8 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return time;
 	}
 
-    @RolesAllowed({"user, admin"})
+    //@RolesAllowed({"user, admin"})
+    @PermitAll
 	@Override
 	public double getTotalPrice(int[] ids) {
 		double price = 0;
@@ -135,7 +139,8 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return price;
 	}
 
-    @RolesAllowed({"user, admin"})
+    //@RolesAllowed({"user, admin"})
+    @PermitAll
 	@Override
 	public int[] getNapitekIds(String[] napitki, String size) {
 		int [] ids = new int[napitki.length];
@@ -151,8 +156,9 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return ids;
 	}
 
-    @RolesAllowed({"user, admin"})
-	@Override
+    //@RolesAllowed({"user, admin"})
+	@PermitAll
+    @Override
 	public int getIdKavarna(String name) {
 		Query q = em.createNamedQuery("Kavarna.findName");
 		q.setParameter("name", name);
@@ -164,7 +170,8 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 			return -1;
 	}
 
-    @RolesAllowed({"user, admin"})
+    //@RolesAllowed({"user, admin"})
+	@PermitAll
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void addDrinks(int idNarocila, int[] idsNapitka) {

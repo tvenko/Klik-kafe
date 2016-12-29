@@ -9,6 +9,7 @@ import javax.annotation.security.RunAs;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
 import javax.servlet.http.HttpServletResponse;
 
 import si.fri.prpo.vaje.entitete.Uporabnik;
@@ -92,8 +93,9 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 	}
 
 	@Override
+	@Interceptors(Prestreznik.class)
+	//The EJB methods used here are @PermitAll
 	public int submitOrder(String username, String kavarna, String size, String[] napitki, HttpServletResponse response) throws IOException, NeveljavnoNarociloException {
-		// TODO Auto-generated method stub
 		int idKavarna = un.getIdKavarna(kavarna);
 		int[] napitkiIds = un.getNapitekIds(napitki, size);
 		int idNarocila = -1;

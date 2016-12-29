@@ -68,7 +68,8 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		}	
 	}
 
-    @RolesAllowed({"admin"})
+    //@RolesAllowed({"admin"})
+    @PermitAll
     @Override
 	public ArrayList returnAll() {
 		// TODO Auto-generated method stub
@@ -83,7 +84,8 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		
 	}
 
-    @RolesAllowed({"user, admin"})
+    //@RolesAllowed({"user, admin"})
+    @PermitAll
 	@Override
 	public int getUserId(String username) {
 		// TODO Auto-generated method stub
