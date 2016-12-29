@@ -5,11 +5,8 @@ import javax.ejb.ApplicationException;
 
 public class NeveljavnoNarociloException extends Exception {
 	
-	public NeveljavnoNarociloException() {
-		
+	public NeveljavnoNarociloException(String message) {
+		super(message);
 	}
-	
-	public String error() {
-		return "Napaka pri oddaji narocila.";
-	}
+
 }

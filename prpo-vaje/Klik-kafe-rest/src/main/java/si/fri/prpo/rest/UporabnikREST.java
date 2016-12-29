@@ -3,6 +3,7 @@ package si.fri.prpo.rest;
 import java.util.ArrayList;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RunAs;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -65,17 +66,8 @@ public class UporabnikREST implements UporabnikRESTInterface {
 	@POST
 	@ApiOperation(value="add new user", notes="add new user")
 	@Override
-	public Response addUser(@HeaderParam("name")String name, @HeaderParam("surname") String surname,
-			@HeaderParam("username")String username, @HeaderParam("name")String email, 
-			@HeaderParam("latitude")double latitude, @HeaderParam("longitude")double longitude) {
+	public Response addUser(Uporabnik newUser) {
 		// TODO Auto-generated method stub
-		Uporabnik newUser = new Uporabnik();
-		newUser.setName(name);
-		newUser.setSurname(surname);
-		newUser.setEmail(email);
-		newUser.setUsername(username);
-		newUser.setLatitude(latitude);
-		newUser.setLongitude(longitude);
 		int newId = uu.addUser(newUser);
 		if (newId > 0) {
 			return Response.status(Response.Status.CREATED).entity("Uspesno kreiran uporabnik, vas ID: " + newId).build();

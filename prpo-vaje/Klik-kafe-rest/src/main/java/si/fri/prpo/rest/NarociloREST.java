@@ -22,10 +22,12 @@ import io.swagger.annotations.ApiOperation;
 import si.fri.prpo.rest.NarociloRESTInterface;
 import si.fri.prpo.vaje.entitete.Narocilo;
 import si.fri.prpo.vaje.entitete.Uporabnik;
+import si.fri.prpo.zrna.NeveljavnoNarociloException;
+import si.fri.prpo.zrna.UpravljalecKavarnSBLocal;
 import si.fri.prpo.zrna.UpravljalecNarocilSBLocal;
 import si.fri.prpo.zrna.UpravljalecUporabnikovSBLocal;
 
-//@DeclareRoles({"Uporabnik","Admin"})
+//@DeclareRoles({"user","admin"})
 @Api(value="/narocila")
 @RequestScoped
 @PermitAll
@@ -38,6 +40,8 @@ public class NarociloREST implements NarociloRESTInterface {
 	private UpravljalecNarocilSBLocal un;
 	@EJB
 	private UpravljalecUporabnikovSBLocal uu;
+	@EJB
+	private UpravljalecKavarnSBLocal uk;
 
 	@GET
 	@ApiOperation(value="get all orders", notes="orders are return in pages of size specified in step", response=Narocilo.class, responseContainer="list")
@@ -88,21 +92,39 @@ public class NarociloREST implements NarociloRESTInterface {
 	@POST
 	@ApiOperation(value="submit new order", notes="submit new order for user with userID")
 	@Override
-	public Response submitOrder(@HeaderParam("uporabnik") int idUporabnik, @HeaderParam("kavarna") int idKavarna, @HeaderParam("size") String size, @HeaderParam("napitek") String[] napitki) {
+	public Response submitOrder(@HeaderParam("uporabnik") int idUporabnik, @HeaderParam("kavarna") int idKavarna, @HeaderParam("size") String size, @HeaderParam("napitek") String[] napitki) throws NeveljavnoNarociloException {
 		
-		try {
-			int[] napitkiIds = un.getNapitekIds(napitki, size);
-			int idNarocila = -1;
-			int prepTime = un.getPrepTime(napitkiIds);
-			double totalPrice = un.getTotalPrice(napitkiIds);
-			idNarocila = un.addOrder(idUporabnik, idKavarna, prepTime, "pending", "paid", totalPrice);
-			un.addDrinks(idNarocila, napitkiIds);
-			
-			Integer newId = un.addOrder(idUporabnik, idKavarna, prepTime, "in progress", "paid", totalPrice);
-			return Response.status(Response.Status.CREATED).entity("Uspesno kreirano narocilo s ID: " + newId).build();
-		} catch (Exception e) {
-			return Response.status(Response.Status.NOT_ACCEPTABLE).entity("Napacna polja glave.").build();
+		if (checkParams(idUporabnik, idKavarna, size, napitki)) {
+			throw new NeveljavnoNarociloException("Napaka pri oddaji narocila.");
 		}
+		int[] napitkiIds = un.getNapitekIds(napitki, size);
+		int idNarocila = -1;
+		int prepTime = un.getPrepTime(napitkiIds);
+		double totalPrice = un.getTotalPrice(napitkiIds);
+		idNarocila = un.addOrder(idUporabnik, idKavarna, prepTime, "pending", "paid", totalPrice);
+		un.addDrinks(idNarocila, napitkiIds);
+		
+		Integer newId = un.addOrder(idUporabnik, idKavarna, prepTime, "in progress", "paid", totalPrice);
+		return Response.status(Response.Status.CREATED).entity("Uspesno kreirano narocilo s ID: " + newId).build();
+	
+	}
+	
+	private boolean checkParams(int idUser, int idCafe, String size, String[] drinks) {
+		// user not found / missing
+		if (uu.getUser(idUser) == null)
+			return true;
+		// cafe not found / missing
+		if (uk.returnById(idCafe) == null)
+			return true;
+		// size not given
+		if (size == null || size.equals(""))
+			return true;
+		// no drinks selected
+		if (drinks.length == 0)
+			return true;
+		
+		//Everything given
+		return false;
 	}
 
 }

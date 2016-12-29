@@ -22,7 +22,7 @@ import si.fri.prpo.vaje.entitete.Uporabnik;
  * Session Bean implementation class UpravljalecUporabnikovSB
  */
 
-@DeclareRoles({"user, admin"})
+@DeclareRoles({"user", "admin"})
 @Stateless
 public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote, UpravljalecUporabnikovSBLocal {
 	
@@ -36,7 +36,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
         // TODO Auto-generated constructor stub
     }
     
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     @Override
 	public void addUser(String username, String name, String surname, String email, Double latit, Double longit) {
@@ -51,7 +51,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		q.executeUpdate();
 	}
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
     @Override
 	public void deleteUser(String name) {
 		// TODO Auto-generated method stub
@@ -77,14 +77,14 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return (ArrayList<Uporabnik>) q1.getResultList();
 	}
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
     @Override
 	public void getLocation() {
 		// TODO Auto-generated method stub
 		
 	}
 
-    //@RolesAllowed({"user, admin"})
+    //@RolesAllowed({"user", "admin"})
     @PermitAll
 	@Override
 	public int getUserId(String username) {
@@ -95,7 +95,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return u.getId();
 	}
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	@Override
 	public Uporabnik getUser(int id) {
 		// TODO Auto-generated method stub
@@ -111,7 +111,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return usr;
 	}
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	@Override
 	public int deleteUser(int id) {
 		Query q = em.createNamedQuery("Uporabnik.idDelete");
@@ -120,7 +120,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return q.executeUpdate();
 	}
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	@Override
 	public int addUser(Uporabnik newUser) {
@@ -130,7 +130,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return newUser.getId();
 	}
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	@Override
 	public int updateUser(int id, HttpHeaders headers) {
 		Uporabnik updateUser = getUser(id);

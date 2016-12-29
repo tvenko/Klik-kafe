@@ -6,6 +6,7 @@ import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -14,7 +15,7 @@ import si.fri.prpo.vaje.entitete.Kavarna;
 /**
  * Session Bean implementation class UpravljalecKavarnSB
  */
-@DeclareRoles({"user, admin"})
+@DeclareRoles({"user", "admin"})
 @Stateless
 public class UpravljalecKavarnSB implements UpravljalecKavarnSBRemote, UpravljalecKavarnSBLocal {
 
@@ -28,19 +29,26 @@ public class UpravljalecKavarnSB implements UpravljalecKavarnSBRemote, Upravljal
         // TODO Auto-generated constructor stub
     }
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	@Override
 	public ArrayList<Kavarna> returnAll() {
 		Query q = em.createNamedQuery("Kavarna.findAll");
 		return (ArrayList<Kavarna>) q.getResultList();
 	}
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	@Override
 	public Kavarna returnById(int id) {
-		Query q = em.createNamedQuery("Kavarna.findId");
-		q.setParameter("id", id);
-		return (Kavarna) q.getSingleResult();
+		Kavarna k;
+    	try {
+			Query q = em.createNamedQuery("Kavarna.findId");
+			q.setParameter("id", id);
+			k = (Kavarna) q.getSingleResult();
+		} catch (NoResultException e) {
+			k = null;
+		}
+		
+		return k;
 	}
 
 }

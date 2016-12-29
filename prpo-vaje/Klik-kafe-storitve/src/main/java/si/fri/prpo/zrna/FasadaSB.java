@@ -19,9 +19,9 @@ import si.fri.prpo.vaje.entitete.Uporabnik;
  */
 @Stateless
 @LocalBean
-@DeclareRoles({"Uporabnik","Admin"})
+@DeclareRoles({"user","admin"})
 @PermitAll
-@RunAs("Uporabnik")
+@RunAs("user")
 public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 	
 	@EJB
@@ -94,8 +94,11 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 
 	@Override
 	@Interceptors(Prestreznik.class)
-	//The EJB methods used here are @PermitAll
 	public int submitOrder(String username, String kavarna, String size, String[] napitki, HttpServletResponse response) throws IOException, NeveljavnoNarociloException {
+		if (napitki.length == 0) {
+			throw new NeveljavnoNarociloException("Nimate nobenih napitkov");
+		}
+		
 		int idKavarna = un.getIdKavarna(kavarna);
 		int[] napitkiIds = un.getNapitekIds(napitki, size);
 		int idNarocila = -1;
@@ -106,7 +109,6 @@ public class FasadaSB implements FasadaSBRemote, FasadaSBLocal {
 				double totalPrice = un.getTotalPrice(napitkiIds);
 				idNarocila = un.addOrder(idUporabnik, idKavarna, prepTime, "pending", "paid", totalPrice);
 				un.addDrinks(idNarocila, napitkiIds);
-				//throw new NeveljavnoNarociloException();
 				return idNarocila;
 			}
 		} else {

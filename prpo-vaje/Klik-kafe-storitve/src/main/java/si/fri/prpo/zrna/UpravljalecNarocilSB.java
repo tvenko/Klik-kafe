@@ -20,7 +20,7 @@ import si.fri.prpo.vaje.entitete.Uporabnik;
 /**
  * Session Bean implementation class UpravljalecNarocilSB
  */
-@DeclareRoles({"user, admin"})
+@DeclareRoles({"user", "admin"})
 @Stateless
 public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, UpravljalecNarocilSBLocal {
 	
@@ -41,7 +41,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return (ArrayList<Narocilo>) q1.getResultList();
 	}
 	
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	@Override
 	public ArrayList<Narocilo> getUserOrders(Uporabnik user) {
 		Query q = em.createNamedQuery("Narocilo.findUserId");
@@ -61,7 +61,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return (ArrayList<Narocilo>) q.getResultList();
 	}
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	@Override
 	public Narocilo returnOrderId(int id) {
 		Query q = em.createNamedQuery("Narocilo.findId");
@@ -73,8 +73,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		}
 	}
     
-    //@RolesAllowed({"user, admin"})
-    @PermitAll
+    @RolesAllowed({"user", "admin"})
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public int addOrder(int idUporabnik, int idKavarna, int prepTime, String prepStatus, String paymentStatus, double totalPrice) {
 		Narocilo new_order = new Narocilo();
@@ -92,7 +91,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return new_order.getId();
 	}
     
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	public boolean cancelOrder(int id) {
 		//:TODO problem ker ne mores zbrisat zaradi tujega kljuca.
 		try {
@@ -111,9 +110,8 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		}	
 	}
 
-    //@RolesAllowed({"user, admin"})
-    @PermitAll
-	@Override
+    @RolesAllowed({"user", "admin"})
+    @Override
 	public int getPrepTime(int[] ids) {
 		int time = 0;
 		for (int id : ids) {
@@ -125,9 +123,8 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return time;
 	}
 
-    //@RolesAllowed({"user, admin"})
-    @PermitAll
-	@Override
+    @RolesAllowed({"user", "admin"})
+    @Override
 	public double getTotalPrice(int[] ids) {
 		double price = 0;
 		for (int id : ids) {
@@ -139,8 +136,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return price;
 	}
 
-    //@RolesAllowed({"user, admin"})
-    @PermitAll
+    @RolesAllowed({"user", "admin"})
 	@Override
 	public int[] getNapitekIds(String[] napitki, String size) {
 		int [] ids = new int[napitki.length];
@@ -156,8 +152,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 		return ids;
 	}
 
-    //@RolesAllowed({"user, admin"})
-	@PermitAll
+    @RolesAllowed({"user", "admin"})
     @Override
 	public int getIdKavarna(String name) {
 		Query q = em.createNamedQuery("Kavarna.findName");
@@ -170,8 +165,7 @@ public class UpravljalecNarocilSB implements UpravljalecNarocilSBRemote, Upravlj
 			return -1;
 	}
 
-    //@RolesAllowed({"user, admin"})
-	@PermitAll
+    @RolesAllowed({"user", "admin"})
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void addDrinks(int idNarocila, int[] idsNapitka) {

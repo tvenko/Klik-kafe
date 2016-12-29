@@ -10,7 +10,7 @@ public interface UporabnikRESTInterface {
 	
 	public Response getUsers();
 	public Response getUser(int id);
-	public Response addUser(String name, String surname, String username, String email, double latitude, double longitude);
+	public Response addUser(Uporabnik newUser);
 	public Response updateUser(int id, HttpHeaders headers);
 	public Response deleteUser(int id);
 

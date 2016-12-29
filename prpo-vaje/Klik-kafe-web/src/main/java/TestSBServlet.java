@@ -50,7 +50,7 @@ public class TestSBServlet extends HttpServlet {
 		try {
 			orderId = f.submitOrder(username, kavarna, size, napitki, response);
 		} catch (NeveljavnoNarociloException nnex) {
-			response.getWriter().append(nnex.error());
+			response.getWriter().append("Napaka za narocilo, preverite parametre.");
 			return;
 		}
 		

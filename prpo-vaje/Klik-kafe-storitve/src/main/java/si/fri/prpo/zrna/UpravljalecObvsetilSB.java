@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Session Bean implementation class UpravljalecObvsetilSB
  */
-@DeclareRoles({"user, admin"})
+@DeclareRoles({"user", "admin"})
 @Stateless
 public class UpravljalecObvsetilSB implements UpravljalecObvsetilSBRemote, UpravljalecObvsetilSBLocal {
 	
@@ -27,7 +27,7 @@ public class UpravljalecObvsetilSB implements UpravljalecObvsetilSBRemote, Uprav
         // TODO Auto-generated constructor stub
     }
 
-    @RolesAllowed({"user, admin"})
+    @RolesAllowed({"user", "admin"})
 	@Override
 	public void createBill (int id_narocila, HttpServletResponse response) throws IOException  {
 		// TODO Auto-generated method stub

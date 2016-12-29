@@ -17,5 +17,10 @@
   		<groupId>si.fri.prpo</groupId>
   		<artifactId>Klik-kafe-JPA</artifactId>
   	</dependency>
+  	<dependency>
+  		<groupId>si.fri.prpo</groupId>
+  		<artifactId>Klik-kafe-vmesnik-ejb</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>
