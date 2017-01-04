@@ -15,6 +15,7 @@
   	<module>Klik-kafe-vmesniki-ws</module>
   	<module>Klik-kafe-rest</module>
   	<module>Klik-kafe-sheme</module>
+  	<module>Klik-kafe-SOAP</module>
   </modules>
   
   <dependencyManagement>
@@ -104,6 +105,13 @@
 				<artifactId>Klik-kafe-sheme</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+			<!-- dependency for SOAP -->
+			<dependency>
+		    	<groupId>si.fri.prpo</groupId>
+		    	<artifactId>Klik-kafe-SOAP</artifactId>
+		    	<version>0.0.1-SNAPSHOT</version>
+		    	<type>war</type>
+		    </dependency>
     	</dependencies>
 	</dependencyManagement>
 </project>

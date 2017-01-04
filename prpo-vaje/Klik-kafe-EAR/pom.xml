@@ -55,6 +55,11 @@
 		<groupId>si.fri.prpo</groupId>
 		<artifactId>Klik-kafe-sheme</artifactId>
 	</dependency>
+	<dependency>
+		<groupId>si.fri.prpo</groupId>
+		<artifactId>Klik-kafe-SOAP</artifactId>
+		<type>war</type>
+	</dependency>
   </dependencies>
   
   <build>

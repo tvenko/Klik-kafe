@@ -16,5 +16,11 @@
       <context-root>/Klik-kafe-rest</context-root>
     </web>
   </module>
+  <module>
+    <web>
+      <web-uri>Klik-kafe-SOAP-0.0.1-SNAPSHOT.war</web-uri>
+      <context-root>/Klik-kafe-SOAP</context-root>
+    </web>
+  </module>
   <library-directory>lib/</library-directory>
 </application>
