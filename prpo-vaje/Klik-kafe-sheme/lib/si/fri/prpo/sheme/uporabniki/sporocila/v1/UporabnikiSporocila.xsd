@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://prpo.fri.si/sheme/uporabniki/sporocila/v1"
+	xmlns:tns="http://prpo.fri.si/sheme/uporabniki/sporocila/v1"
+	xmlns:up="http://prpo.fri.si/sheme/uporabniki/v1"
+	elementFormDefault="qualified">
+
+	<import schemaLocation="../../v1/UporabnikiTipi.xsd"
+		namespace="http://prpo.fri.si/sheme/uporabniki/v1" />
+
+
+	<complexType name="VrniUporabnikaZahtevaSporocilo">
+		<sequence>
+			<element name="id" type="int" minOccurs="1" maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+	<complexType name="VrniUporabnikaOdgovorSporocilo">
+		<sequence>
+			<element name="uporabnik" type="up:UporabnikType" minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</complexType>
+
+</schema>

@@ -51,6 +51,10 @@
 		<groupId>si.fri.prpo</groupId>
 		<artifactId>Klik-kafe-vmesniki-ws</artifactId>
 	</dependency>
+	<dependency>
+		<groupId>si.fri.prpo</groupId>
+		<artifactId>Klik-kafe-sheme</artifactId>
+	</dependency>
   </dependencies>
   
   <build>
