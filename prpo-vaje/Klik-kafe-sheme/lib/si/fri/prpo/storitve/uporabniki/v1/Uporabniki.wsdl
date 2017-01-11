@@ -27,8 +27,23 @@
 					</xsd:sequence>
 				</xsd:complexType>
 			</xsd:element>
-
-
+			<xsd:element name="vrniUporabnikeRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="input" 
+							type="sporocila:VrniUporabnikeZahtevaSporocilo" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			
+			<xsd:element name="vrniUporabnikeResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="input" 
+							type="sporocila:VrniUporabnikeOdgovorSporocilo" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
 		</xsd:schema>
 	</wsdl:types>
 
@@ -39,12 +54,23 @@
 		<wsdl:part element="tns:vrniUporabnikaResponse" name="parameters" />
 	</wsdl:message>
 
+	<wsdl:message name="vrniUporabnike">
+		<wsdl:part element="tns:vrniUporabnikeRequest" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="vrniUporabnikeResponse">
+		<wsdl:part element="tns:vrniUporabnikeResponse" name="parameters" />
+	</wsdl:message>
 
 
 	<wsdl:portType name="UporabnikiPort">
 		<wsdl:operation name="vrniUporabnika">
 			<wsdl:input message="tns:vrniUporabnika" />
 			<wsdl:output message="tns:vrniUporabnikaResponse" />
+		</wsdl:operation>
+		
+		<wsdl:operation name="vrniUporabnike">
+			<wsdl:input message="tns:vrniUporabnike" />
+			<wsdl:output message="tns:vrniUporabnikeResponse" />
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -54,6 +80,15 @@
 		<soap:binding style="document"
 			transport="http://schemas.xmlsoap.org/soap/http" />
 		<wsdl:operation name="vrniUporabnika">
+			<soap:operation soapAction="http://prpo.fri.si/storitve/uporabniki/v1" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="vrniUporabnike">
 			<soap:operation soapAction="http://prpo.fri.si/storitve/uporabniki/v1" />
 			<wsdl:input>
 				<soap:body use="literal" />

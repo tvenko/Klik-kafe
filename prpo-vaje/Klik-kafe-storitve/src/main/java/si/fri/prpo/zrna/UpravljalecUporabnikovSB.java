@@ -71,7 +71,7 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
     //@RolesAllowed({"admin"})
     @PermitAll
     @Override
-	public ArrayList returnAll() {
+	public ArrayList<Uporabnik> returnAll() {
 		// TODO Auto-generated method stub
 		Query q1 = em.createNamedQuery("Uporabnik.findAll");
 		return (ArrayList<Uporabnik>) q1.getResultList();
@@ -95,7 +95,9 @@ public class UpravljalecUporabnikovSB implements UpravljalecUporabnikovSBRemote,
 		return u.getId();
 	}
 
-    @RolesAllowed({"user", "admin"})
+    //SOAP call
+    @PermitAll
+    //@RolesAllowed({"user", "admin"})
 	@Override
 	public Uporabnik getUser(int id) {
 		// TODO Auto-generated method stub
