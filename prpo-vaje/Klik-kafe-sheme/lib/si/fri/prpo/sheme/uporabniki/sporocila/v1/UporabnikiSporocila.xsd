@@ -20,5 +20,14 @@
 			<element name="uporabnik" type="up:UporabnikType" minOccurs="0" maxOccurs="1" />
 		</sequence>
 	</complexType>
+	
+	
+	<complexType name="VrniUporabnikeZahtevaSporocilo"></complexType>
+
+	<complexType name="VrniUporabnikeOdgovorSporocilo">
+		<sequence>
+			<element name="uporabnik" type="up:UporabnikType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
 
 </schema>

@@ -14,7 +14,5 @@
 			<element name="longitude" type="double" minOccurs="0" maxOccurs="1" />
 		</sequence>
 	</complexType>
-	
-
 </schema>
 
